@@ -1,0 +1,820 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 28-04-2020 a las 22:02:56
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.11
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `proyectofinalddbb`
+--
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarPeliculas` ()  NO SQL
+SELECT * FROM peliculas$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `butacas`
+--
+
+CREATE TABLE `butacas` (
+  `id` int(11) NOT NULL,
+  `numero` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
+  `estado` tinyint(1) NOT NULL,
+  `id_cine` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `butacas`
+--
+
+INSERT INTO `butacas` (`id`, `numero`, `estado`, `id_cine`) VALUES
+(1, 'A01', 0, 6),
+(2, 'A02', 0, 6),
+(3, 'A03', 0, 6),
+(4, 'A04', 0, 6),
+(5, 'A05', 0, 6),
+(6, 'A06', 0, 6),
+(7, 'A07', 0, 6),
+(8, 'A08', 0, 6),
+(9, 'B01', 0, 6),
+(10, 'B02', 0, 6),
+(11, 'B03', 0, 6),
+(12, 'B04', 0, 6),
+(13, 'B05', 0, 6),
+(14, 'B06', 0, 6),
+(15, 'B07', 0, 6),
+(16, 'B08', 0, 6),
+(17, 'C01', 0, 6),
+(18, 'C02', 0, 6),
+(19, 'C03', 0, 6),
+(20, 'C04', 0, 6),
+(21, 'C05', 0, 6),
+(22, 'C06', 0, 6),
+(23, 'C07', 0, 6),
+(24, 'C08', 0, 6),
+(25, 'D01', 0, 6),
+(26, 'D02', 0, 6),
+(27, 'D03', 0, 6),
+(28, 'D04', 0, 6),
+(29, 'D05', 0, 6),
+(30, 'D06', 0, 6),
+(31, 'D07', 0, 6),
+(32, 'D08', 0, 6),
+(33, 'E01', 0, 6),
+(34, 'E02', 0, 6),
+(35, 'E03', 0, 6),
+(36, 'E04', 0, 6),
+(37, 'E05', 0, 6),
+(38, 'E06', 0, 6),
+(39, 'E07', 0, 6),
+(40, 'E08', 0, 6),
+(41, 'A01', 0, 1),
+(42, 'A02', 0, 1),
+(43, 'A03', 0, 1),
+(44, 'A04', 0, 1),
+(45, 'A05', 0, 1),
+(46, 'A06', 0, 1),
+(47, 'A07', 0, 1),
+(48, 'A08', 0, 1),
+(49, 'A09', 0, 1),
+(50, 'A10', 0, 1),
+(51, 'A11', 0, 1),
+(52, 'B01', 0, 1),
+(53, 'B02', 0, 1),
+(54, 'B03', 0, 1),
+(55, 'B04', 0, 1),
+(56, 'B05', 0, 1),
+(57, 'B06', 0, 1),
+(58, 'B07', 0, 1),
+(59, 'B08', 0, 1),
+(60, 'B09', 0, 1),
+(61, 'B10', 0, 1),
+(62, 'B11', 0, 1),
+(63, 'C01', 0, 1),
+(64, 'C02', 0, 1),
+(65, 'C03', 0, 1),
+(66, 'C04', 0, 1),
+(67, 'C05', 0, 1),
+(68, 'C06', 0, 1),
+(69, 'C07', 0, 1),
+(70, 'C08', 0, 1),
+(71, 'C09', 0, 1),
+(72, 'C10', 0, 1),
+(73, 'C11', 0, 1),
+(74, 'D01', 0, 1),
+(75, 'D02', 0, 1),
+(76, 'D03', 0, 1),
+(77, 'D04', 0, 1),
+(78, 'D05', 0, 1),
+(79, 'D06', 0, 1),
+(80, 'D07', 0, 1),
+(81, 'D08', 0, 1),
+(82, 'D09', 0, 1),
+(83, 'D10', 0, 1),
+(84, 'D11', 0, 1),
+(85, 'E01', 0, 1),
+(86, 'E02', 0, 1),
+(87, 'E03', 0, 1),
+(88, 'E04', 0, 1),
+(89, 'E05', 0, 1),
+(90, 'E06', 0, 1),
+(91, 'E07', 0, 1),
+(92, 'E08', 0, 1),
+(93, 'E09', 0, 1),
+(94, 'E10', 0, 1),
+(95, 'E11', 0, 1),
+(96, 'A01', 0, 2),
+(97, 'A02', 0, 2),
+(98, 'A03', 0, 2),
+(99, 'A04', 0, 2),
+(100, 'A05', 0, 2),
+(101, 'A06', 0, 2),
+(102, 'A07', 0, 2),
+(103, 'A08', 0, 2),
+(104, 'A09', 0, 2),
+(105, 'B01', 0, 2),
+(106, 'B02', 0, 2),
+(107, 'B03', 0, 2),
+(108, 'B04', 0, 2),
+(109, 'B05', 0, 2),
+(110, 'B06', 0, 2),
+(111, 'B07', 0, 2),
+(112, 'B08', 0, 2),
+(113, 'B09', 0, 2),
+(114, 'C01', 0, 2),
+(115, 'C02', 0, 2),
+(116, 'C03', 0, 2),
+(117, 'C04', 0, 2),
+(118, 'C05', 0, 2),
+(119, 'C06', 0, 2),
+(120, 'C07', 0, 2),
+(121, 'C08', 0, 2),
+(122, 'C09', 0, 2),
+(123, 'D01', 0, 2),
+(124, 'D02', 0, 2),
+(125, 'D03', 0, 2),
+(126, 'D04', 0, 2),
+(127, 'D05', 0, 2),
+(128, 'D06', 0, 2),
+(129, 'D07', 0, 2),
+(130, 'D08', 0, 2),
+(131, 'D09', 0, 2),
+(132, 'E01', 0, 2),
+(133, 'E02', 0, 2),
+(134, 'E03', 0, 2),
+(135, 'E04', 0, 2),
+(136, 'E05', 0, 2),
+(137, 'E06', 0, 2),
+(138, 'E07', 0, 2),
+(139, 'E08', 0, 2),
+(140, 'E09', 0, 2),
+(141, 'A01', 0, 3),
+(142, 'A02', 0, 3),
+(143, 'A03', 0, 3),
+(144, 'A04', 0, 3),
+(145, 'A05', 0, 3),
+(146, 'A06', 0, 3),
+(147, 'A07', 0, 3),
+(148, 'A08', 0, 3),
+(149, 'A09', 0, 3),
+(150, 'A10', 0, 3),
+(151, 'B01', 0, 3),
+(152, 'B02', 0, 3),
+(153, 'B03', 0, 3),
+(154, 'B04', 0, 3),
+(155, 'B05', 0, 3),
+(156, 'B06', 0, 3),
+(157, 'B07', 0, 3),
+(158, 'B08', 0, 3),
+(159, 'B09', 0, 3),
+(160, 'B10', 0, 3),
+(161, 'C01', 0, 3),
+(162, 'C02', 0, 3),
+(163, 'C03', 0, 3),
+(164, 'C04', 0, 3),
+(165, 'C05', 0, 3),
+(166, 'C06', 0, 3),
+(167, 'C07', 0, 3),
+(168, 'C08', 0, 3),
+(169, 'C09', 0, 3),
+(170, 'C10', 0, 3),
+(171, 'D01', 0, 3),
+(172, 'D02', 0, 3),
+(173, 'D03', 0, 3),
+(174, 'D04', 0, 3),
+(175, 'D05', 0, 3),
+(176, 'D06', 0, 3),
+(177, 'D07', 0, 3),
+(178, 'D08', 0, 3),
+(179, 'D09', 0, 3),
+(180, 'D10', 0, 3),
+(181, 'E01', 0, 3),
+(182, 'E02', 0, 3),
+(183, 'E03', 0, 3),
+(184, 'E04', 0, 3),
+(185, 'E05', 0, 3),
+(186, 'E06', 0, 3),
+(187, 'E07', 0, 3),
+(188, 'E08', 0, 3),
+(189, 'E09', 0, 3),
+(190, 'E10', 0, 3),
+(191, 'A01', 0, 4),
+(192, 'A02', 0, 4),
+(193, 'A03', 0, 4),
+(194, 'A04', 0, 4),
+(195, 'A05', 0, 4),
+(196, 'A06', 0, 4),
+(197, 'A07', 0, 4),
+(198, 'A08', 0, 4),
+(199, 'A09', 0, 4),
+(200, 'B01', 0, 4),
+(201, 'B02', 0, 4),
+(202, 'B03', 0, 4),
+(203, 'B04', 0, 4),
+(204, 'B05', 0, 4),
+(205, 'B06', 0, 4),
+(206, 'B07', 0, 4),
+(207, 'B08', 0, 4),
+(208, 'B09', 0, 4),
+(209, 'C01', 0, 4),
+(210, 'C02', 0, 4),
+(211, 'C03', 0, 4),
+(212, 'C04', 0, 4),
+(213, 'C05', 0, 4),
+(214, 'C06', 0, 4),
+(215, 'C07', 0, 4),
+(216, 'C08', 0, 4),
+(217, 'C09', 0, 4),
+(218, 'D01', 0, 4),
+(219, 'D02', 0, 4),
+(220, 'D03', 0, 4),
+(221, 'D04', 0, 4),
+(222, 'D05', 0, 4),
+(223, 'D06', 0, 4),
+(224, 'D07', 0, 4),
+(225, 'D08', 0, 4),
+(226, 'D09', 0, 4),
+(227, 'E01', 0, 4),
+(228, 'E02', 0, 4),
+(229, 'E03', 0, 4),
+(230, 'E04', 0, 4),
+(231, 'E05', 0, 4),
+(232, 'E06', 0, 4),
+(233, 'E07', 0, 4),
+(234, 'E08', 0, 4),
+(235, 'E09', 0, 4),
+(236, 'A01', 0, 5),
+(237, 'A02', 0, 5),
+(238, 'A03', 0, 5),
+(239, 'A04', 0, 5),
+(240, 'A05', 0, 5),
+(241, 'A06', 0, 5),
+(242, 'A07', 0, 5),
+(243, 'A08', 0, 5),
+(244, 'A09', 0, 5),
+(245, 'B01', 0, 5),
+(246, 'B02', 0, 5),
+(247, 'B03', 0, 5),
+(248, 'B04', 0, 5),
+(249, 'B05', 0, 5),
+(250, 'B06', 0, 5),
+(251, 'B07', 0, 5),
+(252, 'B08', 0, 5),
+(253, 'B09', 0, 5),
+(254, 'C01', 0, 5),
+(255, 'C02', 0, 5),
+(256, 'C03', 0, 5),
+(257, 'C04', 0, 5),
+(258, 'C05', 0, 5),
+(259, 'C06', 0, 5),
+(260, 'C07', 0, 5),
+(261, 'C08', 0, 5),
+(262, 'C09', 0, 4),
+(263, 'D01', 0, 5),
+(264, 'D02', 0, 5),
+(265, 'D03', 0, 5),
+(266, 'D04', 0, 5),
+(267, 'D05', 0, 5),
+(268, 'D06', 0, 5),
+(269, 'D07', 0, 5),
+(270, 'D08', 0, 5),
+(271, 'D09', 0, 5),
+(272, 'E01', 0, 5),
+(273, 'E02', 0, 5),
+(274, 'E03', 0, 5),
+(275, 'E04', 0, 5),
+(276, 'E05', 0, 5),
+(277, 'E06', 0, 5),
+(278, 'E07', 0, 5),
+(279, 'E08', 0, 5),
+(280, 'E09', 0, 5),
+(281, 'A01', 0, 7),
+(282, 'A02', 0, 7),
+(283, 'A03', 0, 7),
+(284, 'A04', 0, 7),
+(285, 'A05', 0, 7),
+(286, 'A06', 0, 7),
+(287, 'A07', 0, 7),
+(288, 'A08', 0, 7),
+(289, 'B01', 0, 7),
+(290, 'B02', 0, 7),
+(291, 'B03', 0, 7),
+(292, 'B04', 0, 7),
+(293, 'B05', 0, 7),
+(294, 'B06', 0, 7),
+(295, 'B07', 0, 7),
+(296, 'B08', 0, 7),
+(297, 'C01', 0, 7),
+(298, 'C02', 0, 7),
+(299, 'C03', 0, 7),
+(300, 'C04', 0, 7),
+(301, 'C05', 0, 7),
+(302, 'C06', 0, 7),
+(303, 'C07', 0, 7),
+(304, 'C08', 0, 7),
+(305, 'D01', 0, 7),
+(306, 'D02', 0, 7),
+(307, 'D03', 0, 7),
+(308, 'D04', 0, 7),
+(309, 'D05', 0, 7),
+(310, 'D06', 0, 7),
+(311, 'D07', 0, 7),
+(312, 'D08', 0, 7),
+(313, 'E01', 0, 7),
+(314, 'E02', 0, 7),
+(315, 'E03', 0, 7),
+(316, 'E04', 0, 7),
+(317, 'E05', 0, 7),
+(318, 'E06', 0, 7),
+(319, 'E07', 0, 7),
+(320, 'E08', 0, 7),
+(321, 'A01', 0, 8),
+(322, 'A02', 0, 8),
+(323, 'A03', 0, 8),
+(324, 'A04', 0, 8),
+(325, 'A05', 0, 8),
+(326, 'A06', 0, 8),
+(327, 'A07', 0, 8),
+(328, 'A08', 0, 8),
+(329, 'A09', 0, 8),
+(330, 'B01', 0, 8),
+(331, 'B02', 0, 8),
+(332, 'B03', 0, 8),
+(333, 'B04', 0, 8),
+(334, 'B05', 0, 8),
+(335, 'B06', 0, 8),
+(336, 'B07', 0, 8),
+(337, 'B08', 0, 8),
+(338, 'B09', 0, 8),
+(339, 'C01', 0, 8),
+(340, 'C02', 0, 8),
+(341, 'C03', 0, 8),
+(342, 'C04', 0, 8),
+(343, 'C05', 0, 8),
+(344, 'C06', 0, 8),
+(345, 'C07', 0, 8),
+(346, 'C08', 0, 8),
+(347, 'C09', 0, 8),
+(348, 'D01', 0, 8),
+(349, 'D02', 0, 8),
+(350, 'D03', 0, 8),
+(351, 'D04', 0, 8),
+(352, 'D05', 0, 8),
+(353, 'D06', 0, 8),
+(354, 'D07', 0, 8),
+(355, 'D08', 0, 8),
+(356, 'D09', 0, 8),
+(357, 'E01', 0, 8),
+(358, 'E02', 0, 8),
+(359, 'E03', 0, 8),
+(360, 'E04', 0, 8),
+(361, 'E05', 0, 8),
+(362, 'E06', 0, 8),
+(363, 'E07', 0, 8),
+(364, 'E08', 0, 8),
+(365, 'E09', 0, 8),
+(366, 'A01', 0, 9),
+(367, 'A02', 0, 9),
+(368, 'A03', 0, 9),
+(369, 'A04', 0, 9),
+(370, 'A05', 0, 9),
+(371, 'A06', 0, 9),
+(372, 'A07', 0, 9),
+(373, 'A08', 0, 9),
+(374, 'B01', 0, 9),
+(375, 'B02', 0, 9),
+(376, 'B03', 0, 9),
+(377, 'B04', 0, 9),
+(378, 'B05', 0, 9),
+(379, 'B06', 0, 9),
+(380, 'B07', 0, 9),
+(381, 'B08', 0, 9),
+(382, 'C01', 0, 9),
+(383, 'C02', 0, 9),
+(384, 'C03', 0, 9),
+(385, 'C04', 0, 9),
+(386, 'C05', 0, 9),
+(387, 'C06', 0, 9),
+(388, 'C07', 0, 9),
+(389, 'C08', 0, 9),
+(390, 'D01', 0, 9),
+(391, 'D02', 0, 9),
+(392, 'D03', 0, 9),
+(393, 'D04', 0, 9),
+(394, 'D05', 0, 9),
+(395, 'D06', 0, 9),
+(396, 'D07', 0, 9),
+(397, 'D08', 0, 9),
+(398, 'E01', 0, 9),
+(399, 'E02', 0, 9),
+(400, 'E03', 0, 9),
+(401, 'E04', 0, 9),
+(402, 'E05', 0, 9),
+(403, 'E06', 0, 9),
+(404, 'E07', 0, 9),
+(405, 'E08', 0, 9),
+(406, 'A01', 0, 10),
+(407, 'A02', 0, 10),
+(408, 'A03', 0, 10),
+(409, 'A04', 0, 10),
+(410, 'A05', 0, 10),
+(411, 'A06', 0, 10),
+(412, 'A07', 0, 10),
+(413, 'A08', 0, 10),
+(414, 'A09', 0, 10),
+(415, 'A10', 0, 10),
+(416, 'B01', 0, 10),
+(417, 'B02', 0, 10),
+(418, 'B03', 0, 10),
+(419, 'B04', 0, 10),
+(420, 'B05', 0, 10),
+(421, 'B06', 0, 10),
+(422, 'B07', 0, 10),
+(423, 'B08', 0, 10),
+(424, 'B09', 0, 10),
+(425, 'B10', 0, 10),
+(426, 'C01', 0, 10),
+(427, 'C02', 0, 10),
+(428, 'C03', 0, 10),
+(429, 'C04', 0, 10),
+(430, 'C05', 0, 10),
+(431, 'C06', 0, 10),
+(432, 'C07', 0, 10),
+(433, 'C08', 0, 10),
+(434, 'C09', 0, 10),
+(435, 'C10', 0, 10),
+(436, 'D01', 0, 10),
+(437, 'D02', 0, 10),
+(438, 'D03', 0, 10),
+(439, 'D04', 0, 10),
+(440, 'D05', 0, 10),
+(441, 'D06', 0, 10),
+(442, 'D07', 0, 10),
+(443, 'D08', 0, 10),
+(444, 'D09', 0, 10),
+(445, 'D10', 0, 10),
+(446, 'E01', 0, 10),
+(447, 'E02', 0, 10),
+(448, 'E03', 0, 10),
+(449, 'E04', 0, 10),
+(450, 'E05', 0, 10),
+(451, 'E06', 0, 10),
+(452, 'E07', 0, 10),
+(453, 'E08', 0, 10),
+(454, 'E09', 0, 10),
+(455, 'E10', 0, 10),
+(456, 'A01', 0, 11),
+(457, 'A02', 0, 11),
+(458, 'A03', 0, 11),
+(459, 'A04', 0, 11),
+(460, 'A05', 0, 11),
+(461, 'A06', 0, 11),
+(462, 'A07', 0, 11),
+(463, 'A08', 0, 11),
+(464, 'A09', 0, 11),
+(465, 'B01', 0, 11),
+(466, 'B02', 0, 11),
+(467, 'B03', 0, 11),
+(468, 'B04', 0, 11),
+(469, 'B05', 0, 11),
+(470, 'B06', 0, 11),
+(471, 'B07', 0, 11),
+(472, 'B08', 0, 11),
+(473, 'B09', 0, 11),
+(474, 'C01', 0, 11),
+(475, 'C02', 0, 11),
+(476, 'C03', 0, 11),
+(477, 'C04', 0, 11),
+(478, 'C05', 0, 11),
+(479, 'C06', 0, 11),
+(480, 'C07', 0, 11),
+(481, 'C08', 0, 11),
+(482, 'C09', 0, 11),
+(483, 'D01', 0, 11),
+(484, 'D02', 0, 11),
+(485, 'D03', 0, 11),
+(486, 'D04', 0, 11),
+(487, 'D05', 0, 11),
+(488, 'D06', 0, 11),
+(489, 'D07', 0, 11),
+(490, 'D08', 0, 11),
+(491, 'D09', 0, 11),
+(492, 'E01', 0, 11),
+(493, 'E02', 0, 11),
+(494, 'E03', 0, 11),
+(495, 'E04', 0, 11),
+(496, 'E05', 0, 11),
+(497, 'E06', 0, 11),
+(498, 'E07', 0, 11),
+(499, 'E08', 0, 11),
+(500, 'E09', 0, 11);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cines`
+--
+
+CREATE TABLE `cines` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `ubicación` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `cines`
+--
+
+INSERT INTO `cines` (`id`, `nombre`, `ubicación`) VALUES
+(1, 'Cinesa Zubiarte', 'Bilbao, Leizaola Lehendakariaren Kalea, 2'),
+(2, 'Multicines 7', 'Bilbao, José María de Escuza Kalea, 13, 15'),
+(3, 'Cines Golem Alhóndiga', 'Bilbao, Arriquíbar Plaza, 4'),
+(4, 'Cine Zugaza', 'Durango, Uribarri Kalea, 8'),
+(5, 'Florida Guridi', 'Vitoria-Gazteiz, Ramon Ortiz de Zarate Kalea, 1'),
+(6, 'Teatro Lizeo Antzokia', 'Gernika-Lumo, Ocho de Enero Kalea, 4'),
+(7, 'Néstor Basterretxea Aretoa', 'Bermeo, Prantzisko Deuna Atea Plaza'),
+(8, 'Cine Ikusgarri', 'Lekeitio, Otxoa Urkiza Kalea'),
+(9, 'Lasarte Aretoa', 'Igorre, Agirre Lehendakari Estobidea, 19'),
+(10, 'Cines Antiguo Berri', 'Donostia, Zarautz Kalea, 2'),
+(11, 'Zornotza Aretoa', 'Amorebieta-Etxano, Urbano Larruzea Kalea');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `facturas`
+--
+
+CREATE TABLE `facturas` (
+  `id` int(11) NOT NULL,
+  `entradasCompradas` int(11) NOT NULL,
+  `precioEntrada` double NOT NULL,
+  `precioTotal` double NOT NULL,
+  `id_sesion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `generos`
+--
+
+CREATE TABLE `generos` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `generos`
+--
+
+INSERT INTO `generos` (`id`, `nombre`) VALUES
+(1, 'Aventura'),
+(2, 'Comedia'),
+(3, 'Acción'),
+(4, 'Terror'),
+(5, 'Ciencia ficción'),
+(6, 'Drama'),
+(7, 'Animación'),
+(8, 'Crimen'),
+(9, 'Musical'),
+(10, 'Bélico'),
+(11, 'Western');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `peliculas`
+--
+
+CREATE TABLE `peliculas` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `duracion` int(11) NOT NULL,
+  `anio` int(11) NOT NULL,
+  `imagenCartelera` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `trailer` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `clasificacion` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `peliculas`
+--
+
+INSERT INTO `peliculas` (`id`, `nombre`, `duracion`, `anio`, `imagenCartelera`, `trailer`, `clasificacion`) VALUES
+(1, 'Joker', 122, 2019, 'view/img/joker.jpg', 'https://www.youtube.com/watch?v=EIyZqNbZQI8', '+18'),
+(2, 'Sonic, la pelicula', 100, 2020, 'view/img/sonic.jpg', 'https://www.youtube.com/watch?v=mIgGCaIwdXU', 'PG'),
+(3, 'No Time to Die', 174, 2020, 'view/img/no-time-to-die.jpg', 'https://www.youtube.com/watch?v=IGaNPEI1Q2U', '+13'),
+(4, 'El hombre invisible', 124, 2020, 'view\\img\\el-hombre-invisible.jpg', 'https://www.youtube.com/watch?v=Aeyoz3kLt_c', '+17'),
+(5, 'Mulan', 120, 2020, 'view/img/mulan.jpg', 'https://www.youtube.com/watch?v=aNsakWaVseg', '+13'),
+(6, 'The walking dead movie', 167, 2020, 'view/img/the-walking-dead.jpg', 'http://www.sensacine.com/peliculas/pelicula-269283/trailer-19562713/', '+16'),
+(7, 'Monster Hunter', 144, 2020, 'view/img/monster-hunter.jpg', 'https://www.youtube.com/watch?v=qUAaBxgZVL8', '+13'),
+(8, 'El irlandés', 209, 2019, 'view/img/el-irlandes.jpg', 'https://www.youtube.com/watch?v=gZ6Oq9F3ho0', '+16'),
+(9, 'Avengers: Endgame', 181, 2019, 'view/img/avengers.jpg', 'https://www.youtube.com/watch?v=TcMBFSGVi1c', '+13'),
+(10, 'Nosotros', 116, 2019, 'view/img/nosotros.jpg', 'https://www.youtube.com/watch?v=Shot0rZ-O3E', '+16');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `peliculas-generos`
+--
+
+CREATE TABLE `peliculas-generos` (
+  `id` int(11) NOT NULL,
+  `id_peliculas` int(11) NOT NULL,
+  `id_genero` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sesiones`
+--
+
+CREATE TABLE `sesiones` (
+  `id` int(11) NOT NULL,
+  `fecha` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `hora` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `id_cine` int(11) NOT NULL,
+  `id_pelicula` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `sesiones`
+--
+
+INSERT INTO `sesiones` (`id`, `fecha`, `hora`, `id_cine`, `id_pelicula`) VALUES
+(1, '2019-09-27', '20:00', 2, 1);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `butacas`
+--
+ALTER TABLE `butacas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_cine` (`id_cine`);
+
+--
+-- Indices de la tabla `cines`
+--
+ALTER TABLE `cines`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_sesion` (`id_sesion`);
+
+--
+-- Indices de la tabla `generos`
+--
+ALTER TABLE `generos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `peliculas`
+--
+ALTER TABLE `peliculas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `peliculas-generos`
+--
+ALTER TABLE `peliculas-generos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_peliculas` (`id_peliculas`),
+  ADD KEY `id_genero` (`id_genero`);
+
+--
+-- Indices de la tabla `sesiones`
+--
+ALTER TABLE `sesiones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_cine` (`id_cine`),
+  ADD KEY `id_pelicula` (`id_pelicula`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `butacas`
+--
+ALTER TABLE `butacas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=501;
+
+--
+-- AUTO_INCREMENT de la tabla `cines`
+--
+ALTER TABLE `cines`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `generos`
+--
+ALTER TABLE `generos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `peliculas`
+--
+ALTER TABLE `peliculas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `peliculas-generos`
+--
+ALTER TABLE `peliculas-generos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `sesiones`
+--
+ALTER TABLE `sesiones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `butacas`
+--
+ALTER TABLE `butacas`
+  ADD CONSTRAINT `butacas_ibfk_1` FOREIGN KEY (`id_cine`) REFERENCES `cines` (`id`);
+
+--
+-- Filtros para la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  ADD CONSTRAINT `facturas_ibfk_1` FOREIGN KEY (`id_sesion`) REFERENCES `sesiones` (`id`);
+
+--
+-- Filtros para la tabla `peliculas-generos`
+--
+ALTER TABLE `peliculas-generos`
+  ADD CONSTRAINT `peliculas-generos_ibfk_1` FOREIGN KEY (`id_genero`) REFERENCES `generos` (`id`),
+  ADD CONSTRAINT `peliculas-generos_ibfk_2` FOREIGN KEY (`id_peliculas`) REFERENCES `peliculas` (`id`);
+
+--
+-- Filtros para la tabla `sesiones`
+--
+ALTER TABLE `sesiones`
+  ADD CONSTRAINT `sesiones_ibfk_1` FOREIGN KEY (`id_pelicula`) REFERENCES `peliculas` (`id`),
+  ADD CONSTRAINT `sesiones_ibfk_2` FOREIGN KEY (`id_cine`) REFERENCES `cines` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
