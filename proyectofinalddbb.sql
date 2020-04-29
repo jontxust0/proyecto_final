@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2020 a las 22:02:56
+-- Tiempo de generación: 29-04-2020 a las 20:42:20
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -28,6 +28,9 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarPeliculas` ()  NO SQL
 SELECT * FROM peliculas$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spPeliculasPorGenero` (IN `pgenero` VARCHAR(50))  NO SQL
+SELECT peliculas.* FROM peliculas JOIN peliculasgeneros ON peliculas.id = peliculasgeneros.id_pelicula JOIN generos ON peliculasgeneros.id_genero = generos.id WHERE generos.nombre = pgenero$$
 
 DELIMITER ;
 
@@ -656,14 +659,40 @@ INSERT INTO `peliculas` (`id`, `nombre`, `duracion`, `anio`, `imagenCartelera`, 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `peliculas-generos`
+-- Estructura de tabla para la tabla `peliculasgeneros`
 --
 
-CREATE TABLE `peliculas-generos` (
+CREATE TABLE `peliculasgeneros` (
   `id` int(11) NOT NULL,
-  `id_peliculas` int(11) NOT NULL,
+  `id_pelicula` int(11) NOT NULL,
   `id_genero` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `peliculasgeneros`
+--
+
+INSERT INTO `peliculasgeneros` (`id`, `id_pelicula`, `id_genero`) VALUES
+(1, 1, 6),
+(2, 1, 8),
+(3, 2, 2),
+(4, 2, 1),
+(5, 3, 3),
+(6, 3, 1),
+(7, 4, 4),
+(8, 4, 6),
+(9, 5, 1),
+(10, 5, 3),
+(11, 6, 3),
+(12, 6, 6),
+(13, 7, 3),
+(14, 7, 5),
+(15, 8, 8),
+(16, 8, 6),
+(17, 9, 3),
+(18, 9, 5),
+(19, 10, 4),
+(20, 10, 8);
 
 -- --------------------------------------------------------
 
@@ -723,11 +752,11 @@ ALTER TABLE `peliculas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `peliculas-generos`
+-- Indices de la tabla `peliculasgeneros`
 --
-ALTER TABLE `peliculas-generos`
+ALTER TABLE `peliculasgeneros`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_peliculas` (`id_peliculas`),
+  ADD KEY `id_pelicula` (`id_pelicula`),
   ADD KEY `id_genero` (`id_genero`);
 
 --
@@ -773,10 +802,10 @@ ALTER TABLE `peliculas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `peliculas-generos`
+-- AUTO_INCREMENT de la tabla `peliculasgeneros`
 --
-ALTER TABLE `peliculas-generos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `peliculasgeneros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `sesiones`
@@ -801,11 +830,11 @@ ALTER TABLE `facturas`
   ADD CONSTRAINT `facturas_ibfk_1` FOREIGN KEY (`id_sesion`) REFERENCES `sesiones` (`id`);
 
 --
--- Filtros para la tabla `peliculas-generos`
+-- Filtros para la tabla `peliculasgeneros`
 --
-ALTER TABLE `peliculas-generos`
-  ADD CONSTRAINT `peliculas-generos_ibfk_1` FOREIGN KEY (`id_genero`) REFERENCES `generos` (`id`),
-  ADD CONSTRAINT `peliculas-generos_ibfk_2` FOREIGN KEY (`id_peliculas`) REFERENCES `peliculas` (`id`);
+ALTER TABLE `peliculasgeneros`
+  ADD CONSTRAINT `peliculasgeneros_ibfk_1` FOREIGN KEY (`id_genero`) REFERENCES `generos` (`id`),
+  ADD CONSTRAINT `peliculasgeneros_ibfk_2` FOREIGN KEY (`id_pelicula`) REFERENCES `peliculas` (`id`);
 
 --
 -- Filtros para la tabla `sesiones`
