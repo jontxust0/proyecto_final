@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-04-2020 a las 20:42:20
+-- Tiempo de generación: 01-05-2020 a las 19:45:46
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -645,16 +645,56 @@ CREATE TABLE `peliculas` (
 --
 
 INSERT INTO `peliculas` (`id`, `nombre`, `duracion`, `anio`, `imagenCartelera`, `trailer`, `clasificacion`) VALUES
-(1, 'Joker', 122, 2019, 'view/img/joker.jpg', 'https://www.youtube.com/watch?v=EIyZqNbZQI8', '+18'),
-(2, 'Sonic, la pelicula', 100, 2020, 'view/img/sonic.jpg', 'https://www.youtube.com/watch?v=mIgGCaIwdXU', 'PG'),
-(3, 'No Time to Die', 174, 2020, 'view/img/no-time-to-die.jpg', 'https://www.youtube.com/watch?v=IGaNPEI1Q2U', '+13'),
-(4, 'El hombre invisible', 124, 2020, 'view\\img\\el-hombre-invisible.jpg', 'https://www.youtube.com/watch?v=Aeyoz3kLt_c', '+17'),
-(5, 'Mulan', 120, 2020, 'view/img/mulan.jpg', 'https://www.youtube.com/watch?v=aNsakWaVseg', '+13'),
-(6, 'The walking dead movie', 167, 2020, 'view/img/the-walking-dead.jpg', 'http://www.sensacine.com/peliculas/pelicula-269283/trailer-19562713/', '+16'),
-(7, 'Monster Hunter', 144, 2020, 'view/img/monster-hunter.jpg', 'https://www.youtube.com/watch?v=qUAaBxgZVL8', '+13'),
-(8, 'El irlandés', 209, 2019, 'view/img/el-irlandes.jpg', 'https://www.youtube.com/watch?v=gZ6Oq9F3ho0', '+16'),
-(9, 'Avengers: Endgame', 181, 2019, 'view/img/avengers.jpg', 'https://www.youtube.com/watch?v=TcMBFSGVi1c', '+13'),
-(10, 'Nosotros', 116, 2019, 'view/img/nosotros.jpg', 'https://www.youtube.com/watch?v=Shot0rZ-O3E', '+16');
+(1, 'Joker', 122, 2019, 'view/img/joker.jpg', 'https://www.youtube.com/embed/ygUHhImN98w', '+18'),
+(2, 'Sonic, la pelicula', 100, 2020, 'view/img/sonic.jpg', 'https://www.youtube.com/embed/mIgGCaIwdXU', 'PG'),
+(3, 'No Time to Die', 174, 2020, 'view/img/no-time-to-die.jpg', 'https://www.youtube.com/embed/90HtfG6dZAM', '+13'),
+(4, 'El hombre invisible', 124, 2020, 'view\\img\\el-hombre-invisible.jpg', 'https://www.youtube.com/embed/lKkLZvWf-Zc', '+17'),
+(5, 'Mulan', 120, 2020, 'view/img/mulan.jpg', 'https://www.youtube.com/embed/8xIkGSTk1FA', '+13'),
+(6, 'The walking dead movie', 167, 2020, 'view/img/the-walking-dead.jpg', 'https://www.youtube.com/embed/eIBgEfwPLDQ', '+16'),
+(7, 'Monster Hunter', 144, 2020, 'view/img/monster-hunter.jpg', 'https://www.youtube.com/embed/qUAaBxgZVL8', '+13'),
+(8, 'El irlandés', 209, 2019, 'view/img/el-irlandes.jpg', 'https://www.youtube.com/embed/gZ6Oq9F3ho0', '+16'),
+(9, 'Avengers: Endgame', 181, 2019, 'view/img/avengers.jpg', 'https://www.youtube.com/embed/1XrrTJpA3yM', '+13'),
+(10, 'Nosotros', 116, 2019, 'view/img/nosotros.jpg', 'https://www.youtube.com/embed/qJh9_0xH3mY', '+16'),
+(11, 'Dragon Ball Super: Broly', 100, 2019, 'view/img/dragon-ball-super-broly.jpg', 'https://www.youtube.com/embed/9ll5zb-264w', '+13'),
+(12, 'Los increibles 2', 125, 2018, 'view/img/los-increibles2.jpg', 'https://www.youtube.com/embed/8UwxL-Zheqk', '+8'),
+(13, 'Frozen 2', 103, 2019, 'view/img/frozen2.jpg', 'https://www.youtube.com/embed/I-oJ5QjrX9M', '+8'),
+(14, 'Como entrenar a tu dragon 3', 104, 2019, 'view/img/como-entrenar-a-tu-dragon3.jpg', 'https://www.youtube.com/embed/DWXJdezkThk', '+8'),
+(15, 'Toy story 4', 100, 2019, 'view/img/toy-story4.jpg', 'https://www.youtube.com/embed/f33yJZ5uOpU', '+8'),
+(16, 'Onward', 102, 2020, 'view/img/onward.jpg', 'https://www.youtube.com/embed/OaVg6SEFcqQ', '+8'),
+(17, 'Bad boys for life', 124, 2020, 'view/img/bad-boys-for-life.jpg', 'https://www.youtube.com/embed/bbqWBZEjSO8', '+16'),
+(18, 'Los odiosos ocho', 167, 2015, 'view/img/los-odiosos-ocho.jpg', 'https://www.youtube.com/embed/KmQji_BVwuk', '+18'),
+(19, 'Bone tomawawk', 133, 2015, 'view/img/bone-tomahawk.jpg', 'https://www.youtube.com/embed/GoIkVhBoi-U', '+18'),
+(20, 'Django unchained', 165, 2012, 'view/img/django-unchained.jpg', 'https://www.youtube.com/embed/CLofzNkIqAc', '+18'),
+(21, 'Cats', 110, 2019, 'view/img/cats.jpg', 'https://www.youtube.com/embed/0SsLKC7T-PY', 'Para todos los públicos'),
+(22, 'La La Land', 128, 2016, 'view/img/lalaland.jpg', 'https://www.youtube.com/embed/IHbHn5SLhZo', '+13'),
+(23, 'Los Miserables', 124, 2012, 'view/img/los-miserables.jpg', 'https://www.youtube.com/embed/UgBv4ocNJaU', '+13'),
+(24, 'Mamma Mia! Here We Go Again', 114, 2018, 'view/img/mamma-mia-here-we-go-again.jpg', 'https://www.youtube.com/embed/hcgSejNB9Bk\"', 'Para todos los públicos'),
+(25, 'Into the Woods', 125, 2014, 'view/img/into-the-woods.jpg', 'https://www.youtube.com/embed/fEPCeIVrCWM', '+7'),
+(26, 'El Gran Showman', 106, 2017, 'view/img/el-gran-sjowman.jpg', 'https://www.youtube.com/embed/MM3NX2EfCtY\"', '+10'),
+(27, 'Fury', 135, 2014, 'view/img/fury.jpg', 'https://www.youtube.com/embed/yftjMJVN4dE', '+18'),
+(28, 'Hasta el Último Hombre', 139, 2016, 'view/img/hasta-el-ultimo-hombre.jpg', 'https://www.youtube.com/embed/DC4xCLTawHQ', '+16'),
+(29, 'Dunkerke', 106, 2017, 'view/img/dunquerque.jpg', 'https://www.youtube.com/embed/DsRcqwGOmUU', '+13'),
+(30, 'American Sniper', 134, 2015, 'view/img/american-sniper.jpg', 'src=\"https://www.youtube.com/embed/2TT0SxVF0P8', '+16'),
+(31, 'Midway', 138, 2019, 'view/img/midaway.jpg', 'https://www.youtube.com/embed/1qkuieXeHbg', '+13'),
+(32, 'Full Metal Jacket', 116, 1987, 'view/img/full-metal-jacket.jpgview/img/full-metal-jacket.jpg', 'https://www.youtube.com/embed/7115nOKRFD8', '+18'),
+(33, 'It Capitulo 2', 170, 2019, 'view/img/it2.jpg', 'https://www.youtube.com/embed/o1sQbtZpsic', '+18'),
+(34, 'The Curse of La Llorona', 93, 2019, 'view/img/curse-of-la-llorona.jpg', 'https://www.youtube.com/embed/JoTbiH3Wppo', '+13'),
+(35, 'The Prodigy', 91, 2019, 'view/img/the-prodigy.jpg', 'https://www.youtube.com/embed/y2S9VzDDdM8', '+16'),
+(36, 'Pet Sematary', 120, 2019, 'view/img/pet-sematary.jpg', 'https://www.youtube.com/embed/4swfHkdN1t4', '+16'),
+(37, 'The Lodge', 108, 2019, 'view/img/the-lodge.jpg', 'https://www.youtube.com/embed/koXzkBTvJl0', '+18'),
+(38, 'Escape Room', 99, 2019, 'view/img/escape-room.jpg', 'https://www.youtube.com/embed/qATdnx_x0bs', '+16'),
+(39, 'Star Wars: Episodio VIII - Los últimos Jedi', 152, 2017, 'view/img/starwars.jpg', 'https://www.youtube.com/embed/anOJjqQb8x0', '+7'),
+(40, 'Blade Runner 2049', 164, 2017, 'view/img/bladerunner.jpg', 'https://www.youtube.com/embed/PkqHVGFAhbU', '+12'),
+(41, 'Aniquilación', 120, 2018, 'view/img/aniquilacion.jpg', 'https://www.youtube.com/embed/VGRaBxmdLbQ', '+13'),
+(42, 'Guardianes de la Galaxia Vol. 2', 138, 2017, 'view/img/guardianesdelagalaxia2.jpg', 'https://www.youtube.com/embed/ISS-a7b0iHw', '13'),
+(43, 'High Life', 113, 2018, 'view/img/highlife.jpg', 'https://www.youtube.com/embed/fUmlRpGa4oU', '+16'),
+(44, '¡Shazam!', 132, 2019, 'view/img/shazam.png', 'https://www.youtube.com/embed/3PE-jko9c1E', '+13'),
+(45, 'Ali G Anda Suelto', 88, 2002, 'view/img/alig.jpg', 'https://www.youtube.com/embed/cRiCbOiChyM', '+16'),
+(46, 'Spider-Man: Lejos de Casa', 129, 2019, 'view/img/spiderman.jpg', 'https://www.youtube.com/embed/I4F5sj-aaXw', '+7'),
+(47, 'Den of Thieves', 148, 2018, 'view/img/thenofthives.jpg', 'https://www.youtube.com/embed/GuzjCCnTTsQ', '+16'),
+(48, 'The Gentlemen', 113, 2019, 'view/img/thegentlemen.jpg', 'https://www.youtube.com/embed/faB5ZWbg6Xc', '+16'),
+(49, 'Going in Style', 93, 2017, 'view/img/goinginstyle.jpg', 'https://www.youtube.com/embed/K6tK6d2Hqws', '+13'),
+(50, 'The Sisters Brothers', 122, 2018, 'img/thesisterbrothers.jpg', 'https://www.youtube.com/embed/s-76uy4Hlt8', '+13');
 
 -- --------------------------------------------------------
 
@@ -692,7 +732,70 @@ INSERT INTO `peliculasgeneros` (`id`, `id_pelicula`, `id_genero`) VALUES
 (17, 9, 3),
 (18, 9, 5),
 (19, 10, 4),
-(20, 10, 8);
+(20, 10, 8),
+(21, 11, 7),
+(22, 12, 7),
+(23, 13, 7),
+(24, 14, 7),
+(25, 15, 7),
+(26, 16, 7),
+(27, 17, 2),
+(28, 17, 3),
+(29, 18, 11),
+(30, 18, 6),
+(31, 19, 11),
+(32, 19, 4),
+(33, 20, 11),
+(34, 20, 6),
+(35, 21, 9),
+(36, 22, 9),
+(37, 23, 9),
+(38, 23, 6),
+(39, 24, 9),
+(40, 24, 2),
+(41, 25, 9),
+(42, 26, 9),
+(43, 26, 6),
+(44, 27, 10),
+(45, 27, 3),
+(46, 28, 10),
+(47, 28, 6),
+(48, 29, 10),
+(49, 29, 6),
+(50, 30, 10),
+(51, 30, 3),
+(52, 31, 10),
+(53, 31, 3),
+(54, 32, 10),
+(55, 32, 6),
+(56, 33, 4),
+(57, 34, 4),
+(58, 35, 4),
+(59, 36, 4),
+(60, 37, 4),
+(61, 38, 4),
+(62, 39, 5),
+(63, 39, 1),
+(64, 40, 5),
+(65, 41, 5),
+(66, 41, 1),
+(67, 42, 5),
+(68, 42, 1),
+(69, 43, 5),
+(70, 43, 1),
+(71, 44, 3),
+(72, 44, 2),
+(73, 45, 2),
+(74, 46, 3),
+(75, 46, 2),
+(76, 47, 3),
+(77, 47, 8),
+(78, 48, 3),
+(79, 48, 2),
+(80, 49, 2),
+(81, 49, 8),
+(82, 50, 11),
+(83, 50, 8);
 
 -- --------------------------------------------------------
 
@@ -714,6 +817,25 @@ CREATE TABLE `sesiones` (
 
 INSERT INTO `sesiones` (`id`, `fecha`, `hora`, `id_cine`, `id_pelicula`) VALUES
 (1, '2019-09-27', '20:00', 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `usuario` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contrasenia` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `usuario`, `contrasenia`) VALUES
+(1, 'admin', 'admin');
 
 --
 -- Índices para tablas volcadas
@@ -768,6 +890,12 @@ ALTER TABLE `sesiones`
   ADD KEY `id_pelicula` (`id_pelicula`);
 
 --
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -799,18 +927,24 @@ ALTER TABLE `generos`
 -- AUTO_INCREMENT de la tabla `peliculas`
 --
 ALTER TABLE `peliculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `peliculasgeneros`
 --
 ALTER TABLE `peliculasgeneros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT de la tabla `sesiones`
 --
 ALTER TABLE `sesiones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
