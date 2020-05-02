@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-05-2020 a las 19:45:46
+-- Tiempo de generación: 02-05-2020 a las 18:22:20
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -585,6 +585,26 @@ INSERT INTO `cines` (`id`, `nombre`, `ubicación`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estrenos`
+--
+
+CREATE TABLE `estrenos` (
+  `id` int(11) NOT NULL,
+  `fecha_de_estreno` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_pelicula` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `estrenos`
+--
+
+INSERT INTO `estrenos` (`id`, `fecha_de_estreno`, `id_pelicula`) VALUES
+(1, '24 de octubre', 6),
+(2, '3 de septiembre', 7);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `facturas`
 --
 
@@ -633,11 +653,11 @@ INSERT INTO `generos` (`id`, `nombre`) VALUES
 CREATE TABLE `peliculas` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `duracion` int(11) NOT NULL,
+  `duracion` int(11) DEFAULT NULL,
   `anio` int(11) NOT NULL,
   `imagenCartelera` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `trailer` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `clasificacion` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+  `clasificacion` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -650,8 +670,8 @@ INSERT INTO `peliculas` (`id`, `nombre`, `duracion`, `anio`, `imagenCartelera`, 
 (3, 'No Time to Die', 174, 2020, 'view/img/no-time-to-die.jpg', 'https://www.youtube.com/embed/90HtfG6dZAM', '+13'),
 (4, 'El hombre invisible', 124, 2020, 'view\\img\\el-hombre-invisible.jpg', 'https://www.youtube.com/embed/lKkLZvWf-Zc', '+17'),
 (5, 'Mulan', 120, 2020, 'view/img/mulan.jpg', 'https://www.youtube.com/embed/8xIkGSTk1FA', '+13'),
-(6, 'The walking dead movie', 167, 2020, 'view/img/the-walking-dead.jpg', 'https://www.youtube.com/embed/eIBgEfwPLDQ', '+16'),
-(7, 'Monster Hunter', 144, 2020, 'view/img/monster-hunter.jpg', 'https://www.youtube.com/embed/qUAaBxgZVL8', '+13'),
+(6, 'The walking dead movie', NULL, 2020, 'view/img/the-walking-dead.jpg', 'https://www.youtube.com/embed/eIBgEfwPLDQ', NULL),
+(7, 'Monster Hunter', NULL, 2020, 'view/img/monster-hunter.jpg', 'https://www.youtube.com/embed/qUAaBxgZVL8', NULL),
 (8, 'El irlandés', 209, 2019, 'view/img/el-irlandes.jpg', 'https://www.youtube.com/embed/gZ6Oq9F3ho0', '+16'),
 (9, 'Avengers: Endgame', 181, 2019, 'view/img/avengers.jpg', 'https://www.youtube.com/embed/1XrrTJpA3yM', '+13'),
 (10, 'Nosotros', 116, 2019, 'view/img/nosotros.jpg', 'https://www.youtube.com/embed/qJh9_0xH3mY', '+16'),
@@ -723,10 +743,6 @@ INSERT INTO `peliculasgeneros` (`id`, `id_pelicula`, `id_genero`) VALUES
 (8, 4, 6),
 (9, 5, 1),
 (10, 5, 3),
-(11, 6, 3),
-(12, 6, 6),
-(13, 7, 3),
-(14, 7, 5),
 (15, 8, 8),
 (16, 8, 6),
 (17, 9, 3),
@@ -805,7 +821,6 @@ INSERT INTO `peliculasgeneros` (`id`, `id_pelicula`, `id_genero`) VALUES
 
 CREATE TABLE `sesiones` (
   `id` int(11) NOT NULL,
-  `fecha` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `hora` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `id_cine` int(11) NOT NULL,
   `id_pelicula` int(11) NOT NULL
@@ -815,8 +830,41 @@ CREATE TABLE `sesiones` (
 -- Volcado de datos para la tabla `sesiones`
 --
 
-INSERT INTO `sesiones` (`id`, `fecha`, `hora`, `id_cine`, `id_pelicula`) VALUES
-(1, '2019-09-27', '20:00', 2, 1);
+INSERT INTO `sesiones` (`id`, `hora`, `id_cine`, `id_pelicula`) VALUES
+(1, '17:00-19:1', 1, 27),
+(2, '19:20-21:4', 1, 31),
+(3, '21:50-23:2', 1, 34),
+(4, '17:00-19:2', 2, 44),
+(5, '19:30-21:0', 2, 49),
+(6, '21:10-22:4', 2, 16),
+(7, '16:00-17:3', 3, 11),
+(8, '17-40:19:4', 3, 17),
+(9, '19:50-22:2', 3, 2),
+(10, '22:30-00:0', 3, 35),
+(11, '17:00-18:1', 4, 30),
+(12, '18:20-20:2', 4, 41),
+(13, '20:30-00:0', 4, 47),
+(20, '16:30-19:3', 5, 9),
+(21, '19:40-21:4', 5, 12),
+(22, '21:50-23:5', 5, 23),
+(23, '16:00-18:2', 6, 42),
+(24, '18:30-20:2', 6, 50),
+(25, '20:35-23:1', 6, 20),
+(41, '17:00-18:3', 7, 13),
+(42, '18:40-20:3', 7, 48),
+(43, '20:40-22:2', 7, 38),
+(44, '17:00-19:0', 8, 1),
+(45, '19:10-21:2', 8, 19),
+(46, '22:30-00:4', 8, 22),
+(47, '17:00-18:5', 9, 26),
+(48, '19:05-21:2', 9, 28),
+(49, '21:35-23:1', 9, 29),
+(50, '17:00-19:1', 10, 46),
+(51, '19:20-21:0', 10, 14),
+(52, '21:10-23:4', 10, 39),
+(53, '16:00-19:0', 11, 8),
+(54, '19:10-21:3', 11, 42),
+(55, '21:40-00:2', 11, 33);
 
 -- --------------------------------------------------------
 
@@ -835,7 +883,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `contrasenia`) VALUES
-(1, 'admin', 'admin');
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3'),
+(2, 'jon', '006cb570acdab0e0bfc8e3dcb7bb4edf'),
+(3, 'prueba', 'c893bad68927b457dbed39460e6afd62');
 
 --
 -- Índices para tablas volcadas
@@ -853,6 +903,13 @@ ALTER TABLE `butacas`
 --
 ALTER TABLE `cines`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `estrenos`
+--
+ALTER TABLE `estrenos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_pelicula` (`id_pelicula`);
 
 --
 -- Indices de la tabla `facturas`
@@ -912,6 +969,12 @@ ALTER TABLE `cines`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT de la tabla `estrenos`
+--
+ALTER TABLE `estrenos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
@@ -939,13 +1002,13 @@ ALTER TABLE `peliculasgeneros`
 -- AUTO_INCREMENT de la tabla `sesiones`
 --
 ALTER TABLE `sesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
@@ -956,6 +1019,12 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `butacas`
   ADD CONSTRAINT `butacas_ibfk_1` FOREIGN KEY (`id_cine`) REFERENCES `cines` (`id`);
+
+--
+-- Filtros para la tabla `estrenos`
+--
+ALTER TABLE `estrenos`
+  ADD CONSTRAINT `estrenos_ibfk_1` FOREIGN KEY (`id_pelicula`) REFERENCES `peliculas` (`id`);
 
 --
 -- Filtros para la tabla `facturas`
