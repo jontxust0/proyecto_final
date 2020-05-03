@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-05-2020 a las 18:22:20
+-- Tiempo de generación: 02-05-2020 a las 20:42:59
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -26,6 +26,12 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarCines` ()  NO SQL
+SELECT * FROM cines$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarGeneros` ()  NO SQL
+SELECT * FROM generos$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarPeliculas` ()  NO SQL
 SELECT * FROM peliculas$$
 
@@ -562,14 +568,14 @@ INSERT INTO `butacas` (`id`, `numero`, `estado`, `id_cine`) VALUES
 CREATE TABLE `cines` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `ubicación` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+  `ubicacion` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `cines`
 --
 
-INSERT INTO `cines` (`id`, `nombre`, `ubicación`) VALUES
+INSERT INTO `cines` (`id`, `nombre`, `ubicacion`) VALUES
 (1, 'Cinesa Zubiarte', 'Bilbao, Leizaola Lehendakariaren Kalea, 2'),
 (2, 'Multicines 7', 'Bilbao, José María de Escuza Kalea, 13, 15'),
 (3, 'Cines Golem Alhóndiga', 'Bilbao, Arriquíbar Plaza, 4'),
@@ -600,7 +606,8 @@ CREATE TABLE `estrenos` (
 
 INSERT INTO `estrenos` (`id`, `fecha_de_estreno`, `id_pelicula`) VALUES
 (1, '24 de octubre', 6),
-(2, '3 de septiembre', 7);
+(2, '3 de septiembre', 7),
+(3, '2 de julio', 51);
 
 -- --------------------------------------------------------
 
@@ -714,7 +721,8 @@ INSERT INTO `peliculas` (`id`, `nombre`, `duracion`, `anio`, `imagenCartelera`, 
 (47, 'Den of Thieves', 148, 2018, 'view/img/thenofthives.jpg', 'https://www.youtube.com/embed/GuzjCCnTTsQ', '+16'),
 (48, 'The Gentlemen', 113, 2019, 'view/img/thegentlemen.jpg', 'https://www.youtube.com/embed/faB5ZWbg6Xc', '+16'),
 (49, 'Going in Style', 93, 2017, 'view/img/goinginstyle.jpg', 'https://www.youtube.com/embed/K6tK6d2Hqws', '+13'),
-(50, 'The Sisters Brothers', 122, 2018, 'img/thesisterbrothers.jpg', 'https://www.youtube.com/embed/s-76uy4Hlt8', '+13');
+(50, 'The Sisters Brothers', 122, 2018, 'img/thesisterbrothers.jpg', 'https://www.youtube.com/embed/s-76uy4Hlt8', '+13'),
+(51, 'Ghostbusters: Afterlife', NULL, 2020, 'view/img/ghostbusters.png', 'https://www.youtube.com/embed/WOR2vvYCwb0', NULL);
 
 -- --------------------------------------------------------
 
@@ -972,7 +980,7 @@ ALTER TABLE `cines`
 -- AUTO_INCREMENT de la tabla `estrenos`
 --
 ALTER TABLE `estrenos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `facturas`
@@ -990,7 +998,7 @@ ALTER TABLE `generos`
 -- AUTO_INCREMENT de la tabla `peliculas`
 --
 ALTER TABLE `peliculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT de la tabla `peliculasgeneros`

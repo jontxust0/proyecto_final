@@ -1,9 +1,9 @@
 <?php
 
 include_once ('connect_data.php');
-include_once ('cineClass.php');
+include_once ('generoClass.php');
 
-class cineModel extends cineClass {
+class generoModel extends  generoClass{
     
     private $link;
     private $lista= array();
@@ -15,22 +15,22 @@ class cineModel extends cineClass {
     }
     
     
-    public function listaCines()
+    public function listaGeneros()
     {
         $this->OpenConnect();
         
-        $sql = "CALL spMostrarCines()";
+        $sql = "CALL spMostrarGeneros()";
         
         $result = $this->link->query($sql);
-
+        
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             
-            $nuevo=new cineClass();
+            $nuevo=new generoClass();
             
             $nuevo->setId($row['id']);
             $nuevo->setNombre($row['nombre']);
-            $nuevo->setUbicacion($row['ubicacion']);
 
+            
             
             array_push($this->lista, $nuevo);
         }
@@ -45,14 +45,14 @@ class cineModel extends cineClass {
         try
         {
             $this->link=new mysqli($konDat->host,$konDat->user,$konDat->password,$konDat->bbdd);
-
+            
         }
         catch(Exception $e)
         {
             echo $e->getMessage();
         }
         $this->link->set_charset("utf8");
-
+        
     }
     
     public function CloseConnect()
@@ -60,9 +60,9 @@ class cineModel extends cineClass {
         mysqli_close ($this->link);
     }
     
-    function getListaCinesJsonString() {
+    function getListaGenerosJsonString() {
         
-
+        
         $arr=array();
         
         foreach ($this->lista as $object)
@@ -74,5 +74,4 @@ class cineModel extends cineClass {
         return $arr;
     }
 }
-
 ?>
