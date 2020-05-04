@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-05-2020 a las 20:42:59
+-- Tiempo de generación: 04-05-2020 a las 11:37:26
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -35,8 +35,8 @@ SELECT * FROM generos$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarPeliculas` ()  NO SQL
 SELECT * FROM peliculas$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spPeliculasPorGenero` (IN `pgenero` VARCHAR(50))  NO SQL
-SELECT peliculas.* FROM peliculas JOIN peliculasgeneros ON peliculas.id = peliculasgeneros.id_pelicula JOIN generos ON peliculasgeneros.id_genero = generos.id WHERE generos.nombre = pgenero$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarPeliculasPorGeneros` (IN `pGenero` VARCHAR(50))  NO SQL
+SELECT peliculas.* FROM peliculas JOIN peliculasgeneros ON peliculas.id = peliculasgeneros.id_pelicula JOIN generos ON peliculasgeneros.id_genero = generos.id WHERE generos.nombre = pGenero$$
 
 DELIMITER ;
 
@@ -643,7 +643,7 @@ INSERT INTO `generos` (`id`, `nombre`) VALUES
 (2, 'Comedia'),
 (3, 'Acción'),
 (4, 'Terror'),
-(5, 'Ciencia ficción'),
+(5, 'Ciencia-ficción'),
 (6, 'Drama'),
 (7, 'Animación'),
 (8, 'Crimen'),
@@ -659,7 +659,7 @@ INSERT INTO `generos` (`id`, `nombre`) VALUES
 
 CREATE TABLE `peliculas` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `titulo` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `duracion` int(11) DEFAULT NULL,
   `anio` int(11) NOT NULL,
   `imagenCartelera` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
@@ -671,7 +671,7 @@ CREATE TABLE `peliculas` (
 -- Volcado de datos para la tabla `peliculas`
 --
 
-INSERT INTO `peliculas` (`id`, `nombre`, `duracion`, `anio`, `imagenCartelera`, `trailer`, `clasificacion`) VALUES
+INSERT INTO `peliculas` (`id`, `titulo`, `duracion`, `anio`, `imagenCartelera`, `trailer`, `clasificacion`) VALUES
 (1, 'Joker', 122, 2019, 'view/img/joker.jpg', 'https://www.youtube.com/embed/ygUHhImN98w', '+18'),
 (2, 'Sonic, la pelicula', 100, 2020, 'view/img/sonic.jpg', 'https://www.youtube.com/embed/mIgGCaIwdXU', 'PG'),
 (3, 'No Time to Die', 174, 2020, 'view/img/no-time-to-die.jpg', 'https://www.youtube.com/embed/90HtfG6dZAM', '+13'),
@@ -703,7 +703,7 @@ INSERT INTO `peliculas` (`id`, `nombre`, `duracion`, `anio`, `imagenCartelera`, 
 (29, 'Dunkerke', 106, 2017, 'view/img/dunquerque.jpg', 'https://www.youtube.com/embed/DsRcqwGOmUU', '+13'),
 (30, 'American Sniper', 134, 2015, 'view/img/american-sniper.jpg', 'src=\"https://www.youtube.com/embed/2TT0SxVF0P8', '+16'),
 (31, 'Midway', 138, 2019, 'view/img/midaway.jpg', 'https://www.youtube.com/embed/1qkuieXeHbg', '+13'),
-(32, 'Full Metal Jacket', 116, 1987, 'view/img/full-metal-jacket.jpgview/img/full-metal-jacket.jpg', 'https://www.youtube.com/embed/7115nOKRFD8', '+18'),
+(32, 'Full Metal Jacket', 116, 1987, 'view/img/full-metal-jacket.jpg', 'https://www.youtube.com/embed/7115nOKRFD8', '+18'),
 (33, 'It Capitulo 2', 170, 2019, 'view/img/it2.jpg', 'https://www.youtube.com/embed/o1sQbtZpsic', '+18'),
 (34, 'The Curse of La Llorona', 93, 2019, 'view/img/curse-of-la-llorona.jpg', 'https://www.youtube.com/embed/JoTbiH3Wppo', '+13'),
 (35, 'The Prodigy', 91, 2019, 'view/img/the-prodigy.jpg', 'https://www.youtube.com/embed/y2S9VzDDdM8', '+16'),
@@ -721,7 +721,7 @@ INSERT INTO `peliculas` (`id`, `nombre`, `duracion`, `anio`, `imagenCartelera`, 
 (47, 'Den of Thieves', 148, 2018, 'view/img/thenofthives.jpg', 'https://www.youtube.com/embed/GuzjCCnTTsQ', '+16'),
 (48, 'The Gentlemen', 113, 2019, 'view/img/thegentlemen.jpg', 'https://www.youtube.com/embed/faB5ZWbg6Xc', '+16'),
 (49, 'Going in Style', 93, 2017, 'view/img/goinginstyle.jpg', 'https://www.youtube.com/embed/K6tK6d2Hqws', '+13'),
-(50, 'The Sisters Brothers', 122, 2018, 'img/thesisterbrothers.jpg', 'https://www.youtube.com/embed/s-76uy4Hlt8', '+13'),
+(50, 'The Sisters Brothers', 122, 2018, 'view/img/thesisterbrothers.jpg', 'https://www.youtube.com/embed/s-76uy4Hlt8', '+13'),
 (51, 'Ghostbusters: Afterlife', NULL, 2020, 'view/img/ghostbusters.png', 'https://www.youtube.com/embed/WOR2vvYCwb0', NULL);
 
 -- --------------------------------------------------------

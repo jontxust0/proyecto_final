@@ -58,7 +58,11 @@ button{
 #divCines{
 	text-align:center;
 }
-
+.pelicula{
+	width:18rem;
+	height:470px;
+	margin-top:10px;
+}
 #footer{
 	text-align:center;
 }
