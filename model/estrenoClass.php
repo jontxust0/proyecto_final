@@ -4,6 +4,7 @@ class estrenoClass{
     protected $fechaDeEstreno;
     protected $id_pelicula;
 
+
     public function getId()
     {
         return $this->id;
@@ -21,7 +22,7 @@ class estrenoClass{
         return $this->id_pelicula;
     }
 
-
+    
     public function setId($id)
     {
         $this->id = $id;
@@ -38,7 +39,11 @@ class estrenoClass{
     {
         $this->id_pelicula = $id_pelicula;
     }
-
     
+    function getObjectVars()
+    {
+        $vars = get_object_vars($this);
+        return  $vars;
+    }
 }
 ?>

@@ -5,7 +5,7 @@ class peliculaClass{
     protected $titulo;
     protected $duracion;
     protected $anio;
-    protected $imagenCartelera;
+    public $imagenCartelera;
     protected $trailer;
     protected $clasificacion;
 
@@ -92,7 +92,11 @@ class peliculaClass{
         $this->clasificacion = $clasificacion;
     }
 
-    
+    function getObjectVars()
+    {
+        $vars = get_object_vars($this);
+        return  $vars;
+    }
     
 }
 

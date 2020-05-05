@@ -6,13 +6,17 @@ include_once ('peliculaClass.php');
 class peliculaModel extends peliculaClass{
     private $link;
     private $lista= array();
-    
+    private $listaEstrenos=array();
     
     public function getLista()
     {
         return $this->lista;
     }
     
+    public function getListaEstrenos()
+    {
+        return $this->listaEstrenos;
+    }
     
     public function listaPeliculas($genero)
     {
@@ -42,6 +46,30 @@ class peliculaModel extends peliculaClass{
         $this->CloseConnect();
     }
     
+    public function findIdPelicula()
+    {
+        $idPelicula=$this->id;
+        
+        $this->OpenConnect();
+        $sql = "CALL spFindIdPelicula($idPelicula)";
+        
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            
+            $this->setId($row['id']);
+            $this->setTitulo($row['titulo']);
+            $this->setDuracion($row['duracion']);
+            $this->setAnio($row['anio']);
+            $this->setImagenCartelera($row['imagenCartelera']);
+            $this->setTrailer($row['trailer']);
+            $this->setClasificacion($row['clasificacion']);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+        return $this;
+    }
+    
+
     
     public function OpenConnect()
     {

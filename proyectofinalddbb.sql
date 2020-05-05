@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-05-2020 a las 11:37:26
+-- Tiempo de generación: 05-05-2020 a las 22:37:42
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -26,8 +26,17 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdEstreno` (IN `pIdEstreno` INT)  NO SQL
+SELECT * FROM estrenos WHERE estrenos.id = pIdEstreno$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdPelicula` (IN `pIdPelicula` INT)  NO SQL
+SELECT * FROM peliculas WHERE peliculas.id = pIdPelicula$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarCines` ()  NO SQL
 SELECT * FROM cines$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarEstrenos` ()  NO SQL
+SELECT * FROM estrenos$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarGeneros` ()  NO SQL
 SELECT * FROM generos$$
@@ -596,7 +605,7 @@ INSERT INTO `cines` (`id`, `nombre`, `ubicacion`) VALUES
 
 CREATE TABLE `estrenos` (
   `id` int(11) NOT NULL,
-  `fecha_de_estreno` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fechaDeEstreno` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_pelicula` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -604,7 +613,7 @@ CREATE TABLE `estrenos` (
 -- Volcado de datos para la tabla `estrenos`
 --
 
-INSERT INTO `estrenos` (`id`, `fecha_de_estreno`, `id_pelicula`) VALUES
+INSERT INTO `estrenos` (`id`, `fechaDeEstreno`, `id_pelicula`) VALUES
 (1, '24 de octubre', 6),
 (2, '3 de septiembre', 7),
 (3, '2 de julio', 51);

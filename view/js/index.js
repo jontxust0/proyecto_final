@@ -93,17 +93,31 @@ $(document).ready(function(){
 	       	type:"GET",
 	       	url: "controller/cEstrenos.php", 
 	    	dataType: "json",
-	       	
+	    	
 	    	success: function(result){  
-	       		
+	    		var codigoHtml = "";
+	    		var itemsCarrousel = 0;
 	    		console.log(result.lista);
 	    		
 	       		var estrenos = result.lista;
 	       		
-				$.each(estrenos,function(index,info) { 
-						
-				});
 				
+				$.each(estrenos,function(index,info) {
+					if(itemsCarrousel == 0){
+						codigoHtml += '<div class="carousel-item active">'
+      					codigoHtml += '<img src='+info.objPelicula.imagenCartelera+' class="d-block w-100" style="height:300px">'
+      					codigoHtml += '<h5>'+info.fechaDeEstreno+'</h5>'
+    					codigoHtml += '</div>'
+    					itemsCarrousel = itemsCarrousel+1;
+					} else {
+						codigoHtml += '<div class="carousel-item">'
+	      				codigoHtml += '<img src='+info.objPelicula.imagenCartelera+' class="d-block w-100" style="height:300px">'
+	      				codigoHtml += '<h5>'+info.fechaDeEstreno+'</h5>'
+	    				codigoHtml += '</div>'
+					}
+				});
+	       		
+				$('#estrenos').append(codigoHtml);
 	       		
 			},
 	       	error : function(xhr) {
