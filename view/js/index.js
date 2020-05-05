@@ -88,6 +88,28 @@ $(document).ready(function(){
 		   		}
 			});
 		});
+		
+		$.ajax({
+	       	type:"GET",
+	       	url: "controller/cEstrenos.php", 
+	    	dataType: "json",
+	       	
+	    	success: function(result){  
+	       		
+	    		console.log(result.lista);
+	    		
+	       		var estrenos = result.lista;
+	       		
+				$.each(estrenos,function(index,info) { 
+						
+				});
+				
+	       		
+			},
+	       	error : function(xhr) {
+	   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	   		}
+		});
 
 	
 });
