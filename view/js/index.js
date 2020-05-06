@@ -7,17 +7,17 @@ $(document).ready(function(){
 	    	dataType: "json",
 	       	
 	    	success: function(result){  
-	       		
+	       		var codigoHtml = "";
 	    		console.log(result.lista);
-	    		
+	    	
 	       		var cines = result.lista;
 	       		
 				$.each(cines,function(index,info) { 
-					cines += '<option value='+info.nombre+'>'+info.nombre+'</option>';
+					codigoHtml += '<option value='+info.id+' class="cine">'+info.nombre+'</option>';
 					
 					
 				});
-				$('#listaCines').append(cines);
+				$('#listaCines').append(codigoHtml);
 	       		
 			},
 	       	error : function(xhr) {
@@ -35,7 +35,7 @@ $(document).ready(function(){
 	    		console.log(result.lista);
 	    		
 	       		var generos = result.lista;
-	       		var codigoHtml;
+	       		var codigoHtml = "";
 				$.each(generos,function(index,info) { 
 					codigoHtml += '<option value='+info.nombre+'>'+info.nombre+'</option>';
 					
@@ -55,7 +55,7 @@ $(document).ready(function(){
 			var codigoHtml = "";
 			
 			$.ajax({
-		       	type:"post",
+		       	type:"POST",
 		       	url: "controller/cPeliculas.php", 
 		    	dataType: "json",
 		       	data:{"generoPelicula":generoPelicula},
@@ -123,6 +123,42 @@ $(document).ready(function(){
 	       	error : function(xhr) {
 	   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	   		}
+		});
+		
+		$('#listaCines').change(function(){
+				$('#sesiones').html('');
+				var idCine = $(this).val();
+				var codigoHtml = "";
+				$.ajax({
+			       	type:"POST",
+			       	url: "controller/cSesiones.php", 
+			    	dataType: "json",
+			       	data:{"idCine":idCine},
+			    	success: function(result){  
+			    		
+			    		console.log(result.lista);
+			    		
+			       		var sesiones = result.lista;
+			       		codigoHtml = '<tr style="background-color:#3BC878"><th>Hora</th><th>Lugar</th><th>Pelicula</th><th>Imagen</th><th>Duracion<th></tr>'
+						$.each(sesiones,function(index,info) {
+							codigoHtml += '<tr>'
+							codigoHtml += '<td>'+info.hora+'0</td>'
+							codigoHtml += '<td>'+info.objCine.ubicacion+'</td>'
+							codigoHtml += '<td>'+info.objPelicula.titulo+'</td>'
+							codigoHtml += '<td><img src="'+info.objPelicula.imagenCartelera+'" height="200px"></td>'
+							codigoHtml += '<td>'+info.objPelicula.duracion+' min</td>'
+							codigoHtml += '<td><button><a href="view/vButacas.html" style="width:100%;color:white;text-decoration:none">Continuar</a></button></td>'
+							codigoHtml += '</tr>'
+						});
+						$('#sesiones').append(codigoHtml);
+						
+			       		
+					},
+			       	error : function(xhr) {
+			   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+			   		}
+				});
+			
 		});
 
 	

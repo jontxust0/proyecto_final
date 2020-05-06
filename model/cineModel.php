@@ -38,6 +38,24 @@ class cineModel extends cineClass {
         $this->CloseConnect();
     }
     
+    public function findIdCine()
+    {
+        $idCine=$this->id;
+        
+        $this->OpenConnect();
+        $sql = "CALL spFindIdCine($idCine)";
+        
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            
+            $this->setId($row['id']);
+            $this->setNombre($row['nombre']);
+            $this->setUbicacion($row['ubicacion']);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+        return $this;
+    } 
     
     public function OpenConnect()
     {

@@ -54,6 +54,11 @@ button{
 #content select{
 	margin-top:50px;
 }
+#divEstrenos{
+	border:5px solid white;
+	border-radius:5px;
+	margin:20px 0px 20px 0px;
+}
 #divCines{
 	text-align:center;
 }
@@ -62,6 +67,7 @@ button{
 	height:470px;
 	margin-top:10px;
 }
+
 #footer{
 	text-align:center;
 }
