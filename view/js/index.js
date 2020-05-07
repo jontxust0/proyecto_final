@@ -128,38 +128,52 @@ $(document).ready(function(){
 		$('#listaCines').change(function(){
 				$('#sesiones').html('');
 				var idCine = $(this).val();
-				var codigoHtml = "";
-				$.ajax({
-			       	type:"POST",
-			       	url: "controller/cSesiones.php", 
-			    	dataType: "json",
-			       	data:{"idCine":idCine},
-			    	success: function(result){  
-			    		
-			    		console.log(result.lista);
-			    		
-			       		var sesiones = result.lista;
-			       		codigoHtml = '<tr style="background-color:#3BC878"><th>Hora</th><th>Lugar</th><th>Pelicula</th><th>Imagen</th><th>Duracion<th></tr>'
-						$.each(sesiones,function(index,info) {
-							codigoHtml += '<tr>'
-							codigoHtml += '<td>'+info.hora+'0</td>'
-							codigoHtml += '<td>'+info.objCine.ubicacion+'</td>'
-							codigoHtml += '<td>'+info.objPelicula.titulo+'</td>'
-							codigoHtml += '<td><img src="'+info.objPelicula.imagenCartelera+'" height="200px"></td>'
-							codigoHtml += '<td>'+info.objPelicula.duracion+' min</td>'
-							codigoHtml += '<td><button><a href="view/vButacas.html" style="width:100%;color:white;text-decoration:none">Continuar</a></button></td>'
-							codigoHtml += '</tr>'
-						});
-						$('#sesiones').append(codigoHtml);
-						
-			       		
-					},
-			       	error : function(xhr) {
-			   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
-			   		}
-				});
-			
+				if(idCine != 'Elige el cine'){
+					var codigoHtml = "";
+					$.ajax({
+				       	type:"POST",
+				       	url: "controller/cSesiones.php", 
+				    	dataType: "json",
+				       	data:{"idCine":idCine},
+				    	success: function(result){  
+				    		
+				    		console.log(result.lista);
+				    		
+				       		var sesiones = result.lista;
+				       		codigoHtml = '<tr style="background-color:#3BC878"><th>Hora</th><th>Lugar</th><th>Pelicula</th><th>Imagen</th><th>Duracion<th></tr>'
+							$.each(sesiones,function(index,info) {
+								codigoHtml += '<tr>'
+								codigoHtml += '<td>'+info.hora+'0</td>'
+								codigoHtml += '<td>'+info.objCine.ubicacion+'</td>'
+								codigoHtml += '<td>'+info.objPelicula.titulo+'</td>'
+								codigoHtml += '<td><img src="'+info.objPelicula.imagenCartelera+'" height="200px"></td>'
+								codigoHtml += '<td>'+info.objPelicula.duracion+' min</td>'
+								codigoHtml += '<td><button><a href="view/vButacas.html" class="redirectVbutacas" data-trailer="'+info.objPelicula.trailer+'" data-idCine="'+info.objCine.id+'"style="width:100%;color:white;text-decoration:none">Continuar</a></button></td>'
+								codigoHtml += '</tr>'
+							});
+							$('#sesiones').append(codigoHtml);
+							/*esto es para añadir eventos jquery a elementos html creados dinamicamente.
+							En este caso a los botones que lleven a la otra pestaña*/
+							$(document).on('click','.redirectVbutacas',function(){
+								/*guardamos id del cine y el trailer de la pelicula escojida en localstorage*/
+								var trailer = $(this).data('trailer');
+								localStorage.clear();
+								localStorage.setItem("trailer", trailer);
+							});
+				       		
+						},
+				       	error : function(xhr) {
+				   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+				   		}
+					});
+					
+				}
+				
 		});
+		
+		
+		
+		
 
 	
 });
