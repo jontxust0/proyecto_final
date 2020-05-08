@@ -78,16 +78,18 @@ button{
 	font-family:sans-serif;
 }
 
-
-
 #butacas td{
 	background-color:white;
 	border:1px solid #8D2F5D;
 	font-size:20px;
 }
-
-#continuar{
-	background-color:#C3006E;
+#butacas td:hover{
+	cursor:pointer;
+}
+.ocupar{
+	background-color:#C3006E !important;
+	color:white;
+	transition:0.5s;
 }
 
 #comprarEntradas{
