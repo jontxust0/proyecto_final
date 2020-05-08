@@ -148,7 +148,7 @@ $(document).ready(function(){
 								codigoHtml += '<td>'+info.objPelicula.titulo+'</td>'
 								codigoHtml += '<td><img src="'+info.objPelicula.imagenCartelera+'" height="200px"></td>'
 								codigoHtml += '<td>'+info.objPelicula.duracion+' min</td>'
-								codigoHtml += '<td><button><a href="view/vButacas.html" class="redirectVbutacas" data-trailer="'+info.objPelicula.trailer+'" data-idcine="'+info.objCine.id+'"style="width:100%;color:white;text-decoration:none">Continuar</a></button></td>'
+								codigoHtml += '<td><button><a href="view/vButacas.html" class="redirectVbutacas" data-trailer="'+info.objPelicula.trailer+'" data-idcine="'+info.objCine.id+'" data-horasesion="'+info.hora+'" data-nombrecine="'+info.objCine.nombre+'" data-idsesion="'+info.id+'" style="width:100%;color:white;text-decoration:none">Continuar</a></button></td>'
 								codigoHtml += '</tr>'
 							});
 							$('#sesiones').append(codigoHtml);
@@ -158,10 +158,16 @@ $(document).ready(function(){
 								/*guardamos id del cine y el trailer de la pelicula escojida en localstorage*/
 								var trailer = $(this).data('trailer');
 								var idCine = $(this).data('idcine');
+								var horaSesion = $(this).data('horasesion');
+								var nombreCine = $(this).data('nombrecine');
+								var idSesion = $(this).data('idsesion')
+								
 								localStorage.clear();
 								localStorage.setItem('trailer', trailer);
 								localStorage.setItem('idCine', idCine);
-								
+								localStorage.setItem('horaSesion', horaSesion);
+								localStorage.setItem('nombreCine', nombreCine);
+								localStorage.setItem('idSesion', idSesion);
 							});
 				       		
 						},

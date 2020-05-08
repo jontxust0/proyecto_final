@@ -40,4 +40,23 @@ $(document).ready(function(){
 	$(document).on('click', 'td', function(){
 		$(this).toggleClass('ocupar');
 	});
+	$(document).on('click', '#continuarCompra', function(){
+		var entradasCompradas = $('.ocupar').length;
+		var precioEntrada = 7.20;
+		var precioTotal = (precioEntrada*entradasCompradas);
+		var idSesion = localStorage.getItem('idSesion');
+		var nombreCine = localStorage.getItem('nombreCine');
+		var horaSesion = localStorage.getItem('horaSesion');
+		
+		$('#entradasCompradas').html('Numero de entradas: ' + entradasCompradas);
+		$('#precioEntrada').html('Precio de cada entrada: ' + precioEntrada);
+		$('#precioTotal').html('Importe neto: ' + precioTotal + '0€');
+		$('#cine').html('Para ver la pelicula en: ' + nombreCine);
+		$('#horaSesion').html('Hora de la sesión: ' + horaSesion);
+		
+		$('#comprarEntradas').click(function(){
+
+		});
+	});
+	
 });
