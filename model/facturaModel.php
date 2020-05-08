@@ -24,7 +24,7 @@ class facturaModel extends facturaClass{
         $nombreCine=$this->getCine();
         $horario=$this->getHora_sesion();
         
-        $sql = "CALL spInsertFactura('$entradasCompradas', '$precioEntrada', $precioTotal, $idsesion, $nombreCine, $horario)";
+        $sql = "CALL spInsertFactura($entradasCompradas, $precioEntrada, $precioTotal, $idsesion, '$nombreCine', '$horario')";
 
         
         if ($this->link->query($sql)>=1)

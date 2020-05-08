@@ -8,7 +8,7 @@ $precioEntrada = $_POST['precioEntrada'];
 $precioTotal = $_POST['precioTotal'];
 $idSesion = $_POST['idSesion'];
 $nombreCine = $_POST['nombreCine'];
-$horarioSesion = $_POST['horaSesion'];
+$horarioSesion = $_POST['horaSesion'] . '0';
 
 $factura->setEntradasCompradas($entradasCompradas);
 $factura->setPrecioEntrada($precioEntrada);

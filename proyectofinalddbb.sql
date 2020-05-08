@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2020 a las 11:58:33
+-- Tiempo de generación: 08-05-2020 a las 21:51:58
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -34,6 +34,9 @@ SELECT * FROM estrenos WHERE estrenos.id = pIdEstreno$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdPelicula` (IN `pIdPelicula` INT)  NO SQL
 SELECT * FROM peliculas WHERE peliculas.id = pIdPelicula$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertFactura` (IN `pEntradasCompradas` INT(3), IN `pPrecioEntrada` FLOAT, IN `pPrecioTotal` FLOAT, IN `pId_sesion` INT(4), IN `pCine` VARCHAR(50), IN `pHora_sesion` VARCHAR(12))  NO SQL
+INSERT INTO facturas (facturas.entradasCompradas, facturas.precioEntrada, facturas.precioTotal, facturas.id_sesion, facturas.cine, facturas.hora_sesion) VALUES (pEntradasCompradas, pPrecioEntrada, pPrecioTotal, pId_sesion, pCine, pHora_sesion)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarButacasPorCine` (IN `pIdCine` INT)  NO SQL
 SELECT butacas.* FROM butacas JOIN cines ON butacas.id_cine = cines.id WHERE cines.id = pIdCine$$
@@ -636,9 +639,11 @@ INSERT INTO `estrenos` (`id`, `fechaDeEstreno`, `id_pelicula`) VALUES
 CREATE TABLE `facturas` (
   `id` int(11) NOT NULL,
   `entradasCompradas` int(11) NOT NULL,
-  `precioEntrada` double NOT NULL,
-  `precioTotal` double NOT NULL,
-  `id_sesion` int(11) NOT NULL
+  `precioEntrada` float NOT NULL,
+  `precioTotal` float NOT NULL,
+  `id_sesion` int(11) NOT NULL,
+  `cine` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `hora_sesion` varchar(30) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

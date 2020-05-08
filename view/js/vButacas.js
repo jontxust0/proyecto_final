@@ -50,7 +50,7 @@ $(document).ready(function(){
 		
 		$('#entradasCompradas').html('Numero de entradas: ' + entradasCompradas);
 		$('#precioEntrada').html('Precio de cada entrada: ' + precioEntrada);
-		$('#precioTotal').html('Importe neto: ' + precioTotal + '0€');
+		$('#precioTotal').html('Importe neto: ' + precioTotal);
 		$('#cine').html('Para ver la pelicula en: ' + nombreCine);
 		$('#horaSesion').html('Hora de la sesión: ' + horaSesion + '0');
 		
