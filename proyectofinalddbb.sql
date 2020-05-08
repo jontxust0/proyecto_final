@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-05-2020 a las 22:37:42
+-- Tiempo de generación: 08-05-2020 a las 11:58:33
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -26,11 +26,17 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdCine` (IN `pIdCine` INT)  NO SQL
+SELECT * FROM cines WHERE cines.id = pIdCine$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdEstreno` (IN `pIdEstreno` INT)  NO SQL
 SELECT * FROM estrenos WHERE estrenos.id = pIdEstreno$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdPelicula` (IN `pIdPelicula` INT)  NO SQL
 SELECT * FROM peliculas WHERE peliculas.id = pIdPelicula$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarButacasPorCine` (IN `pIdCine` INT)  NO SQL
+SELECT butacas.* FROM butacas JOIN cines ON butacas.id_cine = cines.id WHERE cines.id = pIdCine$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarCines` ()  NO SQL
 SELECT * FROM cines$$
@@ -47,6 +53,9 @@ SELECT * FROM peliculas$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarPeliculasPorGeneros` (IN `pGenero` VARCHAR(50))  NO SQL
 SELECT peliculas.* FROM peliculas JOIN peliculasgeneros ON peliculas.id = peliculasgeneros.id_pelicula JOIN generos ON peliculasgeneros.id_genero = generos.id WHERE generos.nombre = pGenero$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarSesiones` (IN `pIdCine` INT)  NO SQL
+SELECT * FROM sesiones WHERE sesiones.id_cine = pIdCine$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -58,7 +67,7 @@ DELIMITER ;
 CREATE TABLE `butacas` (
   `id` int(11) NOT NULL,
   `numero` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
-  `estado` tinyint(1) NOT NULL,
+  `reservado` tinyint(1) NOT NULL,
   `id_cine` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -66,7 +75,7 @@ CREATE TABLE `butacas` (
 -- Volcado de datos para la tabla `butacas`
 --
 
-INSERT INTO `butacas` (`id`, `numero`, `estado`, `id_cine`) VALUES
+INSERT INTO `butacas` (`id`, `numero`, `reservado`, `id_cine`) VALUES
 (1, 'A01', 0, 6),
 (2, 'A02', 0, 6),
 (3, 'A03', 0, 6),
@@ -328,7 +337,7 @@ INSERT INTO `butacas` (`id`, `numero`, `estado`, `id_cine`) VALUES
 (259, 'C06', 0, 5),
 (260, 'C07', 0, 5),
 (261, 'C08', 0, 5),
-(262, 'C09', 0, 4),
+(262, 'C09', 0, 5),
 (263, 'D01', 0, 5),
 (264, 'D02', 0, 5),
 (265, 'D03', 0, 5),
