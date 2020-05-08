@@ -52,10 +52,21 @@ $(document).ready(function(){
 		$('#precioEntrada').html('Precio de cada entrada: ' + precioEntrada);
 		$('#precioTotal').html('Importe neto: ' + precioTotal + '0€');
 		$('#cine').html('Para ver la pelicula en: ' + nombreCine);
-		$('#horaSesion').html('Hora de la sesión: ' + horaSesion);
+		$('#horaSesion').html('Hora de la sesión: ' + horaSesion + '0');
 		
 		$('#comprarEntradas').click(function(){
-
+			$.ajax({
+		       	type:"POST",
+		       	url: "../controller/cInsertFactura.php",
+		       	data:{entradasCompradas:entradasCompradas, precioEntrada:precioEntrada, precioTotal:precioTotal, idSesion:idSesion,
+		       		  nombreCine:nombreCine, horaSesion:horaSesion},
+		    	success: function(result){  
+		    		console.log(result);
+				},
+		       	error : function(xhr) {
+		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+		   		}
+			});
 		});
 	});
 	
