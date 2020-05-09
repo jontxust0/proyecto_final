@@ -62,6 +62,8 @@ $(document).ready(function(){
 		       		  nombreCine:nombreCine, horaSesion:horaSesion},
 		    	success: function(result){  
 		    		console.log(result);
+		    		alert('Acabas de hacer la compra');
+		    		$(location).attr('href', '../index.html');
 				},
 		       	error : function(xhr) {
 		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);

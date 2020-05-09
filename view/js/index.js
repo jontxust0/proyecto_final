@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	
+	/*mostrar lista de cines en su <select>, al recargar la pagina*/
 		$.ajax({
 	       	type:"GET",
 	       	url: "controller/cCines.php", 
@@ -24,7 +24,10 @@ $(document).ready(function(){
 	   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	   		}
 		});
+		/*mostrar lista de cines en su <select>, al recargar la pagina*/
 		
+		
+		/*mostrar lista de generos de pelicula en su <select>, al recargar la pagina*/
 		$.ajax({
 	       	type:"GET",
 	       	url: "controller/cGeneros.php", 
@@ -48,8 +51,14 @@ $(document).ready(function(){
 	   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	   		}
 		});
+		/*mostrar lista de generos de pelicula en su <select>, al recargar la pagina*/
 		
+		
+		/*mostrar las peliculas que sean del genero que se eliga, al hacer click en su <select>*/
 		$('#listaGeneros').change(function(){
+			$('#divSesiones').css('display', 'none');
+			$('#divPeliculas').css('display', 'block');
+			$('#peliculas').addClass('row');
 			$('#peliculas').html("");
 			var generoPelicula = "'"+$(this).val()+"'";
 			var codigoHtml = "";
@@ -80,15 +89,16 @@ $(document).ready(function(){
 					    codigoHtml += '</div>'
 					});
 					$('#peliculas').append(codigoHtml);
-					
-		       		
 				},
 		       	error : function(xhr) {
 		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 		   		}
 			});
 		});
+		/*mostrar las peliculas que sean del genero que se eliga, al hacer click en su <select>*/
 		
+		
+		/*mostrar las peliculas nuevas que se van a estrenar, al recargar la pagina*/
 		$.ajax({
 	       	type:"GET",
 	       	url: "controller/cEstrenos.php", 
@@ -116,17 +126,20 @@ $(document).ready(function(){
 	    				codigoHtml += '</div>'
 					}
 				});
-	       		
 				$('#estrenos').append(codigoHtml);
-	       		
 			},
 	       	error : function(xhr) {
 	   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 	   		}
 		});
+		/*mostrar las peliculas nuevas que se van a estrenar, al recargar la pagina*/
 		
+		
+		/*para mostrar las sesiones de sala que tenga el cine seleccionado*/
 		$('#listaCines').change(function(){
+				$('#divSesiones').css('display', 'block');
 				$('#sesiones').html('');
+				$('#divPeliculas').css('display', 'none');
 				var idCine = $(this).val();
 				if(idCine != 'Elige el cine'){
 					var codigoHtml = "";
@@ -177,9 +190,13 @@ $(document).ready(function(){
 					});
 				}
 		});
+		/*para mostrar las sesiones de sala que tenga el cine seleccionado*/
+		
 		
 		/*Esto es para mostrar las sesiones en las cuales se proyectara la pelicula seleccionada*/
 		$(document).on('click','.pelicula',function(){
+			$('#divSesiones').css('display', 'block');
+			$('#divPeliculas').css('display', 'none');
 			var idPelicula = $(this).data('id');
 			$.ajax({
 		       	type:"POST",
@@ -240,7 +257,9 @@ $(document).ready(function(){
 		/*Esto para mostrar las peliculas cuyos titulos coincidan con la busqueda por titulo*/
 		$('#buscar').click(function(){
 			var tituloPelicula = "'"+$('#busqueda').val()+"'";
-
+			$('#divSesiones').css('display', 'none');
+			$('#aviso').css('display', 'none');
+			$('#divPeliculas').css('display', 'block');
 			$.ajax({
 		       	type:"POST",
 		       	url: "controller/cPeliculasTitulo.php", 
@@ -268,14 +287,12 @@ $(document).ready(function(){
 					});
 					$('#peliculas').html('');
 					$('#peliculas').append(codigoHtml);
-					
-		       		
 				},
 		       	error : function(xhr) {
 		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 		   		}
 			});
 		});
-
+		/*Esto para mostrar las peliculas cuyos titulos coincidan con la busqueda por titulo*/
 	
 });
