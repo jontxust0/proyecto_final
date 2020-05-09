@@ -68,14 +68,14 @@ $(document).ready(function(){
 					$.each(peliculas,function(index,info) {
 						codigoHtml +='<div class="col">'
 						codigoHtml += '<div class="card pelicula" data-id="'+info.id+'"style="width:18rem;height:470px;margin:20px 0px 20px 0px;>';
-						codigoHtml += '<a href="">'
+						codigoHtml += '<a href="#divCines" style="width:100%;">'
 						codigoHtml += '<img src='+info.imagenCartelera+' style="height:350px;width:100%">'
-						codigoHtml += '</a>'
 						codigoHtml += '<div class="card-body">'
 						codigoHtml += '<h6 class="card-title" style="text-align:center">'+info.titulo+'</h6>'
 						codigoHtml += '<p class="card-text">Duracion: '+info.duracion+' minutos</p>'
 					    codigoHtml += '<p class="card-text">Recomendacion por edad: '+info.clasificacion+'</p>'
 					    codigoHtml += '</div>'
+					    codigoHtml += '</a>'
 					    codigoHtml += '</div>'
 					    codigoHtml += '</div>'
 					});
@@ -177,6 +177,8 @@ $(document).ready(function(){
 					});
 				}
 		});
+		
+		/*Esto es para mostrar las sesiones en las cuales se proyectara la pelicula seleccionada*/
 		$(document).on('click','.pelicula',function(){
 			var idPelicula = $(this).data('id');
 			$.ajax({
@@ -233,10 +235,47 @@ $(document).ready(function(){
 		   		}
 			});
 		});
+		/*Esto es para mostrar las sesiones en las cuales se proyectara la pelicula seleccionada*/
 		
-		
-		
-		
+		/*Esto para mostrar las peliculas cuyos titulos coincidan con la busqueda por titulo*/
+		$('#buscar').click(function(){
+			var tituloPelicula = "'"+$('#busqueda').val()+"'";
+
+			$.ajax({
+		       	type:"POST",
+		       	url: "controller/cPeliculasTitulo.php", 
+		    	dataType: "json",
+		       	data:{"tituloPelicula":tituloPelicula},
+		    	success: function(result){  
+		    		
+		    		console.log(result.lista);
+		    		
+		       		var peliculas = result.lista;
+		       		var codigoHtml = "";
+					$.each(peliculas,function(index,info) {
+						codigoHtml +='<div class="col">'
+						codigoHtml += '<div class="card pelicula" data-id="'+info.id+'"style="width:18rem;height:470px;margin:20px 0px 20px 0px;>';
+						codigoHtml += '<a href="#divCines" style="width:100%;">'
+						codigoHtml += '<img src='+info.imagenCartelera+' style="height:350px;width:100%">'
+						codigoHtml += '<div class="card-body">'
+						codigoHtml += '<h6 class="card-title" style="text-align:center">'+info.titulo+'</h6>'
+						codigoHtml += '<p class="card-text">Duracion: '+info.duracion+' minutos</p>'
+					    codigoHtml += '<p class="card-text">Recomendacion por edad: '+info.clasificacion+'</p>'
+					    codigoHtml += '</div>'
+					    codigoHtml += '</a>'
+					    codigoHtml += '</div>'
+					    codigoHtml += '</div>'
+					});
+					$('#peliculas').html('');
+					$('#peliculas').append(codigoHtml);
+					
+		       		
+				},
+		       	error : function(xhr) {
+		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+		   		}
+			});
+		});
 
 	
 });

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-05-2020 a las 15:46:13
+-- Tiempo de generación: 09-05-2020 a las 21:50:54
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -55,6 +55,9 @@ SELECT * FROM peliculas$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarPeliculasPorGeneros` (IN `pGenero` VARCHAR(50))  NO SQL
 SELECT peliculas.* FROM peliculas JOIN peliculasgeneros ON peliculas.id = peliculasgeneros.id_pelicula JOIN generos ON peliculasgeneros.id_genero = generos.id WHERE generos.nombre = pGenero$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarPeliculasPorTitulo` (IN `pTituloPelicula` VARCHAR(100))  NO SQL
+SELECT * FROM peliculas WHERE peliculas.titulo LIKE CONCAT (pTituloPelicula, '%')$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarSesiones` (IN `pIdCine` INT)  NO SQL
 SELECT * FROM sesiones WHERE sesiones.id_cine = pIdCine$$
