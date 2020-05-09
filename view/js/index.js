@@ -67,7 +67,7 @@ $(document).ready(function(){
 		       		
 					$.each(peliculas,function(index,info) {
 						codigoHtml +='<div class="col">'
-						codigoHtml += '<div class="card pelicula" style="width:18rem;height:470px;margin:20px 0px 20px 0px;>';
+						codigoHtml += '<div class="card pelicula" data-id="'+info.id+'"style="width:18rem;height:470px;margin:20px 0px 20px 0px;>';
 						codigoHtml += '<a href="">'
 						codigoHtml += '<img src='+info.imagenCartelera+' style="height:350px;width:100%">'
 						codigoHtml += '</a>'
@@ -175,9 +175,63 @@ $(document).ready(function(){
 				   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 				   		}
 					});
-					
 				}
-				
+		});
+		$(document).on('click','.pelicula',function(){
+			var idPelicula = $(this).data('id');
+			$.ajax({
+		       	type:"POST",
+		       	url: "controller/cSesionesPelicula.php", 
+		    	dataType: "json",
+		       	data:{"idPelicula":idPelicula},
+		    	success: function(result){  
+		    		
+		    		console.log(result.lista);
+		    		
+		       		var sesiones = result.lista;
+		       		codigoHtml = '<tr style="background-color:#3BC878"><th>Hora</th><th>Lugar</th><th>Pelicula</th><th>Imagen</th><th>Duracion<th></tr>'
+					$.each(sesiones,function(index,info) {
+						codigoHtml += '<tr>'
+						codigoHtml += '<td>'+info.hora+'0</td>'
+						codigoHtml += '<td>'+info.objCine.ubicacion+'</td>'
+						codigoHtml += '<td>'+info.objPelicula.titulo+'</td>'
+						codigoHtml += '<td><img src="'+info.objPelicula.imagenCartelera+'" height="200px"></td>'
+						codigoHtml += '<td>'+info.objPelicula.duracion+' min</td>'
+						codigoHtml += '<td><button><a href="view/vButacas.html" class="redirectVbutacas" data-trailer="'+info.objPelicula.trailer+'" data-idcine="'+info.objCine.id+'" data-horasesion="'+info.hora+'" data-nombrecine="'+info.objCine.nombre+'" data-idsesion="'+info.id+'" style="width:100%;color:white;text-decoration:none">Continuar</a></button></td>'
+						codigoHtml += '</tr>'
+					});
+		       		if(result.lista == ""){
+		       			var aviso = '<div class="alert alert-warning" role="alert">Hoy no se proyectara la pelicula selecccionada</div>';
+		       			$('#sesiones').html('');
+		       			$('#aviso').css('display', 'block');
+		       			$('#aviso').html(aviso);
+		       		} else {
+		       			/*Primero los divs para que solo nos aparezcan las sesiones de la pelicula que hayamos elegido*/
+			       		$('#sesiones').html('');
+			       		$('#aviso').css('display', 'none');
+						$('#sesiones').append(codigoHtml);
+		       		}
+					$(document).on('click','.redirectVbutacas',function(){
+						
+						var trailer = $(this).data('trailer');
+						var idCine = $(this).data('idcine');
+						var horaSesion = $(this).data('horasesion');
+						var nombreCine = $(this).data('nombrecine');
+						var idSesion = $(this).data('idsesion')
+						
+						localStorage.clear();
+						localStorage.setItem('trailer', trailer);
+						localStorage.setItem('idCine', idCine);
+						localStorage.setItem('horaSesion', horaSesion);
+						localStorage.setItem('nombreCine', nombreCine);
+						localStorage.setItem('idSesion', idSesion);
+					});
+		       		
+				},
+		       	error : function(xhr) {
+		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+		   		}
+			});
 		});
 		
 		

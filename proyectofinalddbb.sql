@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2020 a las 21:51:58
+-- Tiempo de generación: 09-05-2020 a las 15:46:13
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -58,6 +58,9 @@ SELECT peliculas.* FROM peliculas JOIN peliculasgeneros ON peliculas.id = pelicu
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarSesiones` (IN `pIdCine` INT)  NO SQL
 SELECT * FROM sesiones WHERE sesiones.id_cine = pIdCine$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarSesionesPelicula` (IN `pIdPelicula` INT)  NO SQL
+SELECT * FROM sesiones WHERE sesiones.id_pelicula = pIdPelicula$$
 
 DELIMITER ;
 
