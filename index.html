@@ -14,22 +14,24 @@
 <body>
 	<div class="container-fluid">
 		<div class="row" id="header">
-			<div class="col-8">
+			<div class="col-9" id="divBuscador">
+				<div id="buscador">
+					<input type="text" placeholder="Buscar por nombre.." id="busqueda">
+					<button id="buscar"><a href="#peliculas">Buscar</a></button>
+					<img src="view/img/logo.png">
+				</div>
+			</div>
+			<div class="col-3" id="divIniciarSesion">
+				<button id="iniciarSesion">Iniciar Sesión</button>
+			</div>
+			<div class="col">
 				<div id="indices">
 					<a href="index.html">Inicio</a>
 				</div>
 			</div>
-			<div class="col-4">
-				<div id="buscador">
-					<input type="text" placeholder="Buscar por nombre.." id="busqueda">
-					<button id="buscar">Buscar</button>
-					<img src="view/img/logo.png">
-				</div>
-			</div>
 		</div>
 		<div class="row" id="content">
-			<div class="col-2">
-			
+			<div class="col">
 				<div class="carousel slide" data-ride="carousel" id="divEstrenos">
   					<div class="carousel-inner"  id="estrenos">
     					
@@ -38,7 +40,7 @@
 				</div>
 			</div>
 			
-			<div class="col-8">
+			<div class="col-md-8">
 				<div id="divCines">
 					<select class="custom-select" id="listaCines">
     					<option selected>Elige el cine</option>
@@ -58,7 +60,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-2">
+			<div class="col-md">
 				<select class="custom-select" id="listaGeneros">
    					<option selected>Elige genero de la pelicula</option>
   				</select>

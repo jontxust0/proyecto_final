@@ -1,16 +1,18 @@
 body{
 	background-color:#050116;
-}
 
+}
 
 #header img{
 	height:100px;
 	width:100px;
 }
+#buscador a{
+	text-decoration:none;
+	color:white;
+}
 
 #indices{
-	position:relative;
-	top:69px;
 	font-size:20px;
 	font-family:sans-serif;
 }
@@ -18,12 +20,10 @@ body{
 #indices a{
 	text-decoration:none;
 	margin-left:20px;
-	margin-bottom:10px;
 	padding:5px;
 	border-radius:4px 4px 0px 0px;
 	color:white;
 	border:1px solid white;
-	
 }
 
 #buscador input{
@@ -35,10 +35,11 @@ button{
 	background-color:#C3006E;
 	border:2px solid #C3006E;
 	border-radius:3px;
-	
 }
 
-
+#iniciarSesion{
+	margin-top:20px;
+}
 
 #estrenos h5{
 	color:white;
@@ -48,6 +49,7 @@ button{
 }
 
 #content{
+	margin-top:1px;
 	border:1px solid white;
 }
 
@@ -63,6 +65,15 @@ button{
 
 #divCines{
 	text-align:center;
+}
+
+#divSesiones{
+	margin-top:20px;
+	/*overflow:hidden;*/
+}
+
+#aviso{
+	margin-top:20px;
 }
 
 #footer{
@@ -85,26 +96,68 @@ button{
 	border:1px solid #8D2F5D;
 	font-size:20px;
 }
+
 #butacas td:hover{
 	cursor:pointer;
 }
+
 .ocupar{
 	color:white;
 	background-color:#C3006E !important;
 	transition:0.5s;
 }
+
 .modal-content{
 	background-color:#ebe8ff;
 }
+
 .modal-header h4{
 	font-family:fantasy;
 }
+
 .modal-body p{
 	font-weight:bolder;
 	font-family:Arial, Helvetica, sans-serif;
 }
+
 #comprarEntradas{
 	background-color:#FF7A00;
 	color:white;
 	border:2px solid #FF7A00;
+}
+
+/*Media querys*/
+
+@media(max-width:800px){
+	#divBuscador{
+		margin-top:20px;
+	}
+}
+
+@media(max-width:800px){
+	#estrenos img{
+		height:500px !important;
+	}
+	
+	#listaGeneros{
+		margin-bottom:20px;
+	}
+}
+
+@media(max-width:1000px){
+	#divTrailer iframe{
+		width:100%;
+	}
+	
+	#divButacas table{
+		width:100%;
+	}
+	
+	#continuarCompra{
+		margin-bottom:20px;
+	}
+}
+
+/*Media querys*/
+
 }

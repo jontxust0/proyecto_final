@@ -140,6 +140,7 @@ $(document).ready(function(){
 				$('#divSesiones').css('display', 'block');
 				$('#sesiones').html('');
 				$('#divPeliculas').css('display', 'none');
+				$('#aviso').css('display', 'none');
 				var idCine = $(this).val();
 				if(idCine != 'Elige el cine'){
 					var codigoHtml = "";
@@ -294,5 +295,4 @@ $(document).ready(function(){
 			});
 		});
 		/*Esto para mostrar las peliculas cuyos titulos coincidan con la busqueda por titulo*/
-	
 });

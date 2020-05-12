@@ -14,27 +14,28 @@
 <body>
 	<div class="container-fluid">
 		<div class="row" id="header">
-			<div class="col-8">
-				<div id="indices">
-					<a href="../index.html">Inicio</a>
-					<a href="vButacas.html">Butacas</a>
+			<div class="col-9" id="divBuscador">
+				<div id="buscador">
+					<img src="img/logo.png">
 				</div>
 			</div>
-			<div class="col-4">
-				<div id="buscador">
-					<input type="text" placeholder="Buscar por nombre.." style="text-align:center">
-					<button id="buscar">Buscar</button>
-					<img src="img/logo.png">
+			<div class="col-3" id="divIniciarSesion">
+				<button id="iniciarSesion">Iniciar Sesión</button>
+			</div>
+			<div class="col">
+				<div id="indices">
+					<a href="../index.html">Inicio</a>
+					<a href="vButacas.html">Inicio</a>
 				</div>
 			</div>
 		</div>
 		<div class="row" id="content">
-			<div class="col-6">
+			<div class="col-md" id="divTrailer">
 				<h5>Trailer</h5>
 				<iframe src="" height="400px" width="600px" id="trailer"></iframe>
 			</div>
 			
-			<div class="col-6" id="divButacas">
+			<div class="col-md" id="divButacas">
 				<h5>Elige asientos</h5>
 				<table id="butacas">
 					
@@ -56,7 +57,7 @@
 									<p id="precioEntrada" name="precioEntrada"></p>
 									<p id="precioTotal" name="precioTotal"></p>
 									<p id="cine" name="cine"></p>
-									<p id="horaSesion" name="horarioSesion">aaaaaaaa</p>
+									<p id="horaSesion" name="horarioSesion"></p>
       						</div>
       						<div class="modal-footer">
         						<button id="comprarEntradas">Confirmar compra</button>
