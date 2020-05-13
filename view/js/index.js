@@ -255,6 +255,7 @@ $(document).ready(function(){
 		});
 		/*Esto es para mostrar las sesiones en las cuales se proyectara la pelicula seleccionada*/
 		
+		
 		/*Esto para mostrar las peliculas cuyos titulos coincidan con la busqueda por titulo*/
 		$('#buscar').click(function(){
 			var tituloPelicula = "'"+$('#busqueda').val()+"'";
@@ -295,4 +296,33 @@ $(document).ready(function(){
 			});
 		});
 		/*Esto para mostrar las peliculas cuyos titulos coincidan con la busqueda por titulo*/
+		
+		
+		/*Esto para el login al hacer click en el boton de "Iniciar sesión"*/
+		$(document).on('click','#iniciarSesion',function(){
+			var usuario = $('#usuario').val();
+			var contrasenia = $('#contrasenia').val();
+			$.ajax({
+				type:"POST",
+		       	url: "controller/cUsuarios.php", 
+		       	dataType:"json",
+		       	data: { usuario: usuario, contrasenia: contrasenia },
+		    	success: function(result){  
+
+		    		console.log(result);
+		    		
+		    		if (result !=0){
+		    			alert('Has iniciado sesion');
+		    			window.location.href = 'view/vAdmin.html';
+		    		
+		    		} else {
+		    			alert('Nombre de usuario o contraseña incorrectos')
+		    		}
+				},
+		       	error : function(xhr) {
+		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+		   		}
+			});
+		});
+		/*Esto para el login al hacer click en el boton de "Iniciar sesión"*/
 });

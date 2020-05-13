@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-05-2020 a las 21:50:54
+-- Tiempo de generación: 13-05-2020 a las 20:31:46
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -26,6 +26,9 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spComprobarUsuario` (IN `pUsuario` VARCHAR(100))  NO SQL
+SELECT * FROM usuarios WHERE usuarios.usuario = pUsuario$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdCine` (IN `pIdCine` INT)  NO SQL
 SELECT * FROM cines WHERE cines.id = pIdCine$$
 
@@ -652,6 +655,14 @@ CREATE TABLE `facturas` (
   `hora_sesion` varchar(30) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `facturas`
+--
+
+INSERT INTO `facturas` (`id`, `entradasCompradas`, `precioEntrada`, `precioTotal`, `id_sesion`, `cine`, `hora_sesion`) VALUES
+(1, 4, 7.2, 28.8, 46, 'Cine Ikusgarri', '22:30-00:40'),
+(2, 3, 7.2, 21.6, 4, 'Multicines 7', '17:00-19:20');
+
 -- --------------------------------------------------------
 
 --
@@ -858,7 +869,7 @@ INSERT INTO `peliculasgeneros` (`id`, `id_pelicula`, `id_genero`) VALUES
 
 CREATE TABLE `sesiones` (
   `id` int(11) NOT NULL,
-  `hora` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `hora` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `id_cine` int(11) NOT NULL,
   `id_pelicula` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -912,7 +923,7 @@ INSERT INTO `sesiones` (`id`, `hora`, `id_cine`, `id_pelicula`) VALUES
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `usuario` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `contrasenia` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
+  `contrasenia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -920,9 +931,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `contrasenia`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3'),
-(2, 'jon', '006cb570acdab0e0bfc8e3dcb7bb4edf'),
-(3, 'prueba', 'c893bad68927b457dbed39460e6afd62');
+(12, 'admin', 'admin');
 
 --
 -- Índices para tablas volcadas
@@ -1015,7 +1024,7 @@ ALTER TABLE `estrenos`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `generos`
@@ -1045,7 +1054,7 @@ ALTER TABLE `sesiones`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas

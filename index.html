@@ -3,6 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta charset="ISO-8859-1">
@@ -12,6 +13,7 @@
 </head>
 
 <body>
+
 	<div class="container-fluid">
 		<div class="row" id="header">
 			<div class="col-9" id="divBuscador">
@@ -22,7 +24,30 @@
 				</div>
 			</div>
 			<div class="col-3" id="divIniciarSesion">
-				<button id="iniciarSesion">Iniciar Sesión</button>
+				<button id="loginButton" data-toggle="modal" data-target="#login">Iniciar Sesión</button>
+				<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  					<div class="modal-dialog" role="document">
+    					<div class="modal-content">
+      						<div class="modal-header">
+        						<h4 class="modal-title" id="exampleModalLabel">Login</h5>
+        						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          							<span aria-hidden="true">&times;</span>
+        						</button>
+      						</div>
+      						<div class="modal-body">
+      							
+      								<h3>Usuario</h3>
+									<input type="text" class="form-control" name="usuario" id="usuario" placeholder="El nombre de usuario.." required>
+									<h3>Contraseña</h3>
+									<input type="password" class="form-control" name="contrasenia" id="contrasenia" placeholder="La contraseña.." required>
+									<br>								
+      						</div>
+      						<div class="modal-footer">
+        						<button value="Iniciar Sesión" id="iniciarSesion">Iniciar Sesión</button>
+      						</div>
+    					</div>
+  					</div>
+				</div>
 			</div>
 			<div class="col">
 				<div id="indices">

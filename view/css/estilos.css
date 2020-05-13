@@ -37,8 +37,15 @@ button{
 	border-radius:3px;
 }
 
-#iniciarSesion{
+#loginButton{
 	margin-top:20px;
+}
+
+#iniciarSesion{
+	color:white;
+	background-color:#C3006E;
+	border:2px solid #C3006E;
+	border-radius:3px;
 }
 
 #estrenos h5{

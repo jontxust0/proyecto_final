@@ -63,7 +63,7 @@ $(document).ready(function(){
 		    	success: function(result){  
 		    		console.log(result);
 		    		alert('Acabas de hacer la compra');
-		    		$(location).attr('href', '../index.html');
+		    		window.location.href = '../index.html';
 				},
 		       	error : function(xhr) {
 		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
