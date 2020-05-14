@@ -71,6 +71,23 @@ class estrenoModel extends estrenoClass{
         return $this;
     }
     
+    public function delete()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        
+        $sql = "CALL spDeleteEstreno($id)";
+        
+        if ($this->link->query($sql)>=1) // delete egiten da
+        {
+            return "El estreno ha sido borrado de la lista";
+        } else {
+            return "Fall� el borrado: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        $this->CloseConnect();
+    }
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();

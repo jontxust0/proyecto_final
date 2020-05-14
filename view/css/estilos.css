@@ -147,9 +147,26 @@ button{
 	justify-content:space-between;
 }
 
-#headerAdmin h2{
+#headerAdmin h1{
 	font-family:arial;
 	font-weight:bold;
+}
+
+#administrar {
+	text-align:center;
+}
+
+#administrar h2 {
+	font-family:fantasy;
+	display:inline;
+}
+
+#administrar h2:hover {
+	cursor:pointer;
+}
+
+#administrar h2{
+	display:inline;
 }
 
 /*vAdmin.html*/

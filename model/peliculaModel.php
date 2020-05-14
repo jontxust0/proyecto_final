@@ -97,6 +97,34 @@ class peliculaModel extends peliculaClass{
         $this->CloseConnect();
     }
     
+    public function listaPeliculasAdmin()
+    {
+        $this->OpenConnect();
+        
+        $sql = "CALL spMostrarPeliculas()";
+        
+        $result = $this->link->query($sql);
+        
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            
+            $nuevo=new peliculaClass();
+            
+            $nuevo->setId($row['id']);
+            $nuevo->setTitulo($row['titulo']);
+            $nuevo->setDuracion($row['duracion']);
+            $nuevo->setAnio($row['anio']);
+            $nuevo->setImagenCartelera($row['imagenCartelera']);
+            $nuevo->setTrailer($row['trailer']);
+            $nuevo->setClasificacion($row['clasificacion']);
+            
+            
+            
+            array_push($this->lista, $nuevo);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();
