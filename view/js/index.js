@@ -304,7 +304,7 @@ $(document).ready(function(){
 			var contrasenia = $('#contrasenia').val();
 			$.ajax({
 				type:"POST",
-		       	url: "controller/cUsuarios.php", 
+		       	url: "controller/cLogIn.php", 
 		       	dataType:"json",
 		       	data: { usuario: usuario, contrasenia: contrasenia },
 		    	success: function(result){  

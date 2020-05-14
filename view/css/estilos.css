@@ -91,7 +91,7 @@ button{
 	height:40px;
 }
 
-/*butacas.html*/
+/*vButacas.html*/
 
 #content h5{
 	color:white;
@@ -132,6 +132,27 @@ button{
 	color:white;
 	border:2px solid #FF7A00;
 }
+
+/*vButacas.html*/
+
+/*vAdmin.html*/
+
+#vAdmin{
+	background-color:#E2E2E2;
+}
+
+#headerAdmin{
+	margin-top:20px;
+	display:flex;
+	justify-content:space-between;
+}
+
+#headerAdmin h2{
+	font-family:arial;
+	font-weight:bold;
+}
+
+/*vAdmin.html*/
 
 /*Media querys*/
 
