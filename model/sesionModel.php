@@ -144,6 +144,29 @@ class sesionModel extends sesionClass{
         $this->CloseConnect();
     }
     
+    public function updateSesion()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        $hora=$this->getHora();
+        $idCine= $this->getId_cine();
+        $idPelicula=$this->getId_pelicula();
+        $precio=$this->getPrecio();
+        
+        $sql = "CALL spUpdateSesion($id,'$hora', $idCine, $idPelicula, $precio)";
+        
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "la sesion se ha modificado con exito";
+        } else {
+            return "Falla la modificacion de la sesion: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+    
     public function deleteSesion()
     {
         $this->OpenConnect();

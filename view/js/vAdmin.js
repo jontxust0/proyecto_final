@@ -322,8 +322,8 @@ $(document).ready(function(){
 				codigoHtml += '<td>' + info.objCine.nombre + '</td>'
 				codigoHtml += '<td>' + info.objPelicula.titulo + '</td>'
 				codigoHtml += '<td>' + info.precio + '€</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-success editarCine" data-idCine="'+info.id_cine+'" data-idPelicula="'+info.id_pelicula+'">Editar</button>' + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-danger borrarCine" data-id="'+info.id+'">Borrar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-success editarSesion" data-id="'+info.id+'">Editar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-danger borrarSesion" data-id="'+info.id+'">Borrar</button>' + '</td>'
 				codigoHtml += '</tr>'
 				
 			});
@@ -331,7 +331,7 @@ $(document).ready(function(){
 			$('#listaSesionesAdmin').html(codigoHtml);
        		
 			/*Delete sesion*/
-			$('.borrarCine').click(function(){
+			$('.borrarSesion').click(function(){
 				var id = $(this).data('id');
 				$.ajax({
 			       	type:"POST",
@@ -403,6 +403,64 @@ $(document).ready(function(){
 			});
 			/*Insertar sesion*/
 			
+			/*Update sesion*/
+			$('.editarSesion').click(function(){
+				var id = $(this).data('id');
+					$.ajax({
+				       	type:"GET",
+				       	url: "../controller/cCines.php",
+				       	dataType:"json",
+				    	success: function(result){
+				    		console.log(result.lista);
+				       		var cines = result.lista;
+				       		var codigoHtml = "";
+				       		
+							codigoHtml += 'Hora: <input type="text" class="form-control" id="horaSesion" placeholder="El horario que tendra la sesion..">'
+							codigoHtml += 'Cine: <select class="custom-select" id="idCineSesion">'
+							codigoHtml += '<option selected>Elige el cine</option>'
+				       			
+							$.each(cines,function(index,info) { 
+								codigoHtml += '<option value="'+info.id+'">' + info.nombre + '</option>'
+							});
+							codigoHtml += '</select>'
+							codigoHtml += 'Pelicula: <select class="custom-select" id="idPeliculaSesion">'
+							codigoHtml += '<option selected>Elige la pelicula</option>'
+								$.ajax({
+							       	type:"GET",
+							       	url: "../controller/cPeliculas.php",
+							       	dataType:"json",
+							    	success: function(result){
+							    		console.log(result.lista);
+							       		var peliculas = result.lista;
+										$.each(peliculas,function(index,info) { 
+											codigoHtml += '<option value="'+info.id+'">' + info.titulo + '</option>'
+										});
+										codigoHtml += '</select>'
+										codigoHtml += '<br>'
+										codigoHtml += 'Precio: <input type="text" class="form-control" id="precioSesion" placeholder="El precio que tendra cada entrada..">'
+										codigoHtml += '<br><button class="btn btn-success" id="editarSesion">Modificar Sesion</button>'
+										$('#listaSesionesAdmin').html(codigoHtml);
+										$('#editarSesion').click(function(){
+											var hora = $('#horaSesion').val();
+											var cineId = $('#idCineSesion').val();
+											var peliculaId = $('#idPeliculaSesion').val();
+											var precio = $('#precioSesion').val();
+											$.ajax({
+										       	type:"POST",
+										       	url: "../controller/cUpdateSesion.php", 
+										    	data:{id:id, hora:hora, cineId:cineId, peliculaId:peliculaId, precio:precio},
+										    	success: function(result){  
+										    		alert('Sesion modificada');
+										    		location.reload();
+												},
+											});
+										});
+									},
+								});
+						},
+					});	
+			});
+			/*Update sesion*/
 			
 		},
        	error : function(xhr) {
