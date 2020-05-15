@@ -38,7 +38,7 @@ $(document).ready(function(){
 			});
 			$('#divAdminPeliculas').css('display', 'none');
 			$('#listaPeliculasAdmin').html(codigoHtml);
-			
+
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -82,6 +82,53 @@ $(document).ready(function(){
 					},
 				});
 			});
+			$('#insertarEstreno').click(function(peliculas){
+				//aqui
+				$.ajax({
+			       	type:"GET",
+			       	url: "../controller/cPeliculasAdmin.php", 
+			    	dataType: "json",
+			    	success: function(result){  
+			    		console.log(result.lista);
+			       		var peliculas = result.lista;
+			       		var codigoHtml = "";
+			       		codigoHtml += 'Fecha de estreno: <br><input class="form-control" placeholder="El dia y el mes.." id="fecha">'
+			       		codigoHtml += 'Nombre de la pelicula: <br><select class="custom-select" id="idSelect">'
+			       		codigoHtml += '<option selected>Elige nombre de la pelicula</option>'
+						$.each(peliculas,function(index,info) {
+							codigoHtml += '<option value='+info.id+'>' + info.titulo +'</option>'
+						});
+			       		codigoHtml += '</select>'
+			       		codigoHtml += '<br><br>'
+			       		codigoHtml += '<button class="btn btn-primary" id="añadir">Añadir estreno</button>'
+			       		$('#divAdminEstrenos').css('display', 'block');
+			       		$('#listaEstrenosAdmin').html(codigoHtml);
+			       		$('#idSelect').change(function(){
+			       			var idPelicula = $(this).val();
+			       			$('#añadir').click(function(){
+				       			var fecha = $('#fecha').val();
+				       			
+				       			$.ajax({
+							       	type:"POST",
+							       	url: "../controller/cInsertEstreno.php", 
+							    	data:{fecha:fecha, idPelicula:idPelicula},
+							    	success: function(result){  
+							    		alert('Insertado estreno');
+							    		location.reload();
+									},
+								});
+							});
+			       		});
+			       		
+			       		
+					},
+			       	error : function(xhr) {
+			   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+			   		}
+					
+				});
+			});
+			
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -94,6 +141,7 @@ $(document).ready(function(){
 	
 	$('#adminEstrenos').click(function(){
 		$('#divAdminEstrenos').css('display', 'block');
+		
 	});
 	
 });

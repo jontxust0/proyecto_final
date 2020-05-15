@@ -142,6 +142,7 @@ $(document).ready(function(){
 				$('#divPeliculas').css('display', 'none');
 				$('#aviso').css('display', 'none');
 				var idCine = $(this).val();
+				
 				if(idCine != 'Elige el cine'){
 					var codigoHtml = "";
 					$.ajax({

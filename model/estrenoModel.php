@@ -71,6 +71,27 @@ class estrenoModel extends estrenoClass{
         return $this;
     }
     
+    public function insertarEstreno()
+    {
+        $this->OpenConnect();
+        
+        $fecha=$this->getFechaDeEstreno();
+        $idPelicula=$this->getId_pelicula();
+        
+        
+        $sql = "CALL spInsertEstreno('$fecha', $idPelicula)";
+        
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "Se ha insertado nuevo estreno";
+        } else {
+            return "Fallo al insertar nuevo estreno: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+    
     public function delete()
     {
         $this->OpenConnect();
