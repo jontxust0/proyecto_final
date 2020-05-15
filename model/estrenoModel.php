@@ -92,6 +92,27 @@ class estrenoModel extends estrenoClass{
         $this->CloseConnect();
     }
     
+    public function updateEstreno()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        $fecha=$this->getFechaDeEstreno();
+        $idPelicula= $this->getId_pelicula();
+        
+        $sql = "CALL spUpdateEstreno($id,'$fecha', $idPelicula)";
+     
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "El estreno se ha modificado con exito";
+        } else {
+            return "Falla la modificacion del estreno: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+    
     public function delete()
     {
         $this->OpenConnect();
@@ -100,7 +121,7 @@ class estrenoModel extends estrenoClass{
         
         $sql = "CALL spDeleteEstreno($id)";
         
-        if ($this->link->query($sql)>=1) // delete egiten da
+        if ($this->link->query($sql)>=1)
         {
             return "El estreno ha sido borrado de la lista";
         } else {
