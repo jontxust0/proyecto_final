@@ -125,6 +125,30 @@ class peliculaModel extends peliculaClass{
         $this->CloseConnect();
     }
     
+    public function insertarPelicula()
+    {
+        $this->OpenConnect();
+        
+        $titulo=$this->getTitulo();
+        $duracion=$this->getDuracion();
+        $anio=$this->getAnio();
+        $imagen=$this->getImagenCartelera();
+        $trailer=$this->getTrailer();
+        $clasificacion=$this->getClasificacion();
+        
+        $sql = "CALL spInsertPelicula('$titulo', $duracion, $anio, '$imagen', '$trailer', '$clasificacion')";
+        
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "Se ha insertado nueva pelicula";
+        } else {
+            return "Fallo al insertar nueva pelicula: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();

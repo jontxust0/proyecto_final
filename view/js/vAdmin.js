@@ -16,7 +16,7 @@ $(document).ready(function(){
 	
 	$.ajax({
        	type:"GET",
-       	url: "../controller/cPeliculasAdmin.php", 
+       	url: "../controller/cPeliculas.php", 
     	dataType: "json",
     	success: function(result){  
     		
@@ -38,7 +38,39 @@ $(document).ready(function(){
 			});
 			$('#divAdminPeliculas').css('display', 'none');
 			$('#listaPeliculasAdmin').html(codigoHtml);
-
+			
+			$('#insertarPelicula').click(function(){
+				var codigoHtml = "";
+				codigoHtml += 'Titulo: <input type="text" class="form-control" id="titulo" placeholder="Titulo de la pelicula..">'
+				codigoHtml += 'Duracion: <input type="text" class="form-control" id="duracion" placeholder="Su duracion en minutos..">'
+				codigoHtml += 'Año: <input type="text" class="form-control" id="anio" placeholder="Año en el que salio..">'
+				codigoHtml += 'Imagen: <input type="text" class="form-control" id="imagen" placeholder="La URL donde se encuentra la imagen..">'
+				codigoHtml += 'Trailer: <input type="text" class="form-control" id="trailer" placeholder="La URL donde se encuentra el trailer..">'
+				codigoHtml += 'Clasificacion: <input type="text" class="form-control" id="clasificacion" placeholder="Clasificacion por edad..">'
+				codigoHtml += '<br><br>'
+				codigoHtml += '<button class="btn btn-primary" id="añadir">Añadir pelicula</button>'
+				$('#divAdminPeliculas').css('display', 'block');
+				$('#listaPeliculasAdmin').html(codigoHtml);
+				$('#añadir').click(function(){
+					var titulo = $('#titulo').val();
+					var duracion = $('#duracion').val();
+					var anio = $('#anio').val();
+					var imagen = $('#imagen').val();
+					var trailer = $('#trailer').val();
+					var clasificacion = $('#clasificacion').val();
+					$.ajax({
+				       	type:"POST",
+				       	url: "../controller/cInsertPelicula.php", 
+				    	data:{titulo:titulo, duracion:duracion, anio:anio, imagen:imagen, trailer:trailer, clasificacion:clasificacion},
+				    	success: function(result){  
+				    		alert('Insertada nueva pelicula');
+				    		location.reload();
+						},
+					});
+				});
+				
+				
+			});
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -86,7 +118,7 @@ $(document).ready(function(){
 
 				$.ajax({
 			       	type:"GET",
-			       	url: "../controller/cPeliculasAdmin.php", 
+			       	url: "../controller/cPeliculas.php", 
 			    	dataType: "json",
 			    	success: function(result){  
 			    		console.log(result.lista);
@@ -133,7 +165,7 @@ $(document).ready(function(){
 				var id = $(this).data('id');
 				$.ajax({
 			       	type:"GET",
-			       	url: "../controller/cPeliculasAdmin.php", 
+			       	url: "../controller/cPeliculas.php", 
 			    	dataType: "json",
 			    	success: function(result){  
 			    		console.log(result.lista);

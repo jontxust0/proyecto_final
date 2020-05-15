@@ -65,7 +65,7 @@ $(document).ready(function(){
 			
 			$.ajax({
 		       	type:"POST",
-		       	url: "controller/cPeliculas.php", 
+		       	url: "controller/cPeliculasGenero.php", 
 		    	dataType: "json",
 		       	data:{"generoPelicula":generoPelicula},
 		    	success: function(result){  
