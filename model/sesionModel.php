@@ -42,6 +42,7 @@ class sesionModel extends sesionClass{
             $nuevo->setHora($row['hora']);
             $nuevo->setId_cine($row['id_cine']);
             $nuevo->setId_pelicula($row['id_pelicula']);
+            $nuevo->setPrecio($row['precio']);
             
             $cine = new cineModel();
             $cine->setId($row['id_cine']);
@@ -73,6 +74,7 @@ class sesionModel extends sesionClass{
             $nuevo->setHora($row['hora']);
             $nuevo->setId_cine($row['id_cine']);
             $nuevo->setId_pelicula($row['id_pelicula']);
+            $nuevo->setPrecio($row['precio']);
             
             $cine = new cineModel();
             $cine->setId($row['id_cine']);

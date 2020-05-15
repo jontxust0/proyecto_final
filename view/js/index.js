@@ -163,7 +163,7 @@ $(document).ready(function(){
 								codigoHtml += '<td>'+info.objPelicula.titulo+'</td>'
 								codigoHtml += '<td><img src="'+info.objPelicula.imagenCartelera+'" height="200px"></td>'
 								codigoHtml += '<td>'+info.objPelicula.duracion+' min</td>'
-								codigoHtml += '<td><button><a href="view/vButacas.html" class="redirectVbutacas" data-trailer="'+info.objPelicula.trailer+'" data-idcine="'+info.objCine.id+'" data-horasesion="'+info.hora+'" data-nombrecine="'+info.objCine.nombre+'" data-idsesion="'+info.id+'" style="width:100%;color:white;text-decoration:none">Continuar</a></button></td>'
+								codigoHtml += '<td><button><a href="view/vButacas.html" class="redirectVbutacas" data-trailer="'+info.objPelicula.trailer+'" data-idcine="'+info.objCine.id+'" data-horasesion="'+info.hora+'" data-nombrecine="'+info.objCine.nombre+'" data-idsesion="'+info.id+'" data-precio="'+info.precio+'" style="width:100%;color:white;text-decoration:none">Continuar</a></button></td>'
 								codigoHtml += '</tr>'
 							});
 							$('#sesiones').append(codigoHtml);
@@ -175,7 +175,8 @@ $(document).ready(function(){
 								var idCine = $(this).data('idcine');
 								var horaSesion = $(this).data('horasesion');
 								var nombreCine = $(this).data('nombrecine');
-								var idSesion = $(this).data('idsesion')
+								var idSesion = $(this).data('idsesion');
+								var precio = $(this).data('precio');
 								
 								localStorage.clear();
 								localStorage.setItem('trailer', trailer);
@@ -183,6 +184,7 @@ $(document).ready(function(){
 								localStorage.setItem('horaSesion', horaSesion);
 								localStorage.setItem('nombreCine', nombreCine);
 								localStorage.setItem('idSesion', idSesion);
+								localStorage.setItem('precio', precio);
 							});
 				       		
 						},

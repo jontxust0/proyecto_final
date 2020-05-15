@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-05-2020 a las 20:31:46
+-- Tiempo de generación: 15-05-2020 a las 15:28:57
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -29,6 +29,12 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spComprobarUsuario` (IN `pUsuario` VARCHAR(100))  NO SQL
 SELECT * FROM usuarios WHERE usuarios.usuario = pUsuario$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeleteEstreno` (IN `pId` INT)  NO SQL
+DELETE FROM estrenos WHERE estrenos.id = pId$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeletePelicula` (IN `pId` INT)  NO SQL
+DELETE FROM peliculas WHERE peliculas.id = pId$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdCine` (IN `pIdCine` INT)  NO SQL
 SELECT * FROM cines WHERE cines.id = pIdCine$$
 
@@ -38,8 +44,14 @@ SELECT * FROM estrenos WHERE estrenos.id = pIdEstreno$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdPelicula` (IN `pIdPelicula` INT)  NO SQL
 SELECT * FROM peliculas WHERE peliculas.id = pIdPelicula$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertEstreno` (IN `pFechaDeEstreno` VARCHAR(50), IN `pId_pelicula` INT)  NO SQL
+INSERT INTO estrenos (estrenos.fechaDeEstreno, estrenos.id_pelicula) VALUES (pFechaDeEstreno, pId_pelicula)$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertFactura` (IN `pEntradasCompradas` INT(3), IN `pPrecioEntrada` FLOAT, IN `pPrecioTotal` FLOAT, IN `pId_sesion` INT(4), IN `pCine` VARCHAR(50), IN `pHora_sesion` VARCHAR(12))  NO SQL
 INSERT INTO facturas (facturas.entradasCompradas, facturas.precioEntrada, facturas.precioTotal, facturas.id_sesion, facturas.cine, facturas.hora_sesion) VALUES (pEntradasCompradas, pPrecioEntrada, pPrecioTotal, pId_sesion, pCine, pHora_sesion)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertPelicula` (IN `pTitulo` VARCHAR(100), IN `pDuracion` INT, IN `pAnio` INT, IN `pImagenCartelera` VARCHAR(200), IN `pTrailer` VARCHAR(200), IN `pClasificacion` VARCHAR(50))  NO SQL
+INSERT INTO peliculas (peliculas.titulo, peliculas.duracion, peliculas.anio, peliculas.imagenCartelera, peliculas.trailer, peliculas.clasificacion) VALUES (pTitulo, pDuracion, pAnio, pImagenCartelera, pTrailer, pClasificacion)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarButacasPorCine` (IN `pIdCine` INT)  NO SQL
 SELECT butacas.* FROM butacas JOIN cines ON butacas.id_cine = cines.id WHERE cines.id = pIdCine$$
@@ -67,6 +79,13 @@ SELECT * FROM sesiones WHERE sesiones.id_cine = pIdCine$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarSesionesPelicula` (IN `pIdPelicula` INT)  NO SQL
 SELECT * FROM sesiones WHERE sesiones.id_pelicula = pIdPelicula$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateEstreno` (IN `pId` INT(5), IN `pFechaDeEstreno` VARCHAR(50), IN `pId_pelicula` INT)  NO SQL
+UPDATE estrenos SET estrenos.fechaDeEstreno = pFechaDeEstreno, estrenos.id_pelicula = pId_pelicula WHERE estrenos.id = pId$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdatePelicula` (IN `pId` INT, IN `pTitulo` VARCHAR(100), IN `pDuracion` INT, IN `pAnio` INT, IN `pImagenCartelera` VARCHAR(100), IN `pTrailer` VARCHAR(200), IN `pClasificacion` VARCHAR(100))  NO SQL
+UPDATE
+ peliculas SET peliculas.titulo = pTitulo, peliculas.duracion = pDuracion, peliculas.anio = pAnio, peliculas.imagenCartelera = pImagenCartelera, peliculas.trailer = pTrailer, peliculas.clasificacion = pClasificacion WHERE peliculas.id = pId$$
 
 DELIMITER ;
 
@@ -636,8 +655,8 @@ CREATE TABLE `estrenos` (
 
 INSERT INTO `estrenos` (`id`, `fechaDeEstreno`, `id_pelicula`) VALUES
 (1, '24 de octubre', 6),
-(2, '3 de septiembre', 7),
-(3, '2 de julio', 51);
+(3, '2 de julio', 51),
+(16, '27 de septiembre', 7);
 
 -- --------------------------------------------------------
 
@@ -871,48 +890,49 @@ CREATE TABLE `sesiones` (
   `id` int(11) NOT NULL,
   `hora` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `id_cine` int(11) NOT NULL,
-  `id_pelicula` int(11) NOT NULL
+  `id_pelicula` int(11) NOT NULL,
+  `precio` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `sesiones`
 --
 
-INSERT INTO `sesiones` (`id`, `hora`, `id_cine`, `id_pelicula`) VALUES
-(1, '17:00-19:1', 1, 27),
-(2, '19:20-21:4', 1, 31),
-(3, '21:50-23:2', 1, 34),
-(4, '17:00-19:2', 2, 44),
-(5, '19:30-21:0', 2, 49),
-(6, '21:10-22:4', 2, 16),
-(7, '16:00-17:3', 3, 11),
-(8, '17-40:19:4', 3, 17),
-(9, '19:50-22:2', 3, 2),
-(10, '22:30-00:0', 3, 35),
-(11, '17:00-18:1', 4, 30),
-(12, '18:20-20:2', 4, 41),
-(13, '20:30-00:0', 4, 47),
-(20, '16:30-19:3', 5, 9),
-(21, '19:40-21:4', 5, 12),
-(22, '21:50-23:5', 5, 23),
-(23, '16:00-18:2', 6, 42),
-(24, '18:30-20:2', 6, 50),
-(25, '20:35-23:1', 6, 20),
-(41, '17:00-18:3', 7, 13),
-(42, '18:40-20:3', 7, 48),
-(43, '20:40-22:2', 7, 38),
-(44, '17:00-19:0', 8, 1),
-(45, '19:10-21:2', 8, 19),
-(46, '22:30-00:4', 8, 22),
-(47, '17:00-18:5', 9, 26),
-(48, '19:05-21:2', 9, 28),
-(49, '21:35-23:1', 9, 29),
-(50, '17:00-19:1', 10, 46),
-(51, '19:20-21:0', 10, 14),
-(52, '21:10-23:4', 10, 39),
-(53, '16:00-19:0', 11, 8),
-(54, '19:10-21:3', 11, 42),
-(55, '21:40-00:2', 11, 33);
+INSERT INTO `sesiones` (`id`, `hora`, `id_cine`, `id_pelicula`, `precio`) VALUES
+(1, '17:00-19:1', 1, 27, 13.06),
+(2, '19:20-21:4', 1, 31, 11.2),
+(3, '21:50-23:2', 1, 34, 11.4),
+(4, '17:00-19:2', 2, 44, 13.05),
+(5, '19:30-21:0', 2, 49, 12.5),
+(6, '21:10-22:4', 2, 16, 11),
+(7, '16:00-17:3', 3, 11, 14),
+(8, '17-40:19:4', 3, 17, 13.3),
+(9, '19:50-22:2', 3, 2, 14.9),
+(10, '22:30-00:0', 3, 35, 13.2),
+(11, '17:00-18:1', 4, 30, 13.3),
+(12, '18:20-20:2', 4, 41, 12.1),
+(13, '20:30-00:0', 4, 47, 12.5),
+(20, '16:30-19:3', 5, 9, 15.1),
+(21, '19:40-21:4', 5, 12, 13.9),
+(22, '21:50-23:5', 5, 23, 12.2),
+(23, '16:00-18:2', 6, 42, 14.6),
+(24, '18:30-20:2', 6, 50, 13),
+(25, '20:35-23:1', 6, 20, 13.3),
+(41, '17:00-18:3', 7, 13, 13.6),
+(42, '18:40-20:3', 7, 48, 13.05),
+(43, '20:40-22:2', 7, 38, 13.2),
+(44, '17:00-19:0', 8, 1, 15),
+(45, '19:10-21:2', 8, 19, 13.5),
+(46, '22:30-00:4', 8, 22, 13),
+(47, '17:00-18:5', 9, 26, 12.2),
+(48, '19:05-21:2', 9, 28, 13.4),
+(49, '21:35-23:1', 9, 29, 13.5),
+(50, '17:00-19:1', 10, 46, 14),
+(51, '19:20-21:0', 10, 14, 13.2),
+(52, '21:10-23:4', 10, 39, 15),
+(53, '16:00-19:0', 11, 8, 13.8),
+(54, '19:10-21:3', 11, 42, 14.2),
+(55, '21:40-00:2', 11, 33, 14.6);
 
 -- --------------------------------------------------------
 
@@ -1018,7 +1038,7 @@ ALTER TABLE `cines`
 -- AUTO_INCREMENT de la tabla `estrenos`
 --
 ALTER TABLE `estrenos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `facturas`

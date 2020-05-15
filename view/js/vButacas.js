@@ -42,7 +42,7 @@ $(document).ready(function(){
 	});
 	$(document).on('click', '#continuarCompra', function(){
 		var entradasCompradas = $('.ocupar').length;
-		var precioEntrada = 7.20;
+		var precioEntrada = localStorage.getItem('precio');
 		var precioTotal = (precioEntrada*entradasCompradas);
 		var idSesion = localStorage.getItem('idSesion');
 		var nombreCine = localStorage.getItem('nombreCine');
