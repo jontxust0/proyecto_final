@@ -330,6 +330,7 @@ $(document).ready(function(){
 			$('#divAdminSesiones').css('display', 'none');
 			$('#listaSesionesAdmin').html(codigoHtml);
        		
+			/*Delete sesion*/
 			$('.borrarCine').click(function(){
 				var id = $(this).data('id');
 				$.ajax({
@@ -342,6 +343,67 @@ $(document).ready(function(){
 					},
 				});
 			});
+			/*Delete sesion*/
+			
+			/*Insert sesion*/
+			$('#insertarSesion').click(function(){
+				$('#divAdminSesiones').css('display', 'block');
+					$.ajax({
+				       	type:"GET",
+				       	url: "../controller/cCines.php",
+				       	dataType:"json",
+				    	success: function(result){
+				    		console.log(result.lista);
+				       		var cines = result.lista;
+				       		var codigoHtml = "";
+							codigoHtml += 'Hora: <input type="text" class="form-control" id="horaSesion" placeholder="El horario que tendra la sesion..">'
+							codigoHtml += 'Cine: <select class="custom-select" id="idCineSesion">'
+							codigoHtml += '<option selected>Elige el cine</option>'
+				       			
+							$.each(cines,function(index,info) { 
+								codigoHtml += '<option value="'+info.id+'">' + info.nombre + '</option>'
+							});
+							codigoHtml += '</select>'
+							codigoHtml += 'Pelicula: <select class="custom-select" id="idPeliculaSesion">'
+							codigoHtml += '<option selected>Elige la pelicula</option>'
+								$.ajax({
+							       	type:"GET",
+							       	url: "../controller/cPeliculas.php",
+							       	dataType:"json",
+							    	success: function(result){
+							    		console.log(result.lista);
+							       		var peliculas = result.lista;
+										$.each(peliculas,function(index,info) { 
+											codigoHtml += '<option value="'+info.id+'">' + info.titulo + '</option>'
+										});
+										codigoHtml += '</select>'
+										codigoHtml += '<br>'
+										codigoHtml += 'Precio: <input type="text" class="form-control" id="precioSesion" placeholder="El precio que tendra cada entrada..">'
+										codigoHtml += '<br><button class="btn btn-primary" id="añadirSesion">Añadir Sesion</button>'
+										$('#listaSesionesAdmin').html(codigoHtml);
+										$('#añadirSesion').click(function(){
+											var hora = $('#horaSesion').val();
+											var cineId = $('#idCineSesion').val();
+											var peliculaId = $('#idPeliculaSesion').val();
+											var precio = $('#precioSesion').val();
+											$.ajax({
+										       	type:"POST",
+										       	url: "../controller/cInsertSesion.php", 
+										    	data:{hora:hora, cineId:cineId, peliculaId:peliculaId, precio:precio},
+										    	success: function(result){  
+										    		alert('Insertada nueva sesion');
+										    		location.reload();
+												},
+											});
+										});
+									},
+								});
+						},
+					});	
+			});
+			/*Insertar sesion*/
+			
+			
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);

@@ -122,6 +122,28 @@ class sesionModel extends sesionClass{
         $this->CloseConnect();
     }
     
+    public function insertarSesion()
+    {
+        $this->OpenConnect();
+        
+        $hora=$this->getHora();
+        $idCine=$this->getId_pelicula();
+        $idPelicula=$this->getId_pelicula();
+        $precio=$this->getPrecio();
+        
+        $sql = "CALL spInsertSesion('$hora', $idCine, $idPelicula, '$precio')";
+        
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "Se ha insertado nueva sesion";
+        } else {
+            return "Fallo al insertar nuevo estreno: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+    
     public function deleteSesion()
     {
         $this->OpenConnect();
