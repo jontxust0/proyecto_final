@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	/*Log out*/
 	$('#cerrarSesion').click(function(){
 		$.ajax({
 	       	url: "../controller/cLogOut.php", 
@@ -13,6 +14,7 @@ $(document).ready(function(){
 	   		}
 		});
 	});
+	/*Log out*/
 	
 	$.ajax({
        	type:"GET",
@@ -32,13 +34,14 @@ $(document).ready(function(){
 				codigoHtml += '<td><img src='+info.imagenCartelera+'</td>'
 				codigoHtml += '<td<iframe src='+info.trailer+'></iframe></td>'
 				codigoHtml += '<td>' + info.clasificacion + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-success editar">Editar</button>' + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-danger borrar">Borrar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-success editar" data-id='+info.id+'>Editar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-danger borrar" data-id='+info.id+'>Borrar</button>' + '</td>'
 				codigoHtml += '</tr>'
 			});
 			$('#divAdminPeliculas').css('display', 'none');
 			$('#listaPeliculasAdmin').html(codigoHtml);
 			
+			/*Insert pelicula*/
 			$('#insertarPelicula').click(function(){
 				var codigoHtml = "";
 				codigoHtml += 'Titulo: <input type="text" class="form-control" id="titulo" placeholder="Titulo de la pelicula..">'
@@ -68,9 +71,44 @@ $(document).ready(function(){
 						},
 					});
 				});
-				
-				
 			});
+			/*Insert pelicula*/
+			
+			/*Update pelicula*/
+			$('.editar').click(function(){
+				var codigoHtml = "";
+				codigoHtml += 'Titulo: <input type="text" class="form-control" id="titulo" placeholder="Titulo de la pelicula..">'
+				codigoHtml += 'Duracion: <input type="text" class="form-control" id="duracion" placeholder="Su duracion en minutos..">'
+				codigoHtml += 'Año: <input type="text" class="form-control" id="anio" placeholder="Año en el que salio..">'
+				codigoHtml += 'Imagen: <input type="text" class="form-control" id="imagen" placeholder="La URL donde se encuentra la imagen..">'
+				codigoHtml += 'Trailer: <input type="text" class="form-control" id="trailer" placeholder="La URL donde se encuentra el trailer..">'
+				codigoHtml += 'Clasificacion: <input type="text" class="form-control" id="clasificacion" placeholder="Clasificacion por edad..">'
+				codigoHtml += '<br><br>'
+				codigoHtml += '<button class="btn btn-success" id="editar">Modificar pelicula</button>'
+				$('#listaPeliculasAdmin').html(codigoHtml);
+				var id = $(this).data('id');
+
+				$('#editar').click(function(){
+					
+					var titulo = $('#titulo').val();
+					var duracion = $('#duracion').val();
+					var anio = $('#anio').val();
+					var imagen = $('#imagen').val();
+					var trailer = $('#trailer').val();
+					var clasificacion = $('#clasificacion').val();
+					$.ajax({
+				       	type:"POST",
+				       	url: "../controller/cUpdatePelicula.php", 
+				    	data:{id:id, titulo:titulo, duracion:duracion, anio:anio, imagen:imagen, trailer:trailer, clasificacion:clasificacion},
+				    	success: function(result){  
+				    		alert('Pelicula actualizada');
+				    		location.reload();
+						},
+					});
+				});
+			});
+			/*Update pelicula*/
+			
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -100,7 +138,7 @@ $(document).ready(function(){
 			$('#listaEstrenosAdmin').html(codigoHtml);
 			
 			
-			
+			/*Delete estreno*/
 			$('.borrar').click(function(){
 				var id = $(this).data('id');
 				$.ajax({
@@ -114,6 +152,9 @@ $(document).ready(function(){
 					},
 				});
 			});
+			/*Delete estreno*/
+			
+			/*Insert estreno*/
 			$('#insertarEstreno').click(function(peliculas){
 
 				$.ajax({
@@ -159,9 +200,11 @@ $(document).ready(function(){
 			   		}
 				});
 			});
+			/*Insert estreno*/
 			
+			/*Update estreno*/
 			$('.editar').click(function(){
-				//aqui
+			
 				var id = $(this).data('id');
 				$.ajax({
 			       	type:"GET",
@@ -206,9 +249,8 @@ $(document).ready(function(){
 			   		}
 				});
 			});
-			
-			
-			
+			/*Update estreno*/
+	
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);

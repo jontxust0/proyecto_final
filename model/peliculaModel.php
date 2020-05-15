@@ -149,6 +149,31 @@ class peliculaModel extends peliculaClass{
         $this->CloseConnect();
     }
     
+    public function updatePelicula()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        $titulo=$this->getTitulo();
+        $duracion= $this->getDuracion();
+        $anio= $this->getAnio();
+        $imagen= $this->getImagenCartelera();
+        $trailer= $this->getTrailer();
+        $clasificacion= $this->getClasificacion();
+        
+        $sql = "CALL spUpdatePelicula($id,'$titulo', $duracion, $anio, '$imagen', '$trailer', '$clasificacion')";
+        
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "La pelicula se ha modificado con exito";
+        } else {
+            return "Falla la modificacion de la pelicula: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();
