@@ -147,7 +147,7 @@ $(document).ready(function(){
 					var codigoHtml = "";
 					$.ajax({
 				       	type:"POST",
-				       	url: "controller/cSesiones.php", 
+				       	url: "controller/cSesionesCine.php", 
 				    	dataType: "json",
 				       	data:{"idCine":idCine},
 				    	success: function(result){  

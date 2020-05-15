@@ -25,7 +25,7 @@ $(document).ready(function(){
     		console.log(result.lista);
     		var codigoHtml = '<tr><td>Título</td><td>Duración</td><td>Año</td><td>Imagen</td><td>Trailer</td><td>Clasificacion</td></tr>'
        		var peliculas = result.lista;
-    		var codigoHtml = "";
+    		
 			$.each(peliculas,function(index,info) {
 				codigoHtml +='<tr>'
 				codigoHtml += '<td>' + info.titulo + '</td>'
@@ -139,7 +139,7 @@ $(document).ready(function(){
     	success: function(result){  
     		
     		console.log(result.lista);
-    		var codigoHtml = "";
+    		
     		var codigoHtml = '<tr><td>Fecha</td><td>Pelicula</td></tr>'
        		var estrenos = result.lista;
     		
@@ -274,12 +274,97 @@ $(document).ready(function(){
    		}
 	});
 	
+	$.ajax({
+       	type:"GET",
+       	url: "../controller/cCines.php", 
+    	dataType: "json",
+       	
+    	success: function(result){  
+       		
+    		console.log(result.lista);
+    	
+       		var cines = result.lista;
+       		var codigoHtml = '<tr><td>Nombre</td><td>Ubicación</td></tr>'
+       			
+			$.each(cines,function(index,info) { 
+				codigoHtml +='<tr>'
+				codigoHtml += '<td>' + info.nombre + '</td>'
+				codigoHtml += '<td>' + info.ubicacion + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-success editarCine">Editar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-danger borrarCine">Borrar</button>' + '</td>'
+				codigoHtml += '</tr>'
+				
+			});
+			$('#divAdminCines').css('display', 'none');
+			$('#listaCinesAdmin').html(codigoHtml);
+       		
+		},
+       	error : function(xhr) {
+   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+   		}
+	});
+	
+	$.ajax({
+       	type:"GET",
+       	url: "../controller/cSesiones.php", 
+    	dataType: "json",
+       	
+    	success: function(result){  
+       		
+    		console.log(result.lista);
+    	
+       		var cines = result.lista;
+       		var codigoHtml = '<tr><td>Hora</td><td>Cine</td><td>Pelicula</td><td>Precio</td></tr>'
+       			
+			$.each(cines,function(index,info) { 
+				codigoHtml +='<tr>'
+				codigoHtml += '<td>' + info.hora + '</td>'
+				codigoHtml += '<td>' + info.objCine.nombre + '</td>'
+				codigoHtml += '<td>' + info.objPelicula.titulo + '</td>'
+				codigoHtml += '<td>' + info.precio + '€</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-success editarCine" data-idCine="'+info.id_cine+'" data-idPelicula="'+info.id_pelicula+'">Editar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-danger borrarCine" data-id="'+info.id+'">Borrar</button>' + '</td>'
+				codigoHtml += '</tr>'
+				
+			});
+			$('#divAdminSesiones').css('display', 'none');
+			$('#listaSesionesAdmin').html(codigoHtml);
+       		
+			$('.borrarCine').click(function(){
+				var id = $(this).data('id');
+				$.ajax({
+			       	type:"POST",
+			       	url: "../controller/cDeleteSesion.php", 
+			    	data:{"id":id},
+			    	success: function(result){  
+			    		alert('Sesion de cine borrada');
+			    		location.reload();
+					},
+				});
+			});
+		},
+       	error : function(xhr) {
+   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+   		}
+	});
+	
+	
 	$('#adminPeliculas').click(function(){
 		$('#divAdminPeliculas').css('display', 'block');
 	});
 	
 	$('#adminEstrenos').click(function(){
 		$('#divAdminEstrenos').css('display', 'block');
+		
+	});
+	
+	$('#adminCines').click(function(){
+		$('#divAdminCines').css('display', 'block');
+		
+	});
+	
+	$('#adminSesiones').click(function(){
+		$('#divAdminSesiones').css('display', 'block');
 		
 	});
 	

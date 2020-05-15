@@ -26,11 +26,43 @@ class sesionModel extends sesionClass{
         return $this->objPelicula;
     }
     
-    public function listaSesiones($idCine)
+    public function listaSesiones()
     {
         $this->OpenConnect();
         
-        $sql = "CALL spMostrarSesiones($idCine)";
+        $sql = "CALL spMostrarSesiones()";
+        
+        $result = $this->link->query($sql);
+        
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            
+            $nuevo=new sesionClass();
+            
+            $nuevo->setId($row['id']);
+            $nuevo->setHora($row['hora']);
+            $nuevo->setId_cine($row['id_cine']);
+            $nuevo->setId_pelicula($row['id_pelicula']);
+            $nuevo->setPrecio($row['precio']);
+            
+            $cine = new cineModel();
+            $cine->setId($row['id_cine']);
+            $nuevo->objCine= $cine->findIdCine();
+            
+            $pelicula = new peliculaModel();
+            $pelicula->setId($row['id_pelicula']);
+            $nuevo->objPelicula= $pelicula->findIdPelicula();
+            
+            array_push($this->lista, $nuevo);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
+    public function listaSesionesCine($idCine)
+    {
+        $this->OpenConnect();
+        
+        $sql = "CALL spMostrarSesionesCine($idCine)";
         
         $result = $this->link->query($sql);
         
@@ -87,6 +119,23 @@ class sesionModel extends sesionClass{
             array_push($this->lista, $nuevo);
         }
         mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
+    public function deleteSesion()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        
+        $sql = "CALL spDeleteSesion($id)";
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "La sesion ha sido borrada de la lista";
+        } else {
+            return "Fall� el borrado: (" . $this->link->errno . ") " . $this->link->error;
+        }
         $this->CloseConnect();
     }
     
