@@ -34,8 +34,8 @@ $(document).ready(function(){
 				codigoHtml += '<td><img src='+info.imagenCartelera+'</td>'
 				codigoHtml += '<td<iframe src='+info.trailer+'></iframe></td>'
 				codigoHtml += '<td>' + info.clasificacion + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-success editar" data-id='+info.id+'>Editar</button>' + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-danger borrar" data-id='+info.id+'>Borrar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-success editarPelicula" data-id='+info.id+'>Editar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-danger borrarPelicula" data-id='+info.id+'>Borrar</button>' + '</td>'
 				codigoHtml += '</tr>'
 			});
 			$('#divAdminPeliculas').css('display', 'none');
@@ -51,10 +51,10 @@ $(document).ready(function(){
 				codigoHtml += 'Trailer: <input type="text" class="form-control" id="trailer" placeholder="La URL donde se encuentra el trailer..">'
 				codigoHtml += 'Clasificacion: <input type="text" class="form-control" id="clasificacion" placeholder="Clasificacion por edad..">'
 				codigoHtml += '<br><br>'
-				codigoHtml += '<button class="btn btn-primary" id="añadir">Añadir pelicula</button>'
+				codigoHtml += '<button class="btn btn-primary" id="añadirPelicula">Añadir pelicula</button>'
 				$('#divAdminPeliculas').css('display', 'block');
 				$('#listaPeliculasAdmin').html(codigoHtml);
-				$('#añadir').click(function(){
+				$('#añadirPelicula').click(function(){
 					var titulo = $('#titulo').val();
 					var duracion = $('#duracion').val();
 					var anio = $('#anio').val();
@@ -75,7 +75,7 @@ $(document).ready(function(){
 			/*Insert pelicula*/
 			
 			/*Update pelicula*/
-			$('.editar').click(function(){
+			$('.editarPelicula').click(function(){
 				var codigoHtml = "";
 				codigoHtml += 'Titulo: <input type="text" class="form-control" id="titulo" placeholder="Titulo de la pelicula..">'
 				codigoHtml += 'Duracion: <input type="text" class="form-control" id="duracion" placeholder="Su duracion en minutos..">'
@@ -84,11 +84,11 @@ $(document).ready(function(){
 				codigoHtml += 'Trailer: <input type="text" class="form-control" id="trailer" placeholder="La URL donde se encuentra el trailer..">'
 				codigoHtml += 'Clasificacion: <input type="text" class="form-control" id="clasificacion" placeholder="Clasificacion por edad..">'
 				codigoHtml += '<br><br>'
-				codigoHtml += '<button class="btn btn-success" id="editar">Modificar pelicula</button>'
+				codigoHtml += '<button class="btn btn-success" id="editarPelicula">Modificar pelicula</button>'
 				$('#listaPeliculasAdmin').html(codigoHtml);
 				var id = $(this).data('id');
 
-				$('#editar').click(function(){
+				$('#editarPelicula').click(function(){
 					
 					var titulo = $('#titulo').val();
 					var duracion = $('#duracion').val();
@@ -108,6 +108,23 @@ $(document).ready(function(){
 				});
 			});
 			/*Update pelicula*/
+			
+			/*Delete pelicula*/
+			$('.borrarPelicula').click(function(){
+				var id = $(this).data('id');
+				
+				$.ajax({
+			       	type:"POST",
+			       	url: "../controller/cDeletePelicula.php", 
+			    	data:{"id":id},
+			    	success: function(result){  
+			    		console.log(result.lista);
+			    		alert('Pelicula borrada');
+			    		location.reload();
+					},
+				});
+			});
+			/*Delete pelicula*/
 			
 		},
        	error : function(xhr) {
@@ -130,8 +147,8 @@ $(document).ready(function(){
 				codigoHtml +='<tr>'
 				codigoHtml += '<td>' + info.fechaDeEstreno + '</td>'
 				codigoHtml += '<td>' + info.objPelicula.titulo + '</td>'
-				codigoHtml += '<td><button class="btn btn-success editar" data-id="'+info.id+'">Editar</button></td>'
-				codigoHtml += '<td><button class="btn btn-danger borrar" data-id="'+info.id+'">Borrar</button></td>'
+				codigoHtml += '<td><button class="btn btn-success editarEstreno" data-id="'+info.id+'">Editar</button></td>'
+				codigoHtml += '<td><button class="btn btn-danger borrarEstreno" data-id="'+info.id+'">Borrar</button></td>'
 				codigoHtml += '</tr>'
 			});
 			$('#divAdminEstrenos').css('display', 'none');
@@ -139,7 +156,7 @@ $(document).ready(function(){
 			
 			
 			/*Delete estreno*/
-			$('.borrar').click(function(){
+			$('.borrarEstreno').click(function(){
 				var id = $(this).data('id');
 				$.ajax({
 			       	type:"POST",
@@ -173,12 +190,12 @@ $(document).ready(function(){
 						});
 			       		codigoHtml += '</select>'
 			       		codigoHtml += '<br><br>'
-			       		codigoHtml += '<button class="btn btn-primary" id="añadir">Añadir estreno</button>'
+			       		codigoHtml += '<button class="btn btn-primary" id="añadirEstreno">Añadir estreno</button>'
 			       		$('#divAdminEstrenos').css('display', 'block');
 			       		$('#listaEstrenosAdmin').html(codigoHtml);
 			       		$('#idSelect').change(function(){
 			       			var idPelicula = $(this).val();
-			       			$('#añadir').click(function(){
+			       			$('#añadirEstreno').click(function(){
 				       			var fecha = $('#fecha').val();
 				       			
 				       			$.ajax({
@@ -203,7 +220,7 @@ $(document).ready(function(){
 			/*Insert estreno*/
 			
 			/*Update estreno*/
-			$('.editar').click(function(){
+			$('.editarEstreno').click(function(){
 			
 				var id = $(this).data('id');
 				$.ajax({
@@ -222,12 +239,12 @@ $(document).ready(function(){
 						});
 			       		codigoHtml += '</select>'
 			       		codigoHtml += '<br><br>'
-			       		codigoHtml += '<button class="btn btn-success" id="editar">Modificar estreno</button>'
+			       		codigoHtml += '<button class="btn btn-success" id="editarEstreno">Modificar estreno</button>'
 			       		$('#divAdminEstrenos').css('display', 'block');
 			       		$('#listaEstrenosAdmin').html(codigoHtml);
 			       		$('#idSelect').change(function(){
 			       			var idPelicula = $(this).val();
-			       			$('#editar').click(function(){
+			       			$('#editarEstreno').click(function(){
 				       			var fecha = $('#fecha').val();
 				       			
 				       			$.ajax({

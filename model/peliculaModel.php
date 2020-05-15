@@ -174,6 +174,23 @@ class peliculaModel extends peliculaClass{
         $this->CloseConnect();
     }
     
+    public function deletePelicula()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        
+        $sql = "CALL spDeletePelicula($id)";
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "La pelicula se ha sido borrado de la lista";
+        } else {
+            return "Fall� el borrado: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        $this->CloseConnect();
+    }
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();
