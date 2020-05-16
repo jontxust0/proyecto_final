@@ -108,6 +108,10 @@ button{
 	cursor:pointer;
 }
 
+.ocupado{
+	background-color:#FF5B5B !important;
+}
+
 .ocupar{
 	color:white;
 	background-color:#C3006E !important;

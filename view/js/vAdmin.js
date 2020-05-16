@@ -536,6 +536,7 @@ $(document).ready(function(){
 	});
 	
 	
+	/*Mostrara los elementos del que se elija, y ocultara los demas*/
 	$('#adminPeliculas').click(function(){
 		$('#divAdminPeliculas').css('display', 'block');
 		$('#divAdminEstrenos').css('display', 'none');
@@ -575,5 +576,7 @@ $(document).ready(function(){
 		$('#divAdminPeliculas').css('display', 'none');
 		$('#divAdminCines').css('display', 'none');
 	});
+	/*Mostrara los elementos del que se elija, y ocultara los demas*/
+	
 	
 });

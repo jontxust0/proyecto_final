@@ -18,15 +18,25 @@ $(document).ready(function(){
        		
        		codigoHtml += '<tr>'
 			$.each(butacas,function(index,info) {
-
-				if(info.numero.substr(0, 1) == fila){
-					codigoHtml += '<td>' + info.numero + '</td>'
+				if(info.reservado == true){
+					if(info.numero.substr(0, 1) == fila){
+						codigoHtml += '<td class="ocupado">' + info.numero + '</td>'
+					} else {
+						codigoHtml += '</tr>'
+							codigoHtml += '<tr>'
+								codigoHtml += '<td>' + info.numero + '</numero>'
+								fila = info.numero.substr(0, 1);
+					}
 				} else {
-					codigoHtml += '</tr>'
-					codigoHtml += '<tr>'
-					codigoHtml += '<td>' + info.numero + '</numero>'
-					fila = info.numero.substr(0, 1);
-				}	
+					if(info.numero.substr(0, 1) == fila){
+						codigoHtml += '<td>' + info.numero + '</td>'
+					} else {
+						codigoHtml += '</tr>'
+							codigoHtml += '<tr>'
+								codigoHtml += '<td>' + info.numero + '</numero>'
+								fila = info.numero.substr(0, 1);
+					}
+				}
 			});
        		var botonContinuar = "";
        		botonContinuar += '<button data-toggle="modal" data-target="#datosCompra" id="continuarCompra">Continuar</button>'
@@ -38,7 +48,10 @@ $(document).ready(function(){
    		}
 	});
 	$(document).on('click', 'td', function(){
-		$(this).toggleClass('ocupar');
+		if(!$(this).hasClass('ocupado')) {
+		  $(this).toggleClass('ocupar');
+		}
+		
 	});
 	$(document).on('click', '#continuarCompra', function(){
 		var entradasCompradas = $('.ocupar').length;
