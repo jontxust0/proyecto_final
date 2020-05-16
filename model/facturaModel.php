@@ -13,6 +13,33 @@ class facturaModel extends facturaClass{
         return $this->lista;
     }
     
+    public function listaFacturas(){
+        $this->OpenConnect();
+        
+        $sql = "CALL spMostrarFacturas()";
+        
+        $result = $this->link->query($sql);
+        
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            
+            $nuevo=new facturaClass();
+            
+            $nuevo->setId($row['id']);
+            $nuevo->setEntradasCompradas($row['entradasCompradas']);
+            $nuevo->setPrecioEntrada($row['precioEntrada']);
+            $nuevo->setPrecioTotal($row['precioTotal']);
+            $nuevo->setId_sesion($row['id_sesion']);
+            $nuevo->setCine($row['cine']);
+            $nuevo->setHora_sesion($row['hora_sesion']);
+            
+            
+            
+            array_push($this->lista, $nuevo);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
     public function insertarFactura()
     {
         $this->OpenConnect();
@@ -37,7 +64,22 @@ class facturaModel extends facturaClass{
         $this->CloseConnect();
     }
     
-    
+    public function deleteFactura()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        
+        $sql = "CALL spDeleteFactura($id)";
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "La factura ha sido borrada de la lista";
+        } else {
+            return "Fall� el borrado: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        $this->CloseConnect();
+    }
 
     
 
@@ -61,6 +103,20 @@ class facturaModel extends facturaClass{
     public function CloseConnect()
     {
         mysqli_close ($this->link);
+    }
+    
+    function getListaFacturasJsonString() {
+        
+        
+        $arr=array();
+        
+        foreach ($this->lista as $object)
+        {
+            $vars = get_object_vars($object);
+            
+            array_push($arr, $vars);
+        }
+        return $arr;
     }
 }
 

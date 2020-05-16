@@ -461,7 +461,49 @@ $(document).ready(function(){
 					});	
 			});
 			/*Update sesion*/
-			
+		},
+       	error : function(xhr) {
+   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+   		}
+	});
+	
+	$.ajax({
+       	type:"GET",
+       	url: "../controller/cFacturas.php", 
+    	dataType: "json",
+       	
+    	success: function(result){  
+       		
+    		console.log(result.lista);
+    	
+       		var facturas = result.lista;
+       		var codigoHtml = '<tr><td>Ha comprado</td><td>Precio de cada entrada</td><td>Total a pagar</td><td>En el cine</td><td>Horario</td></tr>'
+       			
+			$.each(facturas,function(index,info) { 
+				codigoHtml += '<tr>'
+				codigoHtml += '<td>' + info.entradasCompradas + ' Entradas</td>'
+				codigoHtml += '<td>' + info.precioEntrada + '€</td>'
+				codigoHtml += '<td>' + info.precioTotal + '€</td>'
+				codigoHtml += '<td>' + info.cine + '</td>'
+				codigoHtml += '<td>' + info.hora_sesion + '</td>'
+				codigoHtml += '<td><button class="btn btn-danger eliminarFactura" data-id="'+info.id+'">Eliminar</button></td>'
+			});
+       		$('#divAdminFacturas').css('display', 'none');
+			$('#listaFacturasAdmin').html(codigoHtml);
+			/*Delete factura*/
+       		$('.eliminarFactura').click(function(){
+       			var id = $(this).data('id');
+       			$.ajax({
+			       	type:"POST",
+			       	url: "../controller/cDeleteFactura.php", 
+			    	data:{"id":id},
+			    	success: function(result){  
+			    		alert('Factura borrada');
+			    		location.reload();
+					},
+				});
+       		});
+       		/*Delete factura*/
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -471,21 +513,42 @@ $(document).ready(function(){
 	
 	$('#adminPeliculas').click(function(){
 		$('#divAdminPeliculas').css('display', 'block');
+		$('#divAdminEstrenos').css('display', 'none');
+		$('#divAdminSesiones').css('display', 'none');
+		$('#divAdminCines').css('display', 'none');
+		$('#divAdminFacturas').css('display', 'none');
 	});
 	
 	$('#adminEstrenos').click(function(){
 		$('#divAdminEstrenos').css('display', 'block');
-		
+		$('#divAdminPeliculas').css('display', 'none');
+		$('#divAdminSesiones').css('display', 'none');
+		$('#divAdminCines').css('display', 'none');
+		$('#divAdminFacturas').css('display', 'none');
 	});
 	
 	$('#adminCines').click(function(){
 		$('#divAdminCines').css('display', 'block');
-		
+		$('#divAdminEstrenos').css('display', 'none');
+		$('#divAdminPeliculas').css('display', 'none');
+		$('#divAdminSesiones').css('display', 'none');
+		$('#divAdminFacturas').css('display', 'none');
 	});
 	
 	$('#adminSesiones').click(function(){
 		$('#divAdminSesiones').css('display', 'block');
-		
+		$('#divAdminEstrenos').css('display', 'none');
+		$('#divAdminPeliculas').css('display', 'none');
+		$('#divAdminCines').css('display', 'none');
+		$('#divAdminFacturas').css('display', 'none');
+	});
+	
+	$('#adminFacturas').click(function(){
+		$('#divAdminFacturas').css('display', 'block');
+		$('#divAdminSesiones').css('display', 'none');
+		$('#divAdminEstrenos').css('display', 'none');
+		$('#divAdminPeliculas').css('display', 'none');
+		$('#divAdminCines').css('display', 'none');
 	});
 	
 });

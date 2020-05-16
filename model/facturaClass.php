@@ -92,7 +92,11 @@ class facturaClass{
         $this->hora_sesion = $hora_sesion;
     }
 
-    
+    function getObjectVars()
+    {
+        $vars = get_object_vars($this);
+        return  $vars;
+    }
     
 }
 
