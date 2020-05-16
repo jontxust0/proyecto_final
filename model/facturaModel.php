@@ -64,6 +64,27 @@ class facturaModel extends facturaClass{
         $this->CloseConnect();
     }
     
+    public function updateFactura()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        $entradasCompradas= $this->getEntradasCompradas();
+        $precioEntrada= $this->getPrecioEntrada();
+        
+        $sql = "CALL spUpdateFactura($id, $entradasCompradas, $precioEntrada)";
+        
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "La factura se ha modificado con exito";
+        } else {
+            return "Falla la modificacion de la factura: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+    
     public function deleteFactura()
     {
         $this->OpenConnect();

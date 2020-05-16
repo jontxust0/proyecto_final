@@ -23,7 +23,7 @@ $(document).ready(function(){
     	success: function(result){  
     		
     		console.log(result.lista);
-    		var codigoHtml = '<tr><td>Título</td><td>Duración</td><td>Año</td><td>Imagen</td><td>Trailer</td><td>Clasificacion</td></tr>'
+    		var codigoHtml = '<tr class="indiceElemento"><td>Título</td><td>Duración</td><td>Año</td><td>Imagen</td><td>Trailer</td><td>Clasificacion</td></tr>'
        		var peliculas = result.lista;
     		
 			$.each(peliculas,function(index,info) {
@@ -140,7 +140,7 @@ $(document).ready(function(){
     		
     		console.log(result.lista);
     		
-    		var codigoHtml = '<tr><td>Fecha</td><td>Pelicula</td></tr>'
+    		var codigoHtml = '<tr class="indiceElemento"><td>Fecha</td><td>Pelicula</td></tr>'
        		var estrenos = result.lista;
     		
 			$.each(estrenos,function(index,info) {
@@ -284,7 +284,7 @@ $(document).ready(function(){
     		console.log(result.lista);
     	
        		var cines = result.lista;
-       		var codigoHtml = '<tr><td>Nombre</td><td>Ubicación</td></tr>'
+       		var codigoHtml = '<tr class="indiceElemento"><td>Nombre</td><td>Ubicación</td></tr>'
        			
 			$.each(cines,function(index,info) { 
 				codigoHtml +='<tr>'
@@ -314,7 +314,7 @@ $(document).ready(function(){
     		console.log(result.lista);
     	
        		var cines = result.lista;
-       		var codigoHtml = '<tr><td>Hora</td><td>Cine</td><td>Pelicula</td><td>Precio</td></tr>'
+       		var codigoHtml = '<tr class="indiceElemento"><td>Hora</td><td>Cine</td><td>Pelicula</td><td>Precio</td></tr>'
        			
 			$.each(cines,function(index,info) { 
 				codigoHtml +='<tr>'
@@ -477,7 +477,7 @@ $(document).ready(function(){
     		console.log(result.lista);
     	
        		var facturas = result.lista;
-       		var codigoHtml = '<tr><td>Ha comprado</td><td>Precio de cada entrada</td><td>Total a pagar</td><td>En el cine</td><td>Horario</td></tr>'
+       		var codigoHtml = '<tr class="indiceElemento"><td>Ha comprado</td><td>Precio de cada entrada</td><td>Total a pagar</td><td>En el cine</td><td>Horario</td></tr>'
        			
 			$.each(facturas,function(index,info) { 
 				codigoHtml += '<tr>'
@@ -487,6 +487,7 @@ $(document).ready(function(){
 				codigoHtml += '<td>' + info.cine + '</td>'
 				codigoHtml += '<td>' + info.hora_sesion + '</td>'
 				codigoHtml += '<td><button class="btn btn-danger eliminarFactura" data-id="'+info.id+'">Eliminar</button></td>'
+				codigoHtml += '<td><button class="btn btn-success editar" data-id="'+info.id+'">Modificar</button></td>'
 			});
        		$('#divAdminFacturas').css('display', 'none');
 			$('#listaFacturasAdmin').html(codigoHtml);
@@ -504,6 +505,30 @@ $(document).ready(function(){
 				});
        		});
        		/*Delete factura*/
+       		
+       		/*Update factura*/
+       		$('.editar').click(function(){
+       			var id = $(this).data('id');
+       			var codigoHtml = "";
+       			codigoHtml += 'Entradas compradas: <input type="text" class="form-control" id="entradasCompradas">'
+       			codigoHtml += 'Precio de cada entrada: <input type="text" class="form-control" id="precioEntrada"><br>'
+       			codigoHtml += '<button class="btn btn-success" id="editarFactura">Modificar factura</button>'
+       				$('#listaFacturasAdmin').html(codigoHtml);
+       				$('#editarFactura').click(function(){
+       					var entradasCompradas = $('#entradasCompradas').val();
+       					var precioEntrada = $('#precioEntrada').val();
+       					$.ajax({
+        			       	type:"POST",
+        			       	url: "../controller/cUpdateFactura.php", 
+        			    	data:{id:id, entradasCompradas:entradasCompradas, precioEntrada:precioEntrada},
+        			    	success: function(result){  
+        			    		alert('Factura modificada');
+        			    		location.reload();
+        					},
+        				});
+       				});
+       		});
+       		/*Update factura*/
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);

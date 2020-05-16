@@ -168,7 +168,9 @@ button{
 #administrar h2{
 	display:inline;
 }
-
+#administrar .indiceElemento{
+	font-weight:bold;
+}
 /*vAdmin.html*/
 
 /*Media querys*/
