@@ -1,5 +1,3 @@
-
-
 $(document).ready(function(){
 	/*aqui cojemos el link del trailer almacenado en localstorage en "index.js" y lo insertamos en su respectivo elemento*/
 	var trailer = localStorage.getItem('trailer');
@@ -20,20 +18,20 @@ $(document).ready(function(){
 			$.each(butacas,function(index,info) {
 				if(info.reservado == true){
 					if(info.numero.substr(0, 1) == fila){
-						codigoHtml += '<td class="ocupado">' + info.numero + '</td>'
+						codigoHtml += '<td class="ocupado" data-id="'+info.id+'">' + info.numero + '</td>'
 					} else {
 						codigoHtml += '</tr>'
 							codigoHtml += '<tr>'
-								codigoHtml += '<td>' + info.numero + '</numero>'
+								codigoHtml += '<td data-id="'+info.id+'">' + info.numero + '</numero>'
 								fila = info.numero.substr(0, 1);
 					}
 				} else {
 					if(info.numero.substr(0, 1) == fila){
-						codigoHtml += '<td>' + info.numero + '</td>'
+						codigoHtml += '<td data-id="'+info.id+'">' + info.numero + '</td>'
 					} else {
 						codigoHtml += '</tr>'
 							codigoHtml += '<tr>'
-								codigoHtml += '<td>' + info.numero + '</numero>'
+								codigoHtml += '<td data-id="'+info.id+'">' + info.numero + '</numero>'
 								fila = info.numero.substr(0, 1);
 					}
 				}
@@ -47,13 +45,18 @@ $(document).ready(function(){
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
    		}
 	});
+	
+	/*Si el asiento no esta ocupado, al hacer click lo estará*/
 	$(document).on('click', 'td', function(){
 		if(!$(this).hasClass('ocupado')) {
 		  $(this).toggleClass('ocupar');
 		}
-		
 	});
+	/*Si el asiento no esta ocupado, al hacer click lo estará*/
+	
 	$(document).on('click', '#continuarCompra', function(){
+		
+		
 		var entradasCompradas = $('.ocupar').length;
 		var precioEntrada = localStorage.getItem('precio');
 		var precioTotal = (precioEntrada*entradasCompradas);
@@ -76,13 +79,34 @@ $(document).ready(function(){
 		    	success: function(result){  
 		    		console.log(result);
 		    		alert('Acabas de hacer la compra');
-		    		window.location.href = '../index.html';
+		    		//window.location.href = '../index.html';
 				},
 		       	error : function(xhr) {
 		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
 		   		}
 			});
+			/*Ocupar los asientos elegidos al hacer la compra*/
+			var asientosOcupar = document.getElementsByClassName("ocupar");
+			var idAsientosOcupar = "";
+			for (var i = 0; i < asientosOcupar.length; i++) {
+				idAsientosOcupar += asientosOcupar[i].getAttribute('data-id') + ",";
+			}
+			var idAsientosOcupar = idAsientosOcupar;
+			
+			$.ajax({
+		       	type:"POST",
+		       	url: "../controller/cOcuparButacas.php",
+		       	data:{idAsientosOcupar:idAsientosOcupar},
+		    	success: function(result){  
+		    		console.log(result);
+
+				},
+		       	error : function(xhr) {
+		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+		   		}
+			});
+			/*Ocupar los asientos elegidos al hacer la compra*/
 		});
 	});
-	
 });
+

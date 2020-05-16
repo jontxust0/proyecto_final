@@ -37,7 +37,21 @@ class butacaModel extends butacaClass{
         $this->CloseConnect();
     }
     
-    
+    public function ocuparButacas($butacasOcupar){
+        $this->OpenConnect();
+        
+        $sql = "CALL spOcuparButacas('$butacasOcupar')";
+        $result = $this->link->query($sql);
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "Se han reservador los asientos elegidos";
+        } else {
+            return "Fallo al reservar asientos: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
     
     public function OpenConnect()
     {
