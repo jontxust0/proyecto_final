@@ -551,13 +551,14 @@ $(document).ready(function(){
 				codigoHtml +='<tr>'
 				codigoHtml += '<td>' + info.usuario + '</td>'
 				codigoHtml += '<td>' + info.contrasenia + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-success editarUsuario">Editar</button>' + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-danger borrarUsuario">Borrar</button>' + '</td>'
+				//codigoHtml += '<td>' + '<button class="btn btn-success editarUsuario data-id="'+info.id+'" data-usuario="'+info.usuario+'">Cambiar contraseña</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-danger borrarUsuario" data-id="'+info.id+'">Borrar</button>' + '</td>'
 				codigoHtml += '</tr>'
 				
 			});
+       		$('#listaUsuariosAdmin').html(codigoHtml);
 			$('#divAdminUsuarios').css('display', 'none');
-			$('#listaUsuariosAdmin').html(codigoHtml);
+			
 			/*Insert usuario*/
        		$('#insertarUsuario').click(function(){
        			var codigoHtml = "";
@@ -582,6 +583,45 @@ $(document).ready(function(){
 				});
        		});
        		/*Insert usuario*/
+       		
+       		/*Update contraseña*/
+       		/*$('.editarUsuario').click(function(){
+       			var id = $(this).data('id');
+       			var usuario = $(this).data('usuario');
+       			var codigoHtml = "";
+       			codigoHtml += 'Usuario: <input type="text" class="form-control" id="usuario" placeholder="'+usuario+'" readonly>'
+       			codigoHtml += 'Su nueva contraseña: <input type="password" class="form-control" id="contrasenia"><br>'
+       			codigoHtml += '<button class="btn btn-success" id="editarContraseña">Cambiar contraseña</button>'
+       				$('#listaUsuariosAdmin').html(codigoHtml);
+       				$('#editarContraseña').click(function(){
+       					var contrasenia = $('#contrasenia').val();
+       					$.ajax({
+        			       	type:"POST",
+        			       	url: "../controller/cUpdateUsuario.php", 
+        			    	data:{id:id, contrasenia:contrasenia},
+        			    	success: function(result){  
+        			    		alert('Contraseña cambiada');
+        			    		location.reload();
+        					},
+        				});
+       				});
+       		});*/
+       		/*Update contraseña*/
+       		
+       		/*Delete usuario*/
+       		$('.borrarUsuario').click(function(){
+       			var id = $(this).data('id');
+       			$.ajax({
+			       	type:"POST",
+			       	url: "../controller/cDeleteUsuario.php", 
+			    	data:{"id":id},
+			    	success: function(result){  
+			    		alert('Usuario eliminado');
+			    		location.reload();
+					},
+				});
+       		});
+       		/*Delete usuario*/
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);

@@ -80,6 +80,46 @@ class usuarioModel extends usuarioClass{
         
     }
     
+    /*public function updateContrasenia(){
+        
+        $this->OpenConnect();
+        
+        $id->$this->getId();
+        $contrasenia->$this->getContrasenia();
+        
+        $options=['cost'=>10];
+        $contraseniaEncriptada=password_hash($contrasenia, PASSWORD_BCRYPT, $options) ;
+        
+        $sql="CALL spUpdateContrasenia($id,'$contraseniaEncriptada')";
+        
+        $numFilas=$this->link->query($sql);
+        
+        if ($numFilas>=1){
+            return "cambiado";
+        } else {
+            return "Error al cambiar".$sql.print_r($numFilas,true);
+        }
+        
+        $this->CloseConnect();
+    }*/
+    
+    public function deleteUsuario()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        
+        $sql = "CALL spDeleteUsuario($id)";
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "El usuario ha sido borrado";
+        } else {
+            return "Fall� el borrado: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        $this->CloseConnect();
+    }
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();
