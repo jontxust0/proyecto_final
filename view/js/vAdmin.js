@@ -535,6 +535,59 @@ $(document).ready(function(){
    		}
 	});
 	
+	$.ajax({
+       	type:"GET",
+       	url: "../controller/cUsuarios.php", 
+    	dataType: "json",
+       	
+    	success: function(result){  
+       		
+    		console.log(result.lista);
+    	
+       		var usuarios = result.lista;
+       		var codigoHtml = '<tr class="indiceElemento"><td>Usuario</td><td>Contraseña (Su contraseña se encripta tras crear nuevo usuario)</td></tr>'
+       			
+			$.each(usuarios,function(index,info) { 
+				codigoHtml +='<tr>'
+				codigoHtml += '<td>' + info.usuario + '</td>'
+				codigoHtml += '<td>' + info.contrasenia + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-success editarUsuario">Editar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-danger borrarUsuario">Borrar</button>' + '</td>'
+				codigoHtml += '</tr>'
+				
+			});
+			$('#divAdminUsuarios').css('display', 'none');
+			$('#listaUsuariosAdmin').html(codigoHtml);
+			/*Insert usuario*/
+       		$('#insertarUsuario').click(function(){
+       			var codigoHtml = "";
+				codigoHtml += 'Nombre de usuario: <input type="text" class="form-control" id="usuario" placeholder="Nombre del usuario..">'
+				codigoHtml += 'Contraseña: <input type="password" class="form-control" id="contrasenia" placeholder="Su contraseña..">'
+				codigoHtml += '<br><br>'
+				codigoHtml += '<button class="btn btn-primary" id="añadirUsuario">Añadir usuario</button>'
+				$('#divAdminUsuarios').css('display', 'block');
+				$('#listaUsuariosAdmin').html(codigoHtml);
+				$('#añadirUsuario').click(function(){
+					var usuario = $('#usuario').val();
+					var contrasenia = $('#contrasenia').val();
+					$.ajax({
+				       	type:"POST",
+				       	url: "../controller/cInsertUsuario.php", 
+				    	data:{usuario:usuario, contrasenia:contrasenia},
+				    	success: function(result){  
+				    		alert('Insertado nuevo usuario');
+				    		location.reload();
+						},
+					});
+				});
+       		});
+       		/*Insert usuario*/
+		},
+       	error : function(xhr) {
+   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+   		}
+	});
+	
 	
 	/*Mostrara los elementos del que se elija, y ocultara los demas*/
 	$('#adminPeliculas').click(function(){
@@ -543,6 +596,7 @@ $(document).ready(function(){
 		$('#divAdminSesiones').css('display', 'none');
 		$('#divAdminCines').css('display', 'none');
 		$('#divAdminFacturas').css('display', 'none');
+		$('#divAdminUsuarios').css('display', 'none');
 	});
 	
 	$('#adminEstrenos').click(function(){
@@ -551,6 +605,7 @@ $(document).ready(function(){
 		$('#divAdminSesiones').css('display', 'none');
 		$('#divAdminCines').css('display', 'none');
 		$('#divAdminFacturas').css('display', 'none');
+		$('#divAdminUsuarios').css('display', 'none');
 	});
 	
 	$('#adminCines').click(function(){
@@ -559,6 +614,7 @@ $(document).ready(function(){
 		$('#divAdminPeliculas').css('display', 'none');
 		$('#divAdminSesiones').css('display', 'none');
 		$('#divAdminFacturas').css('display', 'none');
+		$('#divAdminUsuarios').css('display', 'none');
 	});
 	
 	$('#adminSesiones').click(function(){
@@ -567,10 +623,21 @@ $(document).ready(function(){
 		$('#divAdminPeliculas').css('display', 'none');
 		$('#divAdminCines').css('display', 'none');
 		$('#divAdminFacturas').css('display', 'none');
+		$('#divAdminUsuarios').css('display', 'none');
 	});
 	
 	$('#adminFacturas').click(function(){
 		$('#divAdminFacturas').css('display', 'block');
+		$('#divAdminSesiones').css('display', 'none');
+		$('#divAdminEstrenos').css('display', 'none');
+		$('#divAdminPeliculas').css('display', 'none');
+		$('#divAdminCines').css('display', 'none');
+		$('#divAdminUsuarios').css('display', 'none');
+	});
+	
+	$('#adminUsuarios').click(function(){
+		$('#divAdminUsuarios').css('display', 'block');
+		$('#divAdminFacturas').css('display', 'none');
 		$('#divAdminSesiones').css('display', 'none');
 		$('#divAdminEstrenos').css('display', 'none');
 		$('#divAdminPeliculas').css('display', 'none');

@@ -12,6 +12,28 @@ class usuarioModel extends usuarioClass{
         return $this->lista;
     }
     
+    public function listaUsuarios()
+    {
+        $this->OpenConnect();
+        
+        $sql = "CALL spMostrarUsuarios()";
+        
+        $result = $this->link->query($sql);
+        
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            
+            $nuevo=new usuarioClass();
+            
+            $nuevo->setId($row['id']);
+            $nuevo->setUsuario($row['usuario']);
+            $nuevo->setContrasenia($row['contrasenia']);
+
+            array_push($this->lista, $nuevo);
+        }
+        mysqli_free_result($result);
+        $this->CloseConnect();
+    }
+    
     public function findUsuario(){
         $this->OpenConnect();
         $nombreDeUsuario = $this->usuario;
@@ -22,9 +44,9 @@ class usuarioModel extends usuarioClass{
         $userExist = false;
         if ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             
-            $contrasenia = $row['contrasenia'];
+            $contraseniaEncriptada = $row['contrasenia'];
             
-            if ($this->getContrasenia() == $contrasenia)
+            if (password_verify($this->getContrasenia(), $contraseniaEncriptada))
             {
                 
                 
@@ -38,7 +60,26 @@ class usuarioModel extends usuarioClass{
         mysqli_free_result($result);
         $this->CloseConnect();
     }
+    
+    public function insertarUsuario()
+    {
+        $this->OpenConnect();
         
+        $usuario=$this->usuario;
+        $contrasenia=$this->contrasenia;
+        
+        $options=['cost'=>10];
+        $contraseniaEncriptada=password_hash($contrasenia, PASSWORD_BCRYPT, $options) ;
+        
+        $sql="call spInsertUsuario('$usuario', '$contraseniaEncriptada')";
+        $result= $this->link->query($sql);
+        
+        return $this->link->affected_rows;
+        
+        $this->CloseConnect();
+        
+    }
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();
