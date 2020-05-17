@@ -37,10 +37,10 @@ class butacaModel extends butacaClass{
         $this->CloseConnect();
     }
     
-    public function ocuparButacas($butacasOcupar){
+    public function ocuparButaca(){
         $this->OpenConnect();
-        
-        $sql = "CALL spOcuparButacas('$butacasOcupar')";
+        $butacaOcupar = $this->getId();
+        $sql = "CALL spOcuparButacas($butacaOcupar)";
         $result = $this->link->query($sql);
         
         if ($this->link->query($sql)>=1)

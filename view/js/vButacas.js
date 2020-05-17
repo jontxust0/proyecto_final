@@ -79,7 +79,7 @@ $(document).ready(function(){
 		    	success: function(result){  
 		    		console.log(result);
 		    		alert('Acabas de hacer la compra');
-		    		//window.location.href = '../index.html';
+		    		window.location.href = '../index.html';
 				},
 		       	error : function(xhr) {
 		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
@@ -87,24 +87,22 @@ $(document).ready(function(){
 			});
 			/*Ocupar los asientos elegidos al hacer la compra*/
 			var asientosOcupar = document.getElementsByClassName("ocupar");
-			var idAsientosOcupar = "";
+			var idAsientoOcupar = 0;
 			for (var i = 0; i < asientosOcupar.length; i++) {
-				idAsientosOcupar += asientosOcupar[i].getAttribute('data-id') + ",";
-			}
-			var idAsientosOcupar = idAsientosOcupar;
-			
-			$.ajax({
-		       	type:"POST",
-		       	url: "../controller/cOcuparButacas.php",
-		       	data:{idAsientosOcupar:idAsientosOcupar},
-		    	success: function(result){  
-		    		console.log(result);
+				idAsientoOcupar = asientosOcupar[i].getAttribute('data-id');
+				$.ajax({
+			       	type:"POST",
+			       	url: "../controller/cOcuparButacas.php",
+			       	data:{idAsientoOcupar:idAsientoOcupar},
+			    	success: function(result){  
+			    		console.log(result);
 
-				},
-		       	error : function(xhr) {
-		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
-		   		}
-			});
+					},
+			       	error : function(xhr) {
+			   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+			   		}
+				});
+			}
 			/*Ocupar los asientos elegidos al hacer la compra*/
 		});
 	});
