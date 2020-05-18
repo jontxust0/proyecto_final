@@ -99,6 +99,23 @@ class cineModel extends cineClass {
         $this->CloseConnect();
     }
     
+    public function deleteCine()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        
+        $sql = "CALL spDeleteCine($id)";
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "se ha sido borrado de la lista";
+        } else {
+            return "Fall� el borrado: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        $this->CloseConnect();
+    }
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();

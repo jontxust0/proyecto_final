@@ -357,6 +357,21 @@ $(document).ready(function(){
 				});
 			});
 			/*Update cine*/
+			
+			/*Delete cine*/
+			$('.borrarCine').click(function(){
+				var id = $(this).data('id');
+				$.ajax({
+			       	type:"POST",
+			       	url: "../controller/cDeleteCine.php", 
+			    	data:{"id":id},
+			    	success: function(result){  
+			    		alert('Se ha borrado el cine');
+			    		location.reload();
+					},
+				});
+			});
+			/*Delete cine*/
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
