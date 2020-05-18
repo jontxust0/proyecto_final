@@ -301,13 +301,36 @@ $(document).ready(function(){
 				codigoHtml +='<tr>'
 				codigoHtml += '<td>' + info.nombre + '</td>'
 				codigoHtml += '<td>' + info.ubicacion + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-success editarCine">Editar</button>' + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-danger borrarCine">Borrar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-success editarCine" data-id="'+info.id+'">Editar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-danger borrarCine" data-id="'+info.id+'">Borrar</button>' + '</td>'
 				codigoHtml += '</tr>'
 				
 			});
 			$('#divAdminCines').css('display', 'none');
 			$('#listaCinesAdmin').html(codigoHtml);
+			/*Insert cine*/
+			$('#insertarCine').click(function(){
+				var codigoHtml = "";
+				codigoHtml += 'Nombre del nuevo cine: <input class="form-control" type="text" id="cine" placeholder="El nombre..">'
+				codigoHtml += 'Lugar: <input class="form-control" type="text" id="ubicacion" placeholder="Su ubicacion.." id="ubicacion">'
+				codigoHtml += '<br><button class="btn btn-primary" id="insertCine">Añadir nuevo cine</button>'
+       			$('#divAdminCines').css('display', 'block');
+       			$('#listaCinesAdmin').html(codigoHtml);
+       			$('#insertCine').click(function(){
+       				var cine = $('#cine').val();
+       				var ubicacion = $('#ubicacion').val();
+       				$.ajax({
+    			       	type:"POST",
+    			       	url: "../controller/cInsertCine.php", 
+    			    	data:{cine:cine, ubicacion:ubicacion},
+    			    	success: function(result){  
+    			    		alert('Añadido nuevo cine');
+    			    		location.reload();
+    					},
+    				});
+       			});
+       		});
+			/*Insert cine*/
        		
 		},
        	error : function(xhr) {

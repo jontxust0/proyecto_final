@@ -57,6 +57,27 @@ class cineModel extends cineClass {
         return $this;
     } 
     
+    public function insertarCine()
+    {
+        $this->OpenConnect();
+        
+        $nombre=$this->getNombre();
+        $ubicacion=$this->getUbicacion();
+
+        
+        $sql = "CALL spInsertCine('$nombre','$ubicacion')";
+        
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "Se ha insertado nuevo cine";
+        } else {
+            return "Fallo al insertar nuevo cine: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();
