@@ -43,6 +43,12 @@ $(document).ready(function(){
 			
 			/*Insert pelicula*/
 			$('#insertarPelicula').click(function(){
+				$('#divAdminEstrenos').css('display', 'none');
+				$('#divAdminSesiones').css('display', 'none');
+				$('#divAdminCines').css('display', 'none');
+				$('#divAdminFacturas').css('display', 'none');
+				$('#divAdminUsuarios').css('display', 'none');
+				$('#divAdminPeliculasGeneros').css('display', 'none');
 				var codigoHtml = "";
 				codigoHtml += 'Titulo: <input type="text" class="form-control" id="titulo" placeholder="Titulo de la pelicula..">'
 				codigoHtml += 'Duracion: <input type="text" class="form-control" id="duracion" placeholder="Su duracion en minutos..">'
@@ -173,7 +179,12 @@ $(document).ready(function(){
 			
 			/*Insert estreno*/
 			$('#insertarEstreno').click(function(peliculas){
-
+				$('#divAdminPeliculas').css('display', 'none');
+				$('#divAdminSesiones').css('display', 'none');
+				$('#divAdminCines').css('display', 'none');
+				$('#divAdminFacturas').css('display', 'none');
+				$('#divAdminUsuarios').css('display', 'none');
+				$('#divAdminPeliculasGeneros').css('display', 'none');
 				$.ajax({
 			       	type:"GET",
 			       	url: "../controller/cPeliculas.php", 
@@ -347,6 +358,12 @@ $(document).ready(function(){
 			
 			/*Insert sesion*/
 			$('#insertarSesion').click(function(){
+				$('#divAdminEstrenos').css('display', 'none');
+				$('#divAdminPeliculas').css('display', 'none');
+				$('#divAdminCines').css('display', 'none');
+				$('#divAdminFacturas').css('display', 'none');
+				$('#divAdminUsuarios').css('display', 'none');
+				$('#divAdminPeliculasGeneros').css('display', 'none');
 				$('#divAdminSesiones').css('display', 'block');
 					$.ajax({
 				       	type:"GET",
@@ -561,6 +578,12 @@ $(document).ready(function(){
 			
 			/*Insert usuario*/
        		$('#insertarUsuario').click(function(){
+       			$('#divAdminFacturas').css('display', 'none');
+       			$('#divAdminSesiones').css('display', 'none');
+       			$('#divAdminEstrenos').css('display', 'none');
+       			$('#divAdminPeliculas').css('display', 'none');
+       			$('#divAdminCines').css('display', 'none');
+       			$('#divAdminPeliculasGeneros').css('display', 'none');
        			var codigoHtml = "";
 				codigoHtml += 'Nombre de usuario: <input type="text" class="form-control" id="usuario" placeholder="Nombre del usuario..">'
 				codigoHtml += 'Contraseña: <input type="password" class="form-control" id="contrasenia" placeholder="Su contraseña..">'
@@ -653,6 +676,13 @@ $(document).ready(function(){
        		$('#listaPeliculasGenerosAdmin').html(codigoHtml);
        		/*Insert Pelicula-Genero*/
        		$('#insertarPeliculaGenero').click(function(){
+       			$('#divAdminPeliculasGeneros').css('display', 'block');
+       			$('#divAdminFacturas').css('display', 'none');
+       			$('#divAdminSesiones').css('display', 'none');
+       			$('#divAdminEstrenos').css('display', 'none');
+       			$('#divAdminPeliculas').css('display', 'none');
+       			$('#divAdminCines').css('display', 'none');
+       			$('#divAdminUsuarios').css('display', 'none');
        			$.ajax({
        		       	type:"GET",
        		       	url: "../controller/cPeliculas.php", 
@@ -788,6 +818,54 @@ $(document).ready(function(){
    		}
 	});
 	
+	$.ajax({
+       	type:"GET",
+       	url: "../controller/cGeneros.php", 
+    	dataType: "json",
+       	
+    	success: function(result){  
+       		
+    		console.log(result.lista);
+    	
+       		var generos = result.lista;
+       		var codigoHtml = '<tr class="indiceElemento"><td>Nombre</td></tr>'
+       			
+			$.each(generos,function(index,info) { 
+				codigoHtml +='<tr>'
+				codigoHtml += '<td>' + info.nombre + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-success editarGenero data-id="'+info.id+'">Editar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-danger borrarGenero" data-id="'+info.id+'">Borrar</button>' + '</td>'
+				codigoHtml += '</tr>'
+				
+			});
+			$('#divAdminGeneros').css('display', 'none');
+			$('#listaGenerosAdmin').html(codigoHtml);
+			/*Insert genero*/
+       		$('#insertarGenero').click(function(){
+       			var codigoHtml = "";
+       			codigoHtml += 'Nombre de nuevo genero: <input type="text" class="form-control" id="nombre" placeholder="El nombre..">'
+       			codigoHtml += '<br><button class="btn btn-primary" id="insertar">Añadir nuevo</button>'
+       			$('#divAdminGeneros').css('display', 'block');
+       			$('#listaGenerosAdmin').html(codigoHtml);
+       			$('#insertar').click(function(){
+       				var nombre = $('#nombre').val();
+       				$.ajax({
+	 			       	type:"POST",
+	 			       	url: "../controller/cInsertGenero.php", 
+	 			    	data:{"nombre":nombre},
+	 			    	success: function(result){  
+	 			    		alert('Se ha insertado nuevo genero');
+	 			    		location.reload();
+	 					},
+      		     });
+       			});
+       		});
+       		/*Insert genero*/
+		},
+       	error : function(xhr) {
+   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+   		}
+	});
 	
 	/*Mostrara los elementos del que se elija, y ocultara los demas*/
 	$('#adminPeliculas').click(function(){
@@ -798,6 +876,7 @@ $(document).ready(function(){
 		$('#divAdminFacturas').css('display', 'none');
 		$('#divAdminUsuarios').css('display', 'none');
 		$('#divAdminPeliculasGeneros').css('display', 'none');
+		$('#divAdminGeneros').css('display', 'none');
 	});
 	
 	$('#adminEstrenos').click(function(){
@@ -808,6 +887,7 @@ $(document).ready(function(){
 		$('#divAdminFacturas').css('display', 'none');
 		$('#divAdminUsuarios').css('display', 'none');
 		$('#divAdminPeliculasGeneros').css('display', 'none');
+		$('#divAdminGeneros').css('display', 'none');
 	});
 	
 	$('#adminCines').click(function(){
@@ -818,6 +898,7 @@ $(document).ready(function(){
 		$('#divAdminFacturas').css('display', 'none');
 		$('#divAdminUsuarios').css('display', 'none');
 		$('#divAdminPeliculasGeneros').css('display', 'none');
+		$('#divAdminGeneros').css('display', 'none');
 	});
 	
 	$('#adminSesiones').click(function(){
@@ -828,6 +909,7 @@ $(document).ready(function(){
 		$('#divAdminFacturas').css('display', 'none');
 		$('#divAdminUsuarios').css('display', 'none');
 		$('#divAdminPeliculasGeneros').css('display', 'none');
+		$('#divAdminGeneros').css('display', 'none');
 	});
 	
 	$('#adminFacturas').click(function(){
@@ -838,6 +920,7 @@ $(document).ready(function(){
 		$('#divAdminCines').css('display', 'none');
 		$('#divAdminUsuarios').css('display', 'none');
 		$('#divAdminPeliculasGeneros').css('display', 'none');
+		$('#divAdminGeneros').css('display', 'none');
 	});
 	
 	$('#adminUsuarios').click(function(){
@@ -848,10 +931,23 @@ $(document).ready(function(){
 		$('#divAdminPeliculas').css('display', 'none');
 		$('#divAdminCines').css('display', 'none');
 		$('#divAdminPeliculasGeneros').css('display', 'none');
+		$('#divAdminGeneros').css('display', 'none');
 	});
 	
 	$('#adminPeliculasGeneros').click(function(){
 		$('#divAdminPeliculasGeneros').css('display', 'block');
+		$('#divAdminFacturas').css('display', 'none');
+		$('#divAdminSesiones').css('display', 'none');
+		$('#divAdminEstrenos').css('display', 'none');
+		$('#divAdminPeliculas').css('display', 'none');
+		$('#divAdminCines').css('display', 'none');
+		$('#divAdminUsuarios').css('display', 'none');
+		$('#divAdminGeneros').css('display', 'none');
+	});
+	
+	$('#adminGeneros').click(function(){
+		$('#divAdminGeneros').css('display', 'block');
+		$('#divAdminPeliculasGeneros').css('display', 'none');
 		$('#divAdminFacturas').css('display', 'none');
 		$('#divAdminSesiones').css('display', 'none');
 		$('#divAdminEstrenos').css('display', 'none');

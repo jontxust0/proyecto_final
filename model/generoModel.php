@@ -57,6 +57,25 @@ class generoModel extends  generoClass{
         }
     }
     
+    public function insertarGenero()
+    {
+        $this->OpenConnect();
+        
+        $nombre=$this->getNombre();
+        
+        $sql = "CALL spInsertGenero('$nombre')";
+        
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "Se ha insertado nuevo genero";
+        } else {
+            return "Fallo al insertar nuevo genero: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();
