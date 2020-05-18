@@ -53,6 +53,23 @@ class butacaModel extends butacaClass{
         $this->CloseConnect();
     }
     
+    public function contarButacasLibres(){
+        $this->OpenConnect();
+        $idCine = $this->getId_cine();
+        $sql = "CALL spContarButacasLibres($idCine)";
+        $result = $this->link->query($sql);
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "El numero de butacas libres es";
+        } else {
+            return "Fallo al mostrar: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+    
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();

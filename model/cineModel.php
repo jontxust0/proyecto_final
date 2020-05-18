@@ -57,6 +57,25 @@ class cineModel extends cineClass {
         return $this;
     } 
     
+    public function librarButacasCine()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+         
+        $sql = "CALL spLibrarButacas($id)";
+        
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "Las butacas ahora estan libres";
+        } else {
+            return "Fallo intentar librar butacas: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+    
     public function insertarCine()
     {
         $this->OpenConnect();

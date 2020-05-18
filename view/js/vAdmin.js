@@ -297,12 +297,24 @@ $(document).ready(function(){
        		var cines = result.lista;
        		var codigoHtml = '<tr class="indiceElemento"><td>Nombre</td><td>Ubicación</td></tr>'
        			
-			$.each(cines,function(index,info) { 
+			$.each(cines,function(index,info) {
+				var idCine = info.id;
 				codigoHtml +='<tr>'
 				codigoHtml += '<td>' + info.nombre + '</td>'
 				codigoHtml += '<td>' + info.ubicacion + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-success editarCine" data-id="'+info.id+'" data-nombre="'+info.nombre+'" data-ubicacion="'+info.ubicacion+'">Editar</button>' + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-danger borrarCine" data-id="'+info.id+'">Borrar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-warning librarAsientos" data-id="'+info.id+'">Librar asientos</button>' + '</td>'
+				$.ajax({
+			       	type:"POST",
+			       	url: "../controller/cContarButacasLibres.php", 
+			    	dataType:"json",
+			    	data:{idCine:idCine},
+			    	success: function(result){  
+			    		codigoHtml += '<tr class="indiceElemento"><td>Butacas libres:d</td></tr>'
+					},
+				});
+				
 				codigoHtml += '</tr>'
 				
 			});
@@ -313,7 +325,8 @@ $(document).ready(function(){
 				var codigoHtml = "";
 				codigoHtml += 'Nombre del nuevo cine: <input class="form-control" type="text" id="cine" placeholder="El nombre..">'
 				codigoHtml += 'Lugar: <input class="form-control" type="text" id="ubicacion" placeholder="Su ubicacion.." id="ubicacion">'
-				codigoHtml += '<br><button class="btn btn-primary" id="insertCine">Añadir nuevo cine</button>'
+				codigoHtml += '<br><button class="btn btn-primary text-white" id="insertCine">Añadir nuevo cine</button>'
+				
        			$('#divAdminCines').css('display', 'block');
        			$('#listaCinesAdmin').html(codigoHtml);
        			$('#insertCine').click(function(){
@@ -372,6 +385,21 @@ $(document).ready(function(){
 				});
 			});
 			/*Delete cine*/
+			
+			/*Librar butacas del cine, para que esten todos libres*/
+			$('.librarAsientos').click(function(){
+				var id = $(this).data('id');
+				$.ajax({
+			       	type:"POST",
+			       	url: "../controller/cLibrarButacas.php", 
+			    	data:{"id":id},
+			    	success: function(result){  
+			    		alert('Todas las butacas del cine estan sin ocupar ahora');
+			    		location.reload();
+					},
+				});
+			});
+			/*Librar butacas del cine, para que esten todos libres*/
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
