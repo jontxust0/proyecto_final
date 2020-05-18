@@ -644,7 +644,7 @@ $(document).ready(function(){
 				codigoHtml +='<tr>'
 				codigoHtml += '<td>' + info.objPelicula.titulo + '</td>'
 				codigoHtml += '<td>' + info.objGenero.nombre + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-success editarPeliculaGenero">Editar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-success editarPeliculaGenero" data-id="'+info.id+'" data-titulo="'+info.objPelicula.titulo+'">Editar</button>' + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-danger borrarPeliculaGenero">Borrar</button>' + '</td>'
 				codigoHtml += '</tr>'
 				
@@ -723,6 +723,50 @@ $(document).ready(function(){
        		});
        		/*Insert Pelicula-Genero*/
 			
+       		/*Update pelicula-genero*/
+       		$('.editarPeliculaGenero').click(function(){
+       			var id = $(this).data('id');
+
+       			var peliculaOld = $(this).data('titulo');
+       			var codigoHtml ="";
+       			codigoHtml += 'La pelicula escogida: <input class="form-control" placeholder="'+peliculaOld+'" readonly>'
+       			$.ajax({
+	 			       	type:"GET",
+	 			       	url: "../controller/cGeneros.php",
+	 			       	dataType:"json",
+	 			    	success: function(result){  
+	 			    		console.log(result.lista);
+       	       		    	
+   	       		       		var generos = result.lista;
+   	       		       		codigoHtml += 'Elige el genero: <select class="custom-select" id="genero">';
+   	       		       		codigoHtml += '<option selected="">Ninguno</option>'
+   	       					$.each(generos,function(index,info) { 
+   	       						codigoHtml += '<option value="'+info.id+'">' + info.nombre+ '</option>'
+
+   	       					});
+   	       		       		codigoHtml += '</select><br><br>'
+   	       		       		codigoHtml += '<button class="btn btn-success" id="update">Modificar</button>'
+   	       		       		$('#listaPeliculasGenerosAdmin').html(codigoHtml);
+   	       		       		$('#update').click(function(){
+   	       		       			var idGenero = $('#genero').val();
+
+			   	       		       	$.ajax({
+			       	 			       	type:"POST",
+			       	 			       	url: "../controller/cUpdatePeliculaGenero.php", 
+			       	 			    	data:{id:id, idGenero:idGenero},
+			       	 			    	success: function(result){  
+			       	 			    		alert('Se ha cambiado el genero de la pelicula');
+			       	 			    		location.reload();
+			       	 					},
+			   	       		       	});
+   	       		       		});
+	 					},
+	 					error : function(xhr) {
+	       		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	       		   		}
+      		       	});
+       		});
+       		/*Update pelicula-genero*/
        		
 		},
        	error : function(xhr) {
