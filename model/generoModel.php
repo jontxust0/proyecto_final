@@ -76,6 +76,43 @@ class generoModel extends  generoClass{
         $this->CloseConnect();
     }
     
+    public function updateGenero()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        $nombre= $this->getNombre();
+        
+        $sql = "CALL spUpdateGenero($id, '$nombre')";
+        
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "se ha modificado con exito";
+        } else {
+            return "Falla la modificacion (" . $this->link->errno . ") " . $this->link->error;
+        }
+        
+        $this->CloseConnect();
+    }
+    
+    public function deleteGenero()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        
+        $sql = "CALL spDeleteGenero($id)";
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "se ha sido borrado de la lista";
+        } else {
+            return "Fall� el borrado: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        $this->CloseConnect();
+    }
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();

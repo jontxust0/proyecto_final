@@ -833,7 +833,7 @@ $(document).ready(function(){
 			$.each(generos,function(index,info) { 
 				codigoHtml +='<tr>'
 				codigoHtml += '<td>' + info.nombre + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-success editarGenero data-id="'+info.id+'">Editar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-success editarGenero" data-id="'+info.id+'" data-nombre="'+info.nombre+'">Editar</button>' + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-danger borrarGenero" data-id="'+info.id+'">Borrar</button>' + '</td>'
 				codigoHtml += '</tr>'
 				
@@ -857,10 +857,48 @@ $(document).ready(function(){
 	 			    		alert('Se ha insertado nuevo genero');
 	 			    		location.reload();
 	 					},
-      		     });
+       				});
        			});
        		});
        		/*Insert genero*/
+       		
+       		/*Update genero*/
+       		$('.editarGenero').click(function(){
+       			var nombreOld = $(this).data('nombre');
+       			var id = $(this).data('id');
+       			var codigoHtml = "";
+       			codigoHtml += 'Nuevo nombre: <input type="text" class="form-control" id="nombre" placeholder="'+nombreOld+'">'
+       			codigoHtml += '<br><button class="btn btn-success" id="update">Modificar</button>'
+       			$('#listaGenerosAdmin').html(codigoHtml);
+       			$('#update').click(function(){
+       				var nombre = $('#nombre').val();
+       				$.ajax({
+	 			       	type:"POST",
+	 			       	url: "../controller/cUpdateGenero.php", 
+	 			    	data:{id:id, nombre:nombre},
+	 			    	success: function(result){  
+	 			    		alert('Se ha modificado');
+	 			    		location.reload();
+	 					},
+       				});
+       			});
+       		});
+       		/*Update genero*/
+       		
+       		/*Delete genero*/
+       		$('.borrarGenero').click(function(){
+       			var id = $(this).data('id');
+       			$.ajax({
+ 			       	type:"POST",
+ 			       	url: "../controller/cDeleteGenero.php", 
+ 			    	data:{"id":id},
+ 			    	success: function(result){  
+ 			    		alert('Se ha borrado el genero');
+ 			    		location.reload();
+ 					},
+   				});
+       		});
+       		/*Delete genero*/
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
