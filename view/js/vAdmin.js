@@ -301,7 +301,7 @@ $(document).ready(function(){
 				codigoHtml +='<tr>'
 				codigoHtml += '<td>' + info.nombre + '</td>'
 				codigoHtml += '<td>' + info.ubicacion + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-success editarCine" data-id="'+info.id+'">Editar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-success editarCine" data-id="'+info.id+'" data-nombre="'+info.nombre+'" data-ubicacion="'+info.ubicacion+'">Editar</button>' + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-danger borrarCine" data-id="'+info.id+'">Borrar</button>' + '</td>'
 				codigoHtml += '</tr>'
 				
@@ -331,7 +331,32 @@ $(document).ready(function(){
        			});
        		});
 			/*Insert cine*/
-       		
+			
+       		/*Update cine*/
+			$('.editarCine').click(function(){
+				var id = $(this).data('id');
+				var nombreOld = $(this).data('nombre');
+				var ubicacionOld = $(this).data('ubicacion');
+				var codigoHtml = "";
+				codigoHtml += 'Nuevo nombre: <input class="form-control" type="text" id="cine" placeholder="'+nombreOld+'">'
+				codigoHtml += 'Nueva ubicacion: <input class="form-control" type="text" id="ubicacion" placeholder="'+ubicacionOld+'" id="ubicacion">'
+				codigoHtml += '<br><button class="btn btn-success" id="updateCine">Modificar cine</button>'
+				$('#listaCinesAdmin').html(codigoHtml);
+				$('#updateCine').click(function(){
+					var cine = $('#cine').val();
+       				var ubicacion = $('#ubicacion').val();
+       				$.ajax({
+    			       	type:"POST",
+    			       	url: "../controller/cUpdateCine.php", 
+    			    	data:{id:id, cine:cine, ubicacion:ubicacion},
+    			    	success: function(result){  
+    			    		alert('Modificado cine');
+    			    		location.reload();
+    					},
+    				});
+				});
+			});
+			/*Update cine*/
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);
