@@ -26,7 +26,12 @@ class generoClass{
     {
         $this->nombre = $nombre;
     }
-
+    
+    function getObjectVars()
+    {
+        $vars = get_object_vars($this);
+        return  $vars;
+    }
 }
 
 ?>

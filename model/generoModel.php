@@ -38,6 +38,24 @@ class generoModel extends  generoClass{
         $this->CloseConnect();
     }
     
+    public function findIdGenero()
+    {
+        $idGenero=$this->id;
+        
+        $this->OpenConnect();
+        $sql = "CALL spFindIdGenero($idGenero)";
+        
+        $result = $this->link->query($sql);
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            
+            $this->setId($row['id']);
+            $this->setNombre($row['nombre']);
+
+        mysqli_free_result($result);
+        $this->CloseConnect();
+        return $this;
+        }
+    }
     
     public function OpenConnect()
     {

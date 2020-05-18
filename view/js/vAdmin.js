@@ -628,6 +628,108 @@ $(document).ready(function(){
    		}
 	});
 	
+	$.ajax({
+       	type:"GET",
+       	url: "../controller/cPeliculasGeneros.php", 
+    	dataType: "json",
+       	
+    	success: function(result){  
+       		
+    		console.log(result.lista);
+    	
+       		var cines = result.lista;
+       		var codigoHtml = '<tr class="indiceElemento"><td>Pelicula</td><td>Genero</td></tr>'
+       			
+			$.each(cines,function(index,info) { 
+				codigoHtml +='<tr>'
+				codigoHtml += '<td>' + info.objPelicula.titulo + '</td>'
+				codigoHtml += '<td>' + info.objGenero.nombre + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-success editarPeliculaGenero">Editar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-danger borrarPeliculaGenero">Borrar</button>' + '</td>'
+				codigoHtml += '</tr>'
+				
+			});
+       		$('#divAdminPeliculasGeneros').css('display', 'none');
+       		$('#listaPeliculasGenerosAdmin').html(codigoHtml);
+       		/*Insert Pelicula-Genero*/
+       		$('#insertarPeliculaGenero').click(function(){
+       			$.ajax({
+       		       	type:"GET",
+       		       	url: "../controller/cPeliculas.php", 
+       		    	dataType: "json",
+       		       	
+       		    	success: function(result){  
+       		       		
+       		    		console.log(result.lista);
+       		    	
+       		       		var peliculas = result.lista;
+       		       		var codigoHtml = 'Elige la película: <select class="custom-select"  id="pelicula">';
+       		       		codigoHtml += '<option selected="">Ninguna</option>'
+       					$.each(peliculas,function(index,info) { 
+       						codigoHtml += '<option value="'+info.id+'">' + info.titulo+ '</option>'
+
+       					});
+       		       		codigoHtml += '</select>'
+       		       		$.ajax({
+       	       		       	type:"GET",
+       	       		       	url: "../controller/cGeneros.php", 
+       	       		    	dataType: "json",
+       	       		       	
+       	       		    	success: function(result){  
+       	       		       		
+       	       		    		console.log(result.lista);
+       	       		    	
+       	       		       		var generos = result.lista;
+       	       		       		codigoHtml += 'Elige el genero: <select class="custom-select" id="genero">';
+       	       		       		codigoHtml += '<option selected="">Ninguno</option>'
+       	       					$.each(generos,function(index,info) { 
+       	       						codigoHtml += '<option value="'+info.id+'">' + info.nombre+ '</option>'
+
+       	       					});
+       	       		       		codigoHtml += '</select><br><br>'
+       	       		       		codigoHtml += '<button class="btn btn-primary" id="insertar">Añadir nuevo</button>'
+       	       		       		$('#listaPeliculasGenerosAdmin').html(codigoHtml);
+       	       		       		var idPelicula = 0;
+       	       		       		var idGenero = 0;
+       	       		       		$('#pelicula').change(function(){
+       	       		       			idPelicula = $(this).val();
+       	       		       		});
+       	       		       		$('#genero').change(function(){
+       	       		       			idGenero = $(this).val();
+       	       		       		});
+       	       		       		$('#insertar').click(function(){
+		       	       		       	$.ajax({
+			       	 			       	type:"POST",
+			       	 			       	url: "../controller/cInsertPeliculaGenero.php", 
+			       	 			    	data:{idPelicula:idPelicula, idGenero:idGenero},
+			       	 			    	success: function(result){  
+			       	 			    		alert('Se ha insertado la pelicula y su genero');
+			       	 			    		location.reload();
+			       	 					},
+		       	       		       	});
+       	       		       		});
+       	       				},
+       	       		       	error : function(xhr) {
+       	       		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+       	       		   		}
+       	       			});
+       		       		$('#listaPeliculasGenerosAdmin').html(codigoHtml);
+       		       	
+       				},
+       		       	error : function(xhr) {
+       		   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+       		   		}
+       			});
+       		});
+       		/*Insert Pelicula-Genero*/
+			
+       		
+		},
+       	error : function(xhr) {
+   			alert("An error occured: " + xhr.status + " " + xhr.statusText);
+   		}
+	});
+	
 	
 	/*Mostrara los elementos del que se elija, y ocultara los demas*/
 	$('#adminPeliculas').click(function(){
@@ -637,6 +739,7 @@ $(document).ready(function(){
 		$('#divAdminCines').css('display', 'none');
 		$('#divAdminFacturas').css('display', 'none');
 		$('#divAdminUsuarios').css('display', 'none');
+		$('#divAdminPeliculasGeneros').css('display', 'none');
 	});
 	
 	$('#adminEstrenos').click(function(){
@@ -646,6 +749,7 @@ $(document).ready(function(){
 		$('#divAdminCines').css('display', 'none');
 		$('#divAdminFacturas').css('display', 'none');
 		$('#divAdminUsuarios').css('display', 'none');
+		$('#divAdminPeliculasGeneros').css('display', 'none');
 	});
 	
 	$('#adminCines').click(function(){
@@ -655,6 +759,7 @@ $(document).ready(function(){
 		$('#divAdminSesiones').css('display', 'none');
 		$('#divAdminFacturas').css('display', 'none');
 		$('#divAdminUsuarios').css('display', 'none');
+		$('#divAdminPeliculasGeneros').css('display', 'none');
 	});
 	
 	$('#adminSesiones').click(function(){
@@ -664,6 +769,7 @@ $(document).ready(function(){
 		$('#divAdminCines').css('display', 'none');
 		$('#divAdminFacturas').css('display', 'none');
 		$('#divAdminUsuarios').css('display', 'none');
+		$('#divAdminPeliculasGeneros').css('display', 'none');
 	});
 	
 	$('#adminFacturas').click(function(){
@@ -673,6 +779,7 @@ $(document).ready(function(){
 		$('#divAdminPeliculas').css('display', 'none');
 		$('#divAdminCines').css('display', 'none');
 		$('#divAdminUsuarios').css('display', 'none');
+		$('#divAdminPeliculasGeneros').css('display', 'none');
 	});
 	
 	$('#adminUsuarios').click(function(){
@@ -682,6 +789,17 @@ $(document).ready(function(){
 		$('#divAdminEstrenos').css('display', 'none');
 		$('#divAdminPeliculas').css('display', 'none');
 		$('#divAdminCines').css('display', 'none');
+		$('#divAdminPeliculasGeneros').css('display', 'none');
+	});
+	
+	$('#adminPeliculasGeneros').click(function(){
+		$('#divAdminPeliculasGeneros').css('display', 'block');
+		$('#divAdminFacturas').css('display', 'none');
+		$('#divAdminSesiones').css('display', 'none');
+		$('#divAdminEstrenos').css('display', 'none');
+		$('#divAdminPeliculas').css('display', 'none');
+		$('#divAdminCines').css('display', 'none');
+		$('#divAdminUsuarios').css('display', 'none');
 	});
 	/*Mostrara los elementos del que se elija, y ocultara los demas*/
 	
