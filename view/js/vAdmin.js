@@ -645,7 +645,7 @@ $(document).ready(function(){
 				codigoHtml += '<td>' + info.objPelicula.titulo + '</td>'
 				codigoHtml += '<td>' + info.objGenero.nombre + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-success editarPeliculaGenero" data-id="'+info.id+'" data-titulo="'+info.objPelicula.titulo+'">Editar</button>' + '</td>'
-				codigoHtml += '<td>' + '<button class="btn btn-danger borrarPeliculaGenero">Borrar</button>' + '</td>'
+				codigoHtml += '<td>' + '<button class="btn btn-danger borrarPeliculaGenero" data-id="'+info.id+'">Borrar</button>' + '</td>'
 				codigoHtml += '</tr>'
 				
 			});
@@ -768,6 +768,20 @@ $(document).ready(function(){
        		});
        		/*Update pelicula-genero*/
        		
+       		/*Delete pelicula-genero*/
+       		$('.borrarPeliculaGenero').click(function(){
+       			var id = $(this).data('id');
+       			$.ajax({
+	 			       	type:"POST",
+	 			       	url: "../controller/cDeletePeliculaGenero.php", 
+	 			    	data:{"id":id},
+	 			    	success: function(result){  
+	 			    		alert('Se ha borrado el genero de la pelicula');
+	 			    		location.reload();
+	 					},
+      		     });
+       		});
+       		/*Delete pelicula-genero*/
 		},
        	error : function(xhr) {
    			alert("An error occured: " + xhr.status + " " + xhr.statusText);

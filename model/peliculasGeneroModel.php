@@ -97,6 +97,23 @@ class peliculasGeneroModel extends peliculasGeneroClass{
         $this->CloseConnect();
     }
     
+    public function deletePeliculaGenero()
+    {
+        $this->OpenConnect();
+        
+        $id=$this->getId();
+        
+        $sql = "CALL spDeletePeliculaGenero($id)";
+        
+        if ($this->link->query($sql)>=1)
+        {
+            return "se ha sido borrado de la lista";
+        } else {
+            return "Fall� el borrado: (" . $this->link->errno . ") " . $this->link->error;
+        }
+        $this->CloseConnect();
+    }
+    
     public function OpenConnect()
     {
         $konDat=new connect_data();
