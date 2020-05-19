@@ -23,16 +23,14 @@ $(document).ready(function(){
     	success: function(result){  
     		
     		console.log(result.lista);
-    		var codigoHtml = '<tr class="indiceElemento"><td>Título</td><td>Duración</td><td>Año</td><td>Imagen</td><td>Trailer</td><td>Clasificacion</td></tr>'
+    		var codigoHtml = '<tr class="indiceElemento"><td>Título</td><td>Duración</td><td>Año</td><td>Clasificacion</td></tr>'
        		var peliculas = result.lista;
     		
 			$.each(peliculas,function(index,info) {
 				codigoHtml +='<tr>'
 				codigoHtml += '<td>' + info.titulo + '</td>'
-				codigoHtml += '<td>' + info.duracion + '</td>'
+				codigoHtml += '<td>' + info.duracion + ' minutos</td>'
 				codigoHtml += '<td>' + info.anio + '</td>'
-				codigoHtml += '<td><img src='+info.imagenCartelera+'</td>'
-				codigoHtml += '<td<iframe src='+info.trailer+'></iframe></td>'
 				codigoHtml += '<td>' + info.clasificacion + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-success editarPelicula" data-id='+info.id+'>Editar</button>' + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-danger borrarPelicula" data-id='+info.id+'>Borrar</button>' + '</td>'
@@ -296,16 +294,20 @@ $(document).ready(function(){
     	
        		var cines = result.lista;
        		var codigoHtml = '<tr class="indiceElemento"><td>Nombre</td><td>Ubicación</td></tr>'
-       			
+       		var i = 0;
+       		
 			$.each(cines,function(index,info) {
 				var idCine = info.id;
+				var iCine = 'asientosLibres'+ i;
 				codigoHtml +='<tr>'
 				codigoHtml += '<td>' + info.nombre + '</td>'
 				codigoHtml += '<td>' + info.ubicacion + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-success editarCine" data-id="'+info.id+'" data-nombre="'+info.nombre+'" data-ubicacion="'+info.ubicacion+'">Editar</button>' + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-danger borrarCine" data-id="'+info.id+'">Borrar</button>' + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-warning librarAsientos" data-id="'+info.id+'">Librar asientos</button>' + '</td>'
-				$.ajax({
+				codigoHtml += '<td class="indiceElemento">Butacas libres: <span id="'+iCine+'"></span></td>'
+				i++;
+				/*$.ajax({
 			       	type:"POST",
 			       	url: "../controller/cContarButacasLibres.php", 
 			    	dataType:"json",
@@ -313,7 +315,28 @@ $(document).ready(function(){
 			    	success: function(result){  
 			    		codigoHtml += '<tr class="indiceElemento"><td>Butacas libres:d</td></tr>'
 					},
+				});*/
+				
+				/*Para que vaya contando los asientos que no esten ocupados*/
+				$.ajax({
+			       	type:"POST",
+			       	url: "../controller/cButacas.php", 
+			    	dataType:"json",
+			    	data:{"idCine":idCine},
+			    	success: function(result){
+			    		console.log(result.lista);
+			    		var butacas = result.lista;
+			    		var asientosLibres = 0;
+			    		$.each(butacas,function(index,info) {
+							if(info.reservado == 0){
+								asientosLibres = asientosLibres + 1;
+	
+							}
+						});
+			    		$('#'+iCine).html(asientosLibres);
+					},
 				});
+				/*Para que vaya contando los asientos que no esten ocupados*/
 				
 				codigoHtml += '</tr>'
 				

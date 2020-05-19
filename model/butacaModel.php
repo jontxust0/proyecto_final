@@ -53,7 +53,7 @@ class butacaModel extends butacaClass{
         $this->CloseConnect();
     }
     
-    public function contarButacasLibres(){
+    /*public function contarButacasLibres(){
         $this->OpenConnect();
         $idCine = $this->getId_cine();
         $sql = "CALL spContarButacasLibres($idCine)";
@@ -67,7 +67,7 @@ class butacaModel extends butacaClass{
         }
         
         $this->CloseConnect();
-    }
+    }*/
     
     
     public function OpenConnect()
