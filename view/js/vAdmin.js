@@ -305,7 +305,7 @@ $(document).ready(function(){
 				codigoHtml += '<td>' + '<button class="btn btn-success editarCine" data-id="'+info.id+'" data-nombre="'+info.nombre+'" data-ubicacion="'+info.ubicacion+'">Editar</button>' + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-danger borrarCine" data-id="'+info.id+'">Borrar</button>' + '</td>'
 				codigoHtml += '<td>' + '<button class="btn btn-warning librarAsientos" data-id="'+info.id+'">Librar asientos</button>' + '</td>'
-				codigoHtml += '<td class="indiceElemento">Butacas libres: <span id="'+iCine+'"></span></td>'
+				codigoHtml += '<td class="indiceElemento">Butacas libres: <span id="'+iCine+'" style="color:purple;font-size:25px"></span></td>'
 				i++;
 				/*$.ajax({
 			       	type:"POST",
