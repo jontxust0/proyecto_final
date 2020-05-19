@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-05-2020 a las 06:36:12
+-- Tiempo de generación: 19-05-2020 a las 16:10:20
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -29,17 +29,32 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spComprobarUsuario` (IN `pUsuario` VARCHAR(100))  NO SQL
 SELECT * FROM usuarios WHERE usuarios.usuario = pUsuario$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spContarButacasLibres` (IN `pIdCine` INT)  NO SQL
+SELECT COUNT(numero) FROM butacas WHERE butacas.reservado = 0 AND butacas.id_cine = pIdCine$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeleteCine` (IN `pId` INT)  NO SQL
+DELETE FROM cines WHERE cines.id = pId$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeleteEstreno` (IN `pId` INT)  NO SQL
 DELETE FROM estrenos WHERE estrenos.id = pId$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeleteFactura` (IN `pId` INT)  NO SQL
 DELETE FROM facturas WHERE facturas.id = pid$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeleteGenero` (IN `pId` INT)  NO SQL
+DELETE FROM generos WHERE generos.id = pId$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeletePelicula` (IN `pId` INT)  NO SQL
 DELETE FROM peliculas WHERE peliculas.id = pId$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeletePeliculaGenero` (IN `pId` INT)  NO SQL
+DELETE FROM peliculasgeneros WHERE peliculasgeneros.id = pId$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeleteSesion` (IN `pId` INT)  NO SQL
 DELETE FROM sesiones WHERE sesiones.id = pId$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spDeleteUsuario` (IN `pId` INT)  NO SQL
+DELETE FROM usuarios WHERE usuarios.id = pid$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdCine` (IN `pIdCine` INT)  NO SQL
 SELECT * FROM cines WHERE cines.id = pIdCine$$
@@ -47,8 +62,14 @@ SELECT * FROM cines WHERE cines.id = pIdCine$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdEstreno` (IN `pIdEstreno` INT)  NO SQL
 SELECT * FROM estrenos WHERE estrenos.id = pIdEstreno$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdGenero` (IN `pIdGenero` INT)  NO SQL
+SELECT * FROM generos WHERE generos.id = pIdGenero$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spFindIdPelicula` (IN `pIdPelicula` INT)  NO SQL
 SELECT * FROM peliculas WHERE peliculas.id = pIdPelicula$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertCine` (IN `pNombre` VARCHAR(50), IN `pUbicacion` VARCHAR(100))  NO SQL
+INSERT INTO cines (cines.nombre, cines.ubicacion) VALUES (pNombre, pUbicacion)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertEstreno` (IN `pFechaDeEstreno` VARCHAR(50), IN `pId_pelicula` INT)  NO SQL
 INSERT INTO estrenos (estrenos.fechaDeEstreno, estrenos.id_pelicula) VALUES (pFechaDeEstreno, pId_pelicula)$$
@@ -56,11 +77,20 @@ INSERT INTO estrenos (estrenos.fechaDeEstreno, estrenos.id_pelicula) VALUES (pFe
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertFactura` (IN `pEntradasCompradas` INT(3), IN `pPrecioEntrada` FLOAT, IN `pPrecioTotal` FLOAT, IN `pId_sesion` INT(4), IN `pCine` VARCHAR(50), IN `pHora_sesion` VARCHAR(12))  NO SQL
 INSERT INTO facturas (facturas.entradasCompradas, facturas.precioEntrada, facturas.precioTotal, facturas.id_sesion, facturas.cine, facturas.hora_sesion) VALUES (pEntradasCompradas, pPrecioEntrada, pPrecioTotal, pId_sesion, pCine, pHora_sesion)$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertGenero` (IN `pNombre` VARCHAR(50))  NO SQL
+INSERT INTO generos (generos.nombre) VALUES (pNombre)$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertPelicula` (IN `pTitulo` VARCHAR(100), IN `pDuracion` INT, IN `pAnio` INT, IN `pImagenCartelera` VARCHAR(200), IN `pTrailer` VARCHAR(200), IN `pClasificacion` VARCHAR(50))  NO SQL
 INSERT INTO peliculas (peliculas.titulo, peliculas.duracion, peliculas.anio, peliculas.imagenCartelera, peliculas.trailer, peliculas.clasificacion) VALUES (pTitulo, pDuracion, pAnio, pImagenCartelera, pTrailer, pClasificacion)$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertPeliculaGenero` (IN `idPelicula` INT, IN `idGenero` INT)  NO SQL
+INSERT INTO peliculasgeneros (peliculasgeneros.id_pelicula, peliculasgeneros.id_genero) VALUES (idPelicula,idGenero)$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertSesion` (IN `pHora` VARCHAR(15), IN `pIdCine` INT, IN `pIdPelicula` INT, IN `pPrecio` FLOAT)  NO SQL
 INSERT INTO sesiones (sesiones.hora, sesiones.id_cine, sesiones.id_pelicula, sesiones.precio) VALUES (pHora, pIdCine, pIdPelicula, pPrecio)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertUsuario` (IN `pUsuario` VARCHAR(50), IN `pContrasenia` VARCHAR(255))  NO SQL
+INSERT INTO usuarios (usuarios.usuario, usuarios.contrasenia) VALUES (pUsuario,pContrasenia)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spLibrarButacas` (IN `pIdCine` INT)  NO SQL
 UPDATE butacas SET butacas.reservado = 0 WHERE butacas.id_cine = pIdCine$$
@@ -83,6 +113,9 @@ SELECT * FROM generos$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarPeliculas` ()  NO SQL
 SELECT * FROM peliculas$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarPeliculasGeneros` ()  NO SQL
+SELECT * FROM peliculasgeneros$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarPeliculasPorGeneros` (IN `pGenero` VARCHAR(50))  NO SQL
 SELECT peliculas.* FROM peliculas JOIN peliculasgeneros ON peliculas.id = peliculasgeneros.id_pelicula JOIN generos ON peliculasgeneros.id_genero = generos.id WHERE generos.nombre = pGenero$$
 
@@ -98,8 +131,17 @@ SELECT * FROM sesiones WHERE sesiones.id_cine = pIdCine$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarSesionesPelicula` (IN `pIdPelicula` INT)  NO SQL
 SELECT * FROM sesiones WHERE sesiones.id_pelicula = pIdPelicula$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spMostrarUsuarios` ()  NO SQL
+SELECT * FROM usuarios$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spOcuparButacas` (IN `pIdButaca` INT)  NO SQL
 UPDATE butacas SET butacas.reservado = 1 WHERE butacas.id = pIdButaca$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateCine` (IN `pId` INT, IN `pNombre` VARCHAR(50), IN `pUbicacion` VARCHAR(100))  NO SQL
+UPDATE cines SET cines.nombre = pNombre, cines.ubicacion = pUbicacion WHERE cines.id = pId$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateContrasenia` (IN `pId` INT, IN `pContrasenia` INT)  NO SQL
+UPDATE usuarios SET usuarios.contrasenia = pContrasenia WHERE usuarios.id = pId$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateEstreno` (IN `pId` INT(5), IN `pFechaDeEstreno` VARCHAR(50), IN `pId_pelicula` INT)  NO SQL
 UPDATE estrenos SET estrenos.fechaDeEstreno = pFechaDeEstreno, estrenos.id_pelicula = pId_pelicula WHERE estrenos.id = pId$$
@@ -107,9 +149,15 @@ UPDATE estrenos SET estrenos.fechaDeEstreno = pFechaDeEstreno, estrenos.id_pelic
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateFactura` (IN `pId` INT, IN `pEntradasCompradas` INT, IN `pPrecioEntrada` VARCHAR(15))  NO SQL
 UPDATE facturas SET facturas.entradasCompradas = pEntradasCompradas, facturas.precioEntrada = pPrecioEntrada WHERE facturas.id = pId$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateGenero` (IN `pId` INT, IN `pNombre` VARCHAR(50))  NO SQL
+UPDATE generos SET generos.nombre = pNombre WHERE generos.id = pId$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdatePelicula` (IN `pId` INT, IN `pTitulo` VARCHAR(100), IN `pDuracion` INT, IN `pAnio` INT, IN `pImagenCartelera` VARCHAR(100), IN `pTrailer` VARCHAR(200), IN `pClasificacion` VARCHAR(100))  NO SQL
 UPDATE
  peliculas SET peliculas.titulo = pTitulo, peliculas.duracion = pDuracion, peliculas.anio = pAnio, peliculas.imagenCartelera = pImagenCartelera, peliculas.trailer = pTrailer, peliculas.clasificacion = pClasificacion WHERE peliculas.id = pId$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdatePeliculaGenero` (IN `pId` INT, IN `pIdGenero` INT)  NO SQL
+UPDATE peliculasgeneros SET peliculasgeneros.id_genero = pIdGenero WHERE peliculasgeneros.id = pId$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `spUpdateSesion` (IN `pId` INT, IN `pHora` VARCHAR(20), IN `pIdCine` INT, IN `pIdPelicula` INT, IN `pPrecio` FLOAT)  NO SQL
 UPDATE sesiones SET sesiones.hora = pHora, sesiones.id_cine = pIdCine, sesiones.id_pelicula = pIdPelicula, sesiones.precio = pPrecio WHERE sesiones.id = pId$$
@@ -141,18 +189,18 @@ INSERT INTO `butacas` (`id`, `numero`, `reservado`, `id_cine`) VALUES
 (5, 'A05', 0, 6),
 (6, 'A06', 0, 6),
 (7, 'A07', 0, 6),
-(8, 'A08', 0, 6),
+(8, 'A08', 1, 6),
 (9, 'B01', 0, 6),
 (10, 'B02', 0, 6),
 (11, 'B03', 0, 6),
 (12, 'B04', 0, 6),
-(13, 'B05', 0, 6),
+(13, 'B05', 1, 6),
 (14, 'B06', 0, 6),
 (15, 'B07', 0, 6),
 (16, 'B08', 0, 6),
-(17, 'C01', 0, 6),
+(17, 'C01', 1, 6),
 (18, 'C02', 0, 6),
-(19, 'C03', 0, 6),
+(19, 'C03', 1, 6),
 (20, 'C04', 0, 6),
 (21, 'C05', 0, 6),
 (22, 'C06', 0, 6),
@@ -379,7 +427,7 @@ INSERT INTO `butacas` (`id`, `numero`, `reservado`, `id_cine`) VALUES
 (243, 'A08', 0, 5),
 (244, 'A09', 0, 5),
 (245, 'B01', 0, 5),
-(246, 'B02', 1, 5),
+(246, 'B02', 0, 5),
 (247, 'B03', 0, 5),
 (248, 'B04', 0, 5),
 (249, 'B05', 0, 5),
@@ -389,7 +437,7 @@ INSERT INTO `butacas` (`id`, `numero`, `reservado`, `id_cine`) VALUES
 (253, 'B09', 0, 5),
 (254, 'C01', 0, 5),
 (255, 'C02', 0, 5),
-(256, 'C03', 1, 5),
+(256, 'C03', 0, 5),
 (257, 'C04', 0, 5),
 (258, 'C05', 0, 5),
 (259, 'C06', 0, 5),
@@ -398,7 +446,7 @@ INSERT INTO `butacas` (`id`, `numero`, `reservado`, `id_cine`) VALUES
 (262, 'C09', 0, 5),
 (263, 'D01', 0, 5),
 (264, 'D02', 0, 5),
-(265, 'D03', 1, 5),
+(265, 'D03', 0, 5),
 (266, 'D04', 0, 5),
 (267, 'D05', 0, 5),
 (268, 'D06', 0, 5),
@@ -539,7 +587,7 @@ INSERT INTO `butacas` (`id`, `numero`, `reservado`, `id_cine`) VALUES
 (403, 'E06', 0, 9),
 (404, 'E07', 0, 9),
 (405, 'E08', 0, 9),
-(406, 'A01', 1, 10),
+(406, 'A01', 0, 10),
 (407, 'A02', 0, 10),
 (408, 'A03', 0, 10),
 (409, 'A04', 0, 10),
@@ -550,7 +598,7 @@ INSERT INTO `butacas` (`id`, `numero`, `reservado`, `id_cine`) VALUES
 (414, 'A09', 0, 10),
 (415, 'A10', 0, 10),
 (416, 'B01', 0, 10),
-(417, 'B02', 1, 10),
+(417, 'B02', 0, 10),
 (418, 'B03', 0, 10),
 (419, 'B04', 0, 10),
 (420, 'B05', 0, 10),
@@ -559,8 +607,8 @@ INSERT INTO `butacas` (`id`, `numero`, `reservado`, `id_cine`) VALUES
 (423, 'B08', 0, 10),
 (424, 'B09', 0, 10),
 (425, 'B10', 0, 10),
-(426, 'C01', 1, 10),
-(427, 'C02', 1, 10),
+(426, 'C01', 0, 10),
+(427, 'C02', 0, 10),
 (428, 'C03', 0, 10),
 (429, 'C04', 0, 10),
 (430, 'C05', 0, 10),
@@ -707,7 +755,6 @@ CREATE TABLE `facturas` (
 
 INSERT INTO `facturas` (`id`, `entradasCompradas`, `precioEntrada`, `precioTotal`, `id_sesion`, `cine`, `hora_sesion`) VALUES
 (1, 3, 10.5, 28.8, 46, 'Cine Ikusgarri', '22:30-00:4'),
-(3, 10, 40, 85.2, 54, 'Zornotza Aretoa', '19:10-21:30'),
 (4, 4, 14.6, 58.4, 23, 'Teatro Lizeo Antzokia', '16:00-18:20'),
 (5, 3, 13.2, 39.6, 10, 'Cines Golem Alhóndiga', '22:30-00:00'),
 (6, 3, 14.2, 42.6, 54, 'Zornotza Aretoa', '19:10-21:30'),
@@ -725,7 +772,10 @@ INSERT INTO `facturas` (`id`, `entradasCompradas`, `precioEntrada`, `precioTotal
 (18, 6, 13.06, 78.36, 1, 'Cinesa Zubiarte', '17:00-19:10'),
 (19, 3, 15, 45, 44, 'Cine Ikusgarri', '17:00-19:00'),
 (20, 3, 13.9, 41.7, 21, 'Florida Guridi', '19:40-21:40'),
-(21, 4, 14, 56, 50, 'Cines Antiguo Berri', '17:00-19:10');
+(21, 4, 14, 56, 50, 'Cines Antiguo Berri', '17:00-19:10'),
+(22, 3, 13.06, 39.18, 1, 'Cinesa Zubiarte', '17:00-19:10'),
+(23, 4, 13, 52, 24, 'Teatro Lizeo Antzokia', '18:30-20:20'),
+(24, 3, 11.4, 34.2, 3, 'Cinesa Zubiarte', '21:50-23:20');
 
 -- --------------------------------------------------------
 
@@ -996,7 +1046,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `contrasenia`) VALUES
-(12, 'admin', 'admin');
+(1, 'prueba', '$2y$10$otKKC/eNnI9zgnGUYBc3Lec29QfK4KEbWUi4briXrQei245.hwmYG'),
+(2, 'admin', '$2y$10$Xh63IqJ34d7V6j7cuoFwTecMQYBmLt8fGQW5IWtYkpoaxOmCXZRqq');
 
 --
 -- Índices para tablas volcadas
@@ -1089,7 +1140,7 @@ ALTER TABLE `estrenos`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `generos`
@@ -1119,7 +1170,7 @@ ALTER TABLE `sesiones`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
