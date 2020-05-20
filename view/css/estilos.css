@@ -172,6 +172,16 @@ button{
 #administrar h2{
 	display:inline;
 }
+
+#administrar > div > a{
+	text-decoration:none !important;
+	color:black;
+}
+
+#administrar > div > button > a{
+	text-decoration:none !important;
+}
+
 #administrar .indiceElemento{
 	font-weight:bold;
 }
