@@ -56,8 +56,14 @@ $(document).ready(function(){
 				codigoHtml += 'Clasificacion: <input type="text" class="form-control" id="clasificacion" placeholder="Clasificacion por edad..">'
 				codigoHtml += '<br><br>'
 				codigoHtml += '<button class="btn btn-primary" id="añadirPelicula">Añadir pelicula</button>'
+				codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
+					
+				
 				$('#divAdminPeliculas').css('display', 'block');
 				$('#listaPeliculasAdmin').html(codigoHtml);
+				$('.cancelar').click(function(){
+					location.reload();
+				});
 				$('#añadirPelicula').click(function(){
 					var titulo = $('#titulo').val();
 					var duracion = $('#duracion').val();
@@ -89,9 +95,14 @@ $(document).ready(function(){
 				codigoHtml += 'Clasificacion: <input type="text" class="form-control" id="clasificacion" placeholder="Clasificacion por edad..">'
 				codigoHtml += '<br><br>'
 				codigoHtml += '<button class="btn btn-success" id="editarPelicula">Modificar pelicula</button>'
+				codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
+						
 				$('#listaPeliculasAdmin').html(codigoHtml);
+				$('.cancelar').click(function(){
+					location.reload();
+				});
 				var id = $(this).data('id');
-
+				
 				$('#editarPelicula').click(function(){
 					
 					var titulo = $('#titulo').val();
@@ -200,8 +211,13 @@ $(document).ready(function(){
 			       		codigoHtml += '</select>'
 			       		codigoHtml += '<br><br>'
 			       		codigoHtml += '<button class="btn btn-primary" id="añadirEstreno">Añadir estreno</button>'
+			       		codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
+			       			
 			       		$('#divAdminEstrenos').css('display', 'block');
 			       		$('#listaEstrenosAdmin').html(codigoHtml);
+			       		$('.cancelar').click(function(){
+							location.reload();
+						});
 			       		$('#idSelect').change(function(){
 			       			var idPelicula = $(this).val();
 			       			$('#añadirEstreno').click(function(){
@@ -249,8 +265,13 @@ $(document).ready(function(){
 			       		codigoHtml += '</select>'
 			       		codigoHtml += '<br><br>'
 			       		codigoHtml += '<button class="btn btn-success" id="editarEstreno">Modificar estreno</button>'
+			       		codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
+			       				
 			       		$('#divAdminEstrenos').css('display', 'block');
 			       		$('#listaEstrenosAdmin').html(codigoHtml);
+			       		$('.cancelar').click(function(){
+							location.reload();
+						});
 			       		$('#idSelect').change(function(){
 			       			var idPelicula = $(this).val();
 			       			$('#editarEstreno').click(function(){
@@ -343,15 +364,21 @@ $(document).ready(function(){
 			});
 			$('#divAdminCines').css('display', 'none');
 			$('#listaCinesAdmin').html(codigoHtml);
+			$('#cancelar').click(function(){
+				location.reload();
+			});
 			/*Insert cine*/
 			$('#insertarCine').click(function(){
 				var codigoHtml = "";
 				codigoHtml += 'Nombre del nuevo cine: <input class="form-control" type="text" id="cine" placeholder="El nombre..">'
 				codigoHtml += 'Lugar: <input class="form-control" type="text" id="ubicacion" placeholder="Su ubicacion.." id="ubicacion">'
 				codigoHtml += '<br><button class="btn btn-primary text-white" id="insertCine">Añadir nuevo cine</button>'
-				
+				codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
        			$('#divAdminCines').css('display', 'block');
        			$('#listaCinesAdmin').html(codigoHtml);
+       			$('.cancelar').click(function(){
+       				location.reload();
+       			});
        			$('#insertCine').click(function(){
        				var cine = $('#cine').val();
        				var ubicacion = $('#ubicacion').val();
@@ -377,7 +404,12 @@ $(document).ready(function(){
 				codigoHtml += 'Nuevo nombre: <input class="form-control" type="text" id="cine" placeholder="'+nombreOld+'">'
 				codigoHtml += 'Nueva ubicacion: <input class="form-control" type="text" id="ubicacion" placeholder="'+ubicacionOld+'" id="ubicacion">'
 				codigoHtml += '<br><button class="btn btn-success" id="updateCine">Modificar cine</button>'
+				codigoHtml += '<button class="btn btn-dark volver">Cancelar</button>'
+						
 				$('#listaCinesAdmin').html(codigoHtml);
+				$('.volver').click(function(){
+					location.reload();
+				});
 				$('#updateCine').click(function(){
 					var cine = $('#cine').val();
        				var ubicacion = $('#ubicacion').val();
@@ -511,7 +543,12 @@ $(document).ready(function(){
 										codigoHtml += '<br>'
 										codigoHtml += 'Precio: <input type="text" class="form-control" id="precioSesion" placeholder="El precio que tendra cada entrada..">'
 										codigoHtml += '<br><button class="btn btn-primary" id="añadirSesion">Añadir Sesion</button>'
+										codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
+												
 										$('#listaSesionesAdmin').html(codigoHtml);
+										$('.cancelar').click(function(){
+											location.reload();
+										});
 										$('#añadirSesion').click(function(){
 											var hora = $('#horaSesion').val();
 											var cineId = $('#idCineSesion').val();
@@ -570,7 +607,12 @@ $(document).ready(function(){
 										codigoHtml += '<br>'
 										codigoHtml += 'Precio: <input type="text" class="form-control" id="precioSesion" placeholder="El precio que tendra cada entrada..">'
 										codigoHtml += '<br><button class="btn btn-success" id="editarSesion">Modificar Sesion</button>'
+										codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
+											
 										$('#listaSesionesAdmin').html(codigoHtml);
+										$('.cancelar').click(function(){
+											location.reload();
+										});
 										$('#editarSesion').click(function(){
 											var hora = $('#horaSesion').val();
 											var cineId = $('#idCineSesion').val();
@@ -644,7 +686,12 @@ $(document).ready(function(){
        			codigoHtml += 'Entradas compradas: <input type="text" class="form-control" id="entradasCompradas">'
        			codigoHtml += 'Precio de cada entrada: <input type="text" class="form-control" id="precioEntrada"><br>'
        			codigoHtml += '<button class="btn btn-success" id="editarFactura">Modificar factura</button>'
+       			codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
+       					
        				$('#listaFacturasAdmin').html(codigoHtml);
+	       			$('.cancelar').click(function(){
+						location.reload();
+					});
        				$('#editarFactura').click(function(){
        					var entradasCompradas = $('#entradasCompradas').val();
        					var precioEntrada = $('#precioEntrada').val();
@@ -703,8 +750,13 @@ $(document).ready(function(){
 				codigoHtml += 'Contraseña: <input type="password" class="form-control" id="contrasenia" placeholder="Su contraseña..">'
 				codigoHtml += '<br><br>'
 				codigoHtml += '<button class="btn btn-primary" id="añadirUsuario">Añadir usuario</button>'
+	       		codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
+	       				
 				$('#divAdminUsuarios').css('display', 'block');
 				$('#listaUsuariosAdmin').html(codigoHtml);
+				$('.cancelar').click(function(){
+					location.reload();
+				});
 				$('#añadirUsuario').click(function(){
 					var usuario = $('#usuario').val();
 					var contrasenia = $('#contrasenia').val();
@@ -832,7 +884,12 @@ $(document).ready(function(){
        	       					});
        	       		       		codigoHtml += '</select><br><br>'
        	       		       		codigoHtml += '<button class="btn btn-primary" id="insertar">Añadir nuevo</button>'
+       	       		       		codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
+       	       		       			
        	       		       		$('#listaPeliculasGenerosAdmin').html(codigoHtml);
+		       	       		    $('.cancelar').click(function(){
+		       						location.reload();
+		       					});
        	       		       		var idPelicula = 0;
        	       		       		var idGenero = 0;
        	       		       		$('#pelicula').change(function(){
@@ -890,7 +947,12 @@ $(document).ready(function(){
    	       					});
    	       		       		codigoHtml += '</select><br><br>'
    	       		       		codigoHtml += '<button class="btn btn-success" id="update">Modificar</button>'
+   	       		       		codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
+   	       		       		
    	       		       		$('#listaPeliculasGenerosAdmin').html(codigoHtml);
+   	       		       		$('.cancelar').click(function(){
+   	       		       			location.reload();
+   	       		       		});
    	       		       		$('#update').click(function(){
    	       		       			var idGenero = $('#genero').val();
 
@@ -954,13 +1016,21 @@ $(document).ready(function(){
 			});
 			$('#divAdminGeneros').css('display', 'none');
 			$('#listaGenerosAdmin').html(codigoHtml);
+			$('.cancelar').click(function(){
+				location.reload();
+			});
 			/*Insert genero*/
        		$('#insertarGenero').click(function(){
        			var codigoHtml = "";
        			codigoHtml += 'Nombre de nuevo genero: <input type="text" class="form-control" id="nombre" placeholder="El nombre..">'
        			codigoHtml += '<br><button class="btn btn-primary" id="insertar">Añadir nuevo</button>'
+       			codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
+       					
        			$('#divAdminGeneros').css('display', 'block');
        			$('#listaGenerosAdmin').html(codigoHtml);
+       			$('.cancelar').click(function(){
+       				location.reload();
+       			});
        			$('#insertar').click(function(){
        				var nombre = $('#nombre').val();
        				$.ajax({
@@ -983,7 +1053,12 @@ $(document).ready(function(){
        			var codigoHtml = "";
        			codigoHtml += 'Nuevo nombre: <input type="text" class="form-control" id="nombre" placeholder="'+nombreOld+'">'
        			codigoHtml += '<br><button class="btn btn-success" id="update">Modificar</button>'
+       			codigoHtml += '<button class="btn btn-dark cancelar">Cancelar</button>'
+       				
        			$('#listaGenerosAdmin').html(codigoHtml);
+       			$('.cancelar').click(function(){
+					location.reload();
+				});
        			$('#update').click(function(){
        				var nombre = $('#nombre').val();
        				$.ajax({
