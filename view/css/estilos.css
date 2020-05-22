@@ -76,7 +76,7 @@ button{
 
 #divSesiones{
 	margin: 20px 0px 20px 0px;
-	/*overflow:hidden;*/
+	overflow:hidden;
 }
 
 #aviso{
