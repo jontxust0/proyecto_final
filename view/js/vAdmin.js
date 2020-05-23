@@ -554,6 +554,7 @@ $(document).ready(function(){
 											var cineId = $('#idCineSesion').val();
 											var peliculaId = $('#idPeliculaSesion').val();
 											var precio = $('#precioSesion').val();
+
 											$.ajax({
 										       	type:"POST",
 										       	url: "../controller/cInsertSesion.php", 
